@@ -1,0 +1,73 @@
+:root {
+    --theme1: #3a85b3;
+    --mainColor: #15A197
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: sans-serif;
+}
+
+.content-body {
+    display: flex;
+    justify-content: center;
+}
+
+.pull-right {
+    display: flex;
+    justify-content: end;
+}
+
+.content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.pull-away {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.text-center {
+    align-items: center;
+}
+
+/* ------------- Sidebar ------------- */
+.navbar {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px -1px rgba(0, 0, 0, .1);
+    background-color: #fff !important;
+}
+
+/* ------------- Sidebar ------------- */
+
+/* ------------- Footer -------------- */
+.footer-container {
+    background: #ebeced;
+}
+
+/* ------------- Footer -------------- */
+
+.login-btn {
+    background: #f2f3f5;
+    padding: 8px 22px !important;
+}
+
+.bg-color-main {
+    background-color: var(--mainColor) !important;
+    color: #fff !important;
+}
+
+.login-btn:hover {
+    opacity: 0.8;
+}

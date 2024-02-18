@@ -1,0 +1,13 @@
+from django.urls import path
+from . import views
+
+
+
+app_name = 'dashboard'
+
+
+urlpatterns = [
+    # Dashboard urls
+    path('pdfparser/',views.pdfparser, name='pdfparser'),
+
+]

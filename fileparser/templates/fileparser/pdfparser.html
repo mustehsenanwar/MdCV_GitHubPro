@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF File Upload and Analysis</title>
+</head>
+<body>
+    <h1>Upload a PDF File</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="pdfFile">Choose PDF file:</label>
+        <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if response %}
+        <h2>Response from OpenAI</h2>
+        <h3>{{ response.name }}</h3>
+        <h4>Personal Information</h4>
+        <p>Phone: {{ response.PersonalInfo.Phone }}</p>
+        <p>Email: {{ response.PersonalInfo.Email }}</p>
+        <!-- Add more fields as needed -->
+
+        <h4>Education</h4>
+        {% for edu in response.Educations %}
+            <div>
+                <p>University: {{ edu.University }}</p>
+                <p>Degree: {{ edu.DegreeName }}</p>
+                <!-- Add more fields as needed -->
+            </div>
+        {% endfor %}
+
+        <h4>Job Headings</h4>
+        {% for job in response.JobHeadings %}
+            <div>
+                <p>Company: {{ job.CompanyName }}</p>
+                <p>Position: {{ job.Position }}</p>
+                <!-- Add more fields as needed -->
+            </div>
+        {% endfor %}
+
+        <!-- Continue for other sections like YearsOfExperience, Language, Hobbies, etc. -->
+    {% endif %}
+<p>
+{{ original_cv_text }}
+</p>
+</body>
+</html>

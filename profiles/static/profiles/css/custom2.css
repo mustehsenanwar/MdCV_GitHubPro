@@ -1,0 +1,110 @@
+:root {
+    --theme1: #3a85b3;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 50px !important;
+    background-color: rgb(14, 14, 14) !important;
+    font-family: sans-serif;
+}
+
+.content-body {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    width: 80%;
+    background-color: #fff;
+}
+
+.pull-right {
+    display: flex;
+    justify-content: end;
+}
+
+.content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.pull-away {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+
+@media print {
+
+    body.printing .navbar,
+    #contentHints {
+        display: none !important;
+    }
+
+    body.printing [noprint="true"] {
+        display: none !important;
+    }
+
+    body.printing .editor .side_menu {
+        display: none;
+    }
+
+    .viewer .cv-action-btn,
+    .header-action-btn {
+        display: none !important;
+    }
+
+    body.printing {
+        background: #fff !important;
+    }
+
+    body.printing .cvContent {
+        font-size: var(--cv-print-font-size) !important;
+        min-height: 100vh;
+    }
+
+    body.printing .editor {
+        padding: 0;
+    }
+
+    body.printing .viewer {
+        margin-top: 0;
+        width: 100%;
+        padding: 0;
+    }
+
+    body.printing .top-buttons {
+        display: none;
+    }
+
+    body.printing>.wrapper {
+        width: 100% !important;
+        transform: scale(1) !important;
+        padding: 0;
+        -webkit-transform: scale(1) !important;
+        -moz-transform: scale(1) !important;
+        -ms-transform: scale(1) !important;
+        -o-transform: scale(1) !important;
+    }
+
+    body:not(.printing) {
+        display: none !important;
+    }
+
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

@@ -1,0 +1,528 @@
+<!--begin::sidebar menu-->
+	<div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+	<!--begin::Menu wrapper-->
+	<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+		<!--begin::Menu-->
+		<div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+
+			<!--begin:Menu item-->
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" href="{% if user.is_superuser %}{% url 'dashboard:dashboard' %}{% else %}https://www.google.com{% endif %}">
+					<span class="menu-icon">{% getIcon 'element-11' 'fs-2' %}</span>
+					<span class="menu-title">Dashboards</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+			<!--end:Menu item-->
+
+
+			{% if user.is_superuser %}
+ 			<!--begin:Menu item: Users-->
+			<div class="menu-item pt-5">
+				<!--begin:Menu content-->
+				<div class="menu-content">
+					<span class="menu-heading fw-bold text-uppercase fs-7">users</span>
+				</div>
+				<!--end:Menu content-->
+			</div>
+			<!--end:Menu item: User Management-->
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'people' 'fs-2' %}</span>
+					<span class="menu-title">User Management</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="{% url 'dashboard:allusers' %}">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">All Users</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Staff List</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Customers List</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+										<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="{% url 'dashboard:departments' %}">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Departments List</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			{% endif %}
+
+
+
+			{% if "orderprocessing" in request.session.activity_tags %}
+			<!--begin:Menu item-->
+			<div class="menu-item pt-5">
+				<!--begin:Menu content-->
+				<div class="menu-content">
+					<span class="menu-heading fw-bold text-uppercase fs-7">Order Processing</span>
+				</div>
+				<!--end:Menu content-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'basket' 'fs-2' %}</span>
+					<span class="menu-title">Orders</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="{% url 'dashboard:allorders' %}">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">All Orders</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Templates</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">CV Builder</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			{% endif %}
+
+
+
+
+			{% if "sales" in request.session.activity_tags %}
+			<!--begin:Menu item-->
+			<div class="menu-item pt-5">
+				<!--begin:Menu content-->
+				<div class="menu-content">
+					<span class="menu-heading fw-bold text-uppercase fs-7">Sales Marketing</span>
+				</div>
+				<!--end:Menu content-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'basket' 'fs-2' %}</span>
+					<span class="menu-title">All Sales</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="{% url 'dashboard:inputorder' %}">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Input Order</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			{% endif %}
+
+
+
+			{% if "aftersales" in request.session.activity_tags %}
+			<!--begin:Menu item-->
+			<div class="menu-item pt-5">
+				<!--begin:Menu content-->
+				<div class="menu-content">
+					<span class="menu-heading fw-bold text-uppercase fs-7">After Sales </span>
+				</div>
+				<!--end:Menu content-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'basket' 'fs-2' %}</span>
+					<span class="menu-title">After sales tab</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title"> after sales support</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			{% endif %}
+
+
+
+
+
+
+
+
+
+			<!--begin:Menu item-->
+			<div class="menu-item pt-5">
+				<!--begin:Menu content-->
+				<div class="menu-content">
+					<span class="menu-heading fw-bold text-uppercase fs-7">My Proifle</span>
+				</div>
+				<!--end:Menu content-->
+			</div>
+			<!--end:Menu item-->
+
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'abstract-25' 'fs-2' %}</span>
+					<span class="menu-title">Account</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Getting Started</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Add Contact</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Edit Contact</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">View Contact</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+
+
+
+
+
+			<!--begin:Menu item-->
+			<div class="menu-item pt-5">
+				<!--begin:Menu content-->
+				<div class="menu-content">
+					<span class="menu-heading fw-bold text-uppercase fs-7">Apps</span>
+				</div>
+				<!--end:Menu content-->
+			</div>
+			<!--end:Menu item-->
+
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'switch' 'fs-2' %}</span>
+					<span class="menu-title">File Manager</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Folders</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Files</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Blank Directory</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Settings</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'sms' 'fs-2' %}</span>
+					<span class="menu-title">Inbox</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Messages</span>
+							<span class="menu-badge">
+								<span class="badge badge-success">3</span>
+							</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Compose</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">View & Reply</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">{% getIcon 'message-text-2' 'fs-2' %}</span>
+					<span class="menu-title">Chat</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Private Chat</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Group Chat</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="#">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Drawer Chat</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" href="#">
+					<span class="menu-icon">{% getIcon 'calendar-8' 'fs-2' %}</span>
+					<span class="menu-title">Calendar</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+			<!--end:Menu item-->
+
+		</div>
+		<!--end::Menu-->
+	</div>
+	<!--end::Menu wrapper-->
+</div>
+	<!--end::sidebar menu-->

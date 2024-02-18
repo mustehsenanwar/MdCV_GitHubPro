@@ -1,0 +1,175 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.content-header {
+    flex: 1;
+}
+
+
+/* ---------------  Latest ------------- */
+.latest .bg_1 {
+    background-color: green !important;
+    cursor: pointer;
+}
+
+.latest .bg_2 {
+    background-color: #3c82e9 !important;
+    cursor: pointer;
+}
+
+.latest .bg_3 {
+    background-color: #8bc34a !important;
+    cursor: pointer;
+}
+
+.latest .bg_1 .icon,
+.latest .bg_2 .icon,
+.latest .bg_3 .icon {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.latest .row .d-flex {
+    height: 80px;
+    align-items: center;
+    justify-content: space-around;
+    transition: .5s;
+    color: #fff;
+    position: relative;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.latest .row .icon i {
+    font-size: 40px;
+    line-height: 80px;
+}
+
+.latest .row .content {
+    text-align: center;
+    flex: 1;
+}
+
+.latest .row .content h3 {
+    font-size: 12px;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 20px;
+    letter-spacing: 1;
+    font-size: 18px;
+}
+
+.latest .row .content p {
+    font-size: 14px;
+
+}
+
+.latest .row .d-flex::after,
+.latest .row .d-flex::before {
+    content: "";
+    width: 35%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .5s;
+}
+
+.latest .row .d-flex::after {
+    background: rgba(0, 0, 0, .1);
+}
+
+.latest .row .d-flex::before {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.latest .row .d-flex:hover::before {
+    width: 100%;
+}
+
+/* -------------- Latest ---------------- */
+
+
+/* ----------- Chart --------------- */
+.custom-chart {
+    font-family: Roboto;
+    position: relative;
+    min-height: 150px;
+    display: block;
+}
+
+.custom-chart .skills {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    padding: 0;
+    margin: 0;
+}
+
+.custom-chart .skills li {
+    font-size: 14px;
+    font-family: sans-serif;
+    opacity: 0.8;
+    color: #333;
+    padding-top: 3px;
+}
+
+.custom-chart li {
+    list-style: none;
+    position: relative;
+    margin: 3% 0px;
+}
+
+.custom-chart .bars {
+    position: absolute;
+    width: calc(100% - 80px);
+    left: 70px;
+}
+
+.custom-chart .bars li {
+    height: 20px;
+}
+
+.custom-chart .bars .bar {
+    position: absolute;
+    height: 100%;
+    width: 0px;
+    background: var(--mainColor);
+    display: block;
+    overflow: hidden;
+}
+
+.custom-chart .bars .bar:hover {
+    background: var(--mainColor);
+}
+
+
+.custom-chart .bars .perc {
+    color: #f1f1f1;
+    position: absolute;
+    right: 10px;
+    top: 0%;
+}
+
+.progress-bar-width {
+    margin-left: 67px;
+}
+
+.progress-bar-width .end,
+.progress-bar-width .start {
+    font-size: 14px;
+    font-family: sans-serif;
+    opacity: 0.8;
+    color: #333;
+}
+
+/* ----------- Chart --------------- */

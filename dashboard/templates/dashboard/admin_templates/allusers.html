@@ -1,0 +1,80 @@
+<!--
+Define in dashboards/views.py file
+context.update({
+    'layout': KTTheme.setLayout('default.html', context),
+})
+-->
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+<h1>List of All Users</h1>
+<div class="table-responsive">
+    <table class="table table-rounded table-striped border gy-7 gs-7">
+        <thead>
+            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Current Department</th>
+                <th>New Department</th>
+                <th>Action</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in all_users %}
+
+
+
+
+
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="user_id" value="{{ user.id }}">  <!-- Include this hidden input -->
+                <tr>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.department.name }}</td>
+                    <td>
+                        <select class="form-select" name="new_department">
+                            <option value="">Select Department</option>
+                            {% for department in departments %}
+                                <option value="{{ department.id }}">{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </td>
+                    </form>
+
+                    <td>
+                        <form method="POST" action="" class="d-inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_user" value="1">
+                            <input type="hidden" name="contact_id" value="{{ user.id }}">
+                            <button type="submit" class="btn btn-danger btn-icon" title="Delete">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+
+
+
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock content %}

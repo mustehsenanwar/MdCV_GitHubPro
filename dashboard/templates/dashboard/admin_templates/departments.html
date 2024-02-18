@@ -1,0 +1,116 @@
+<!--
+Define in dashboards/views.py file
+context.update({
+    'layout': KTTheme.setLayout('default.html', context),
+})
+-->
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+<h1>List of All Departments</h1>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDepartmentModal">
+  Add Department
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="addDepartmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDepartmentModalLabel">Add New Department</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Begin: Form -->
+        <form id="addDepartmentForm" action="" method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="departmentName" class="form-label">Department Name</label>
+            <input type="text" class="form-control" id="departmentName" name="add_department" placeholder="Enter Department Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="activityTags" class="form-label">Select Activity Tags</label>
+            <select class="form-select bg-light text-dar" id="activityTags" name="activity_tags" multiple>
+              {% for tag in activity_tags %}
+              <option   value="{{ tag.id }}">{{ tag.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </form>
+        <!-- End: Form -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="addDepartmentForm">Add Department</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--<div class="table-responsive">-->
+<!--<table class="table table-rounded table-striped border gy-7 gs-7">-->
+<!--    <thead>-->
+<!--        <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">-->
+<!--            <th>ID</th>-->
+<!--            <th>Department Name</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--        {% for department in departments %}-->
+<!--            <tr>-->
+<!--                <td>{{ department.id }}</td>-->
+<!--                <td>{{ department.name }}</td>-->
+<!--            </tr>-->
+<!--        {% endfor %}-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--</div>-->
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-rounded table-striped border gy-7 gs-7">
+        <thead>
+            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                <th>NO</th>
+                <th>Department Name</th>
+                <th>Action</th> <!-- Add a header for the Action column -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for department in departments %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ department.name }}</td>
+                    <td>
+                        <!-- Add a delete button -->
+                        <form action="" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="department_id" value="{{ department.id }}">
+                            <input type="hidden" name="delete_department" value="true"> <!-- This signals that the delete action is intended -->
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this department?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock content %}

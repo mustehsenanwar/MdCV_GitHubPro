@@ -1,0 +1,34 @@
+<!--
+Define in dashboards/views.py file
+context.update({
+    'layout': KTTheme.setLayout('default.html', context),
+})
+-->
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+<h1>This is Common dashboard for all types </h1>
+{% if "orderprocessing" in activity_tags %}
+    <!-- This part of the template will be shown only if 'orderprocessing' is one of the activity tags -->
+    <div>
+        <!-- Content related to 'orderprocessing' goes here -->
+        <p>This content is shown because the user has 'orderprocessing' activity tag.</p>
+        {% if activity_tags %}
+    <div>
+        Activity Tags:
+        <ul>
+            {% for tag in activity_tags %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+    </div>
+{% endif %}
+
+{% endblock content %}

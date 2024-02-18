@@ -1,0 +1,185 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* height: 100vh; */
+}
+
+.content-header {
+    /* flex: 1; */
+    height: 92vh;
+}
+
+.process-bar {
+    display: flex;
+    background: var(--mainColor);
+    padding: 5px 0px;
+}
+
+.process-bar .orders-header {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.process-bar .filter-header {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.process-bar .serach-header {
+    width: 25%;
+}
+
+.process-bar .serach-header .search {
+    width: 80%;
+}
+
+
+.orders-header .title {
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.process-bar .filter-header .select-box-header {
+    width: 40%;
+}
+
+.process-bar .filter-header .select-box-header select option:first-child {
+    text-align: center;
+    text-align-last: center;
+    -moz-text-align-last: center;
+}
+
+.order-cv-details .order-sidebar-left {
+    width: 25%;
+    background: #ddd;
+    height: 100%;
+    position: relative;
+    transition: 0.5s;
+}
+
+.order-cv-details .order-sidebar-left.active {
+    width: 4px;
+    transition: 0.5s;
+}
+
+.order-cv-details .order-sidebar-left.active .toggle-left-sidebar-btn i {
+    transform: rotate(180deg);
+    transition: 0.5s;
+}
+
+.order-cv-details .order-sidebar-left .order-content-header {
+    overflow: auto;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.order-cv-details {
+    height: calc(100% - 30px);
+    width: 100%;
+    display: flex;
+}
+
+.order-cv-details .order-right-sidebar {
+    width: 25%;
+    background: #ddd;
+    height: 100%;
+    position: relative;
+    transition: 0.5s;
+}
+
+.order-cv-details .order-center-content {
+    flex: 1;
+    height: 100%;
+    overflow: auto;
+}
+
+.order-cv-details .order-data-container {
+    padding-top: 20px;
+}
+
+#pagination-numbers .paginationjs {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.foldingCard .card-header button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    background: var(--mainColor);
+    color: #fff;
+}
+
+.order-center-content .nav.nav-tabs li a.active {
+    color: var(--mainColor) !important;
+}
+
+.order-center-content .process-btn {
+    background-color: var(--mainColor);
+    color: #fff;
+}
+
+.order-data-container .order-item {
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+.order-data-container .order-item.active {
+    background: #bebbbb;
+}
+
+.order-data-container .order-item .item span:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.toggle-left-sidebar-btn {
+    position: absolute;
+    background: #ddd;
+    height: 70px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    top: 50%;
+    right: -23px;
+    cursor: pointer;
+}
+
+.toggle-right-sidebar-btn {
+    position: absolute;
+    background: #ddd;
+    height: 70px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    top: 50%;
+    left: -23px;
+    cursor: pointer;
+}
+
+.order-cv-details .order-right-sidebar.active {
+    width: 4px;
+    transition: 0.5s;
+}
+
+.order-cv-details .order-right-sidebar.active .requirements-content {
+    display: none;
+}
+
+.order-cv-details .order-right-sidebar.active .toggle-right-sidebar-btn i {
+    transform: rotate(180deg);
+    transition: 0.5s;
+}

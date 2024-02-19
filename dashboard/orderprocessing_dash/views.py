@@ -69,28 +69,88 @@ class AllOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         # If not an AJAX request, continue with the normal get_context_data flow
         return super().get(request, *args, **kwargs)
 
-
     def post(self, request, *args, **kwargs):
-        user_id = request.POST.get('user_id')  # You need to include a hidden input in your form for 'user_id'
-        new_department_id = request.POST.get('new_department')
+        order_id = request.POST.get('order_id')
+        template_option = request.POST.get('template_option')
+        order = get_object_or_404(Order, pk=order_id)
+        print(order_id)
+        print(template_option)
+        if order.order_status != 'pending':
+            print('not pending')
+            return JsonResponse({'status': 'error', 'message': 'This order is already being processed'})
 
-        print(user_id)
-        print(new_department_id)
+        # Update the order status to 'processing'
+        order.order_status = 'processing'
+        order.save()
 
-        # Get the user object based on user_id
-        user = get_object_or_404(CustomUser, id=user_id)
-
-        if new_department_id:
-            # Get the department object based on new_department_id
-            department = get_object_or_404(Department, id=new_department_id)
-            user.department = department  # Update the user's department
-            user.is_staff = True  # Set the user as a staff member
-            user.save()
-            messages.success(request, f"{user.get_full_name()}'s department updated successfully!")
+        # Determine the redirect URL based on the template option selected
+        if template_option == 'default':
+            redirect_url = reverse('dashboard:resumebuilder', args=[order_id])
         else:
-            messages.error(request, "Please select a department.")
+            redirect_url = reverse('dashboard:template_selection')
+        print(redirect_url)
+        return JsonResponse({'status': 'success', 'redirect_url': redirect_url})
 
-        return redirect('dashboard:allusers')  # Redirect back to the all users page
+    def handle_no_permission(self):
+        return HttpResponse('you are at home pge')
+
+class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    # Default template file
+    # Refer to dashboards/urls.py file for more pages and template files
+    template_name = 'dashboard/orderprocessing_templates/resumebuilder.html'
+
+    def test_func(self):
+        activity_tags = self.request.session.get('activity_tags', [])
+        if "orderprocessing" in activity_tags:
+            return True
+
+        return self.request.user.is_superuser
+
+    # Predefined function
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
+
+        context['user'] = self.request.user
+
+
+        return context
+
+
+
+
+    def handle_no_permission(self):
+        return HttpResponse('you are at home pge')
+
+
+class TemplateSelection(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    # Default template file
+    # Refer to dashboards/urls.py file for more pages and template files
+    template_name = 'dashboard/orderprocessing_templates/template_selection.html'
+
+    def test_func(self):
+        activity_tags = self.request.session.get('activity_tags', [])
+        if "orderprocessing" in activity_tags:
+            return True
+
+        return self.request.user.is_superuser
+
+    # Predefined function
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
+
+        context['user'] = self.request.user
+
+
+        return context
+
+
+
 
     def handle_no_permission(self):
         return HttpResponse('you are at home pge')

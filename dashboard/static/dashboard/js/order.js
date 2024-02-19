@@ -190,3 +190,34 @@ $(document).on('click', ".other-view-details i", function () {
         $modalBody.html($img.clone());
     }
 });
+
+
+
+
+$(document).on('submit', '#processOrderForm', function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+
+    $.ajax({
+        url: '/dashboard/allorders/', // Update this URL to the one configured for processing orders
+        type: 'POST',
+        data: formData,
+        processData: false, // Important: Don't process the files
+        contentType: false, // Important: Set content type to false
+        headers: {
+            'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val(),
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        success: function(response) {
+            if (response.status === 'success') {
+                window.location.href = response.redirect_url; // Redirect to the URL provided by the server
+            } else {
+                alert(response.message); // Show an error message
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+        }
+    });
+});

@@ -426,18 +426,33 @@
                         <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_9">Other</a>
                     </li>
                 </ul>
-                <div class="cv-info-btn content-center">
-                    <div class="d-flex">
-                        <span>Default Template</span>
-                        <input type="radio" class="ml-2" checked="">
+
+<!--                    <a href="{% url 'dashboard:resumebuilder' %}" class="btn btn-sm fw-bold btn-primary ml-3">Process</a>-->
+
+                  <form method="post" action="" class="d-flex align-items-center" id="processOrderForm" onsubmit="processOrder(event)">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="12{# {{ order.id }} #}">
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="template_option" id="defaultTemplate" value="default" checked>
+                        <label class="form-check-label" for="defaultTemplate">Default Template</label>
                     </div>
-                    <a href="editor" class="btn btn-sm fw-bold btn-primary ml-3">Process</a>
-                </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="template_option" id="selectTemplate" value="select">
+                        <label class="form-check-label" for="selectTemplate">Select Template</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-sm fw-bold btn-primary ml-3">Process</button>
+                </form>
+
+
+
             </div>
             <div class="tab-content" id="myTabContent">
                 <!--                <div class="tab-pane fade show active mt-3" id="kt_tab_pane_7" role="tabpanel"></div>-->
                 <div id="kt_tab_pane_7" class="tab-pane fade show active mt-3" role="tabpanel">
-                    <!--                    <iframe id="pdfViewer" style="width: 100%; height: 500px;" src="/static/dashboard/pdf/me.pdf"></iframe>-->
+                    <!--                   Multipurpose <iframe id="pdfViewer" style="width: 100%; height: 500px;" src="/static/dashboard/pdf/me.pdf"></iframe>-->
 
 
                     <iframe id="pdfViewer" style="width: 100%; height: 500px;"

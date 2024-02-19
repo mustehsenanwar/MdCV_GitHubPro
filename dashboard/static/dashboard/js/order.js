@@ -17,7 +17,7 @@ $(window).on('load', function () {
 
 
 
-    // Handle row click event to fetch and display order files
+// Handle row click event to fetch and display order files
 //$(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
 //let $this = $(this);
 //    let orderId = $(this).data('order-id'); // Assuming each <tr> has a data-order-id attribute
@@ -113,7 +113,7 @@ $(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
         success: function (response) {
             let $originalCVContainer = $('#kt_tab_pane_7'),
                 $coverLetterContainer = $('#kt_tab_pane_8'),
-                $otherFilesContainer = $('#kt_tab_pane_9');
+                $otherFilesContainer = $('#kt_tab_pane_9').find(".row");
 
             // Clear containers
             $originalCVContainer.empty();
@@ -143,13 +143,23 @@ $(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
                 }
 
                 // Cover Letter
-                else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension) && file.file_type === 'cover_letter') {
+                if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension) && file.file_type === 'original_pic') {
+                    l($coverLetterContainer)
                     $coverLetterContainer.html(`<img src="${filePath}" alt="Cover Letter" class="img-fluid w-100">`);
                 }
-
                 // Other Files
-                else if (file.file_type === 'other') {
-                    $otherFilesContainer.html(`<a href="${filePath}" target="_blank">Download ${file.file_type}</a>`);
+                if (file.file_type === 'other') {
+                    if (fileExtension === 'pdf') {
+                        $otherFilesContainer.append(`<div class="col-md-4 other-view-details"><div class="card cp">
+                        <iframe id="pdfViewer" style="width: 100%; height: 500px;" src="${filePath}"></iframe>
+                        <i class="fa-solid fa-eye" data-bs-toggle="modal" data-bs-target="#viewOtherDetails"></i>
+                    </div></div>`);
+                    } else {
+                        $otherFilesContainer.append(`<div class="col-md-4 other-view-details" ><div class="card cp">
+                            <img class="card-img-top" src="${filePath}" alt="Other">
+                            <i class="fa-solid fa-eye" data-bs-toggle="modal" data-bs-target="#viewOtherDetails"></i>
+                        </div></div>`);
+                    }
                 }
             });
         },
@@ -159,7 +169,24 @@ $(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
     });
 });
 
+// Default click on first cell
+$(window).on('load', function () {
+    let $table = $(".order-processing-container #kt_datatable_fixed_columns"),
+        $firstRow = $table.find("tbody tr").first(),
+        $firstCell = $firstRow.find("td").first();
+    $firstCell.click();
+});
 
-
-
-
+// view other details
+$(document).on('click', ".other-view-details i", function () {
+    let $parent = $(this).closest('.other-view-details'),
+        $iframe = $parent.find('iframe'),
+        $img = $parent.find('img');
+    $modalBody = $('#viewOtherDetails .modal-body');
+    $modalBody.empty();
+    if ($iframe.length) {
+        $modalBody.html($iframe.clone());
+    } else if ($img.length) {
+        $modalBody.html($img.clone());
+    }
+});

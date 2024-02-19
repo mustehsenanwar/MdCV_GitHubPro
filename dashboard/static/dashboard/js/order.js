@@ -1,111 +1,165 @@
-let l = console.log;
-// Document ready
-$(document).ready(function () {
-    let $container = $('#pagination-numbers');
-    let $searchInput = $('#searchInput');
-    let $dataContainer = $(".order-data-container");
+l = console.log;
 
-    function getSources() {
-        let result = [];
-        for (let i = 1; i < 30; i++) {
-            result.push({
-                "orderId": `20${i}`,
-                "name": `Mustehsen ${i}`,
-                "orderDate": `Date`,
-                "orderType": `New ${i}`,
-                "orderPriority": `High ${i}`,
-            });
+// DataTable init
+$(window).on('load', function () {
+    $("#kt_datatable_fixed_columns").DataTable({
+        scrollY: "300px",
+        scrollX: true,
+        scrollCollapse: true,
+        fixedColumns: {
+            left: 1
         }
-        return result;
-    }
+    });
+});
 
-    let options = {
-        dataSource: getSources(),
-        pageSize: 3,
-        showPrevious: true,
-        showNext: true,
-        showSizeChanger: true,
-        pageNumber: 1,
-        callback: function (response, pagination) {
-            if (response.length === 0) {
-                $dataContainer.html('<p class="content-center">No orders found</p>');
-            } else {
-                let dataHtml = response.map(item => getOrderHTML(item)).join('');
-                $dataContainer.html(dataHtml);
+
+
+
+
+
+    // Handle row click event to fetch and display order files
+//$(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
+//let $this = $(this);
+//    let orderId = $(this).data('order-id'); // Assuming each <tr> has a data-order-id attribute
+//
+//    if (orderId) {
+//        $.ajax({
+//            url: '/dashboard/allorders/',
+//            type: 'GET',
+//            data: {'order_id': orderId},
+//            headers: {'X-Requested-With': 'XMLHttpRequest'},
+//            dataType: 'json',
+//            success: function(response) {    // Make the clicked row 'active'
+//            l(response)
+//                $("#kt_datatable_fixed_columns tbody tr td").removeClass('active');
+//                $this.addClass('active');
+//
+//                let $filesContainer = $('#kt_tab_pane_7');
+//                   if (Array.isArray(response) && response.length > 0) {
+//                        // Clear previous content in all containers
+//                        $('#kt_tab_pane_8').html("");
+//                        $('#kt_tab_pane_9').html("");
+//                        //Responsive Data
+//                        response.forEach(function(file) {
+//                            let filePath = '/media/' + file.file,
+//                                 fileElement;
+//                                let fileExtension = filePath.split('.').pop().toLowerCase();
+//                               if (fileExtension === 'pdf' && file.file_type === 'original_cv') {
+//                                   filePath = filePath ? filePath : "";
+//                                $('#kt_tab_pane_7').html(`<iframe id="pdfViewer" style="width: 100%; height: 500px;" src="${filePath}"></iframe>`)
+//                                l("filePath" +filePath)
+//                                l($filesContainer)
+//                               }else{
+//                                 $('#kt_tab_pane_7').html('<p>No original CV files found for this order.</p>');
+//                               }
+//
+//                              if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'gif') {
+//                                 fileElement = $('<img>').attr('src', filePath).addClass('img-fluid w-100');
+//                                }else{
+//                                 $('#kt_tab_pane_8').html('<p>No original picture files found for this order.</p>');
+//                                }
+//
+//          if(file.file_type == "other"){
+//          fileElement = $('<a>').attr('href', filePath).text('Download ' + file.file_type);
+//          }else{
+//                       $('#kt_tab_pane_9').html('<p>No other files found for this order.</p>');
+//          }
+//
+//
+//
+//                            // Append the file element to the appropriate container based on file type
+//                            if (file.file_type === 'original_pic') {
+//                                $('#kt_tab_pane_8').append(fileElement);
+//                            } else {
+//                                $('#kt_tab_pane_9').append(fileElement);
+//                            }
+//                        });
+//                   }
+//            },
+//        });
+//    }
+//
+//
+//
+//
+//
+//});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Handle row click event to fetch and display order files
+$(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
+    let $this = $(this),
+        orderId = $this.data('order-id');
+    if (!orderId) return false;
+
+    $.ajax({
+        url: '/dashboard/allorders/',
+        method: "GET",
+        data: { 'order_id': orderId },
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        dataType: "json",
+        success: function (response) {
+            let $originalCVContainer = $('#kt_tab_pane_7'),
+                $coverLetterContainer = $('#kt_tab_pane_8'),
+                $otherFilesContainer = $('#kt_tab_pane_9');
+
+            // Clear containers
+            $originalCVContainer.empty();
+            $coverLetterContainer.empty();
+            $otherFilesContainer.empty();
+
+            // Reset active class
+            $("#kt_datatable_fixed_columns tbody tr td").removeClass('active');
+            $this.addClass('active');
+
+            // Handle empty response
+            if (!response.length) {
+                $originalCVContainer.html('<p>No original CV files found for this order.</p>');
+                $coverLetterContainer.html('<p>No original picture files found for this order.</p>');
+                $otherFilesContainer.html('<p>No other files found for this order.</p>');
+                return false;
             }
+
+            // Loop through files
+            $.each(response, function (index, file) {
+                let fileExtension = file.file.split('.').pop(),
+                    filePath = '/media/' + file.file;
+
+                // Original CV
+                if (fileExtension === 'pdf' && file.file_type === 'original_cv') {
+                    $originalCVContainer.html(`<iframe id="pdfViewer" style="width: 100%; height: 500px;" src="${filePath}"></iframe>`);
+                }
+
+                // Cover Letter
+                else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension) && file.file_type === 'cover_letter') {
+                    $coverLetterContainer.html(`<img src="${filePath}" alt="Cover Letter" class="img-fluid w-100">`);
+                }
+
+                // Other Files
+                else if (file.file_type === 'other') {
+                    $otherFilesContainer.html(`<a href="${filePath}" target="_blank">Download ${file.file_type}</a>`);
+                }
+            });
+        },
+        error: function (error) {
+            console.log(error);
         }
-    };
-    // Before init
-    $container.addHook('beforeInit', function () {
-        l('beforeInit...');
-    });
-    // Order html data append
-    $container.pagination(options);
-    // Before page click
-    $container.addHook('beforePageOnClick', function () {
-        l('beforePageOnClick...');
-    });
-    // Search input
-    $searchInput.on('input', function () {
-        let searchTerm = $(this).val().toLowerCase();
-        let filteredData = getSources().filter(item =>
-            item.name.toLowerCase().includes(searchTerm) ||
-            item.orderType.toLowerCase().includes(searchTerm) ||
-            item.orderPriority.toLowerCase().includes(searchTerm) ||
-            item.orderId.toString().includes(searchTerm) ||
-            item.orderDate.toLowerCase().includes(searchTerm)
-        );
-        options.dataSource = filteredData;
-        $container.pagination('destroy');
-        $container.pagination(options);
     });
 });
 
-// Order html fn
-function getOrderHTML(data) {
-    return `<div class="order-item" data-order-id="${data.orderId}">
-                <div class="pl-4">
-                    <div class="item">
-                        <span>Order ID :</span>
-                        <span class="order-id">${data.orderId}</span>
-                    </div>
-                    <div class="item">
-                        <span>Name :</span>
-                        <span class="order-name">${data.name}</span>
-                    </div>
-                    <div class="item">
-                        <span>Order :</span>
-                        <span class="order-date">${data.orderDate}</span>
-                    </div>
-                    <div class="item">
-                        <span>Order Type :</span>
-                        <span class="order-type">${data.orderType}</span>
-                    </div>
-                    <div class="item">
-                        <span>Order Priority :</span>
-                        <span class="order-priority">${data.orderPriority}</span>
-                    </div>
-                </div>
-                <hr class="bar-line">
-            </div>`;
-}
 
 
-// Order Active
-$(document).on('click', ".order-data-container .order-item", function () {
-    let orderId = $(this).data("order-id");
-    $(".order-data-container .order-item").removeClass("active");
-    $(this).addClass("active");
-});
 
-// Left sidebar toggle
-$(document).on('click', ".toggle-left-sidebar-btn", function () {
-    let leftSidebar = $(".order-cv-details .order-sidebar-left");
-    leftSidebar.toggleClass("active");
-});
 
-// Right sidebar toggle
-$(document).on('click', ".toggle-right-sidebar-btn", function () {
-    let rightSidebar = $(".order-cv-details .order-right-sidebar");
-    rightSidebar.toggleClass("active");
-});

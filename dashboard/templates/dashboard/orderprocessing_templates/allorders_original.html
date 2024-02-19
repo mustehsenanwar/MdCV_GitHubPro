@@ -1,0 +1,162 @@
+<!--
+Define in dashboards/views.py file
+context.update({
+    'layout': KTTheme.setLayout('default.html', context),
+})
+-->
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static  'dashboard/css/order.css' %}">
+    <link rel="stylesheet" href="{% static  'dashboard/css/pagination.css' %}">
+
+
+<div class="main-container">
+    <div class="content-header order-process-container">
+        <?php require_once "./components/topbar.php"; ?>
+        <div class="order-cv-details">
+
+
+            <div class="order-sidebar-left">
+                <div class="order-content-header">
+                    <section>
+                        <div class="content-center">
+                            <input type="text" id="searchInput" class="form-control w-100 ml-1 mx-2" placeholder="Search...">
+                        </div>
+                        <div class="order-data-container"></div>
+                        <div id="pagination-numbers" class="pb-2"></div>
+                    </section>
+                </div>
+                <div class="toggle-left-sidebar-btn">
+                    <i class="fa fa-caret-left"></i>
+                </div>
+            </div>
+
+
+            <div class="order-center-content">
+                <div class="tabs-header px-4">
+                    <div class="pull-away mb-3 pt-2">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" class="text-dark mx-2 active" href="#home">Original CV,</a></li>
+                            <li><a data-toggle="tab" class="text-dark mx-2" href="#menu1">Cover Letter,</a></li>
+                            <li><a data-toggle="tab" class="text-dark mx-2" href="#menu2">Other</a></li>
+                        </ul>
+                        <div class="cv-info-btn content-center">
+                            <div class="d-flex">
+                                <span>Default Template</span>
+                                <input type="radio" class="ml-2" checked>
+                            </div>
+                            <a href="editor" class="process-btn btn ml-3 py-1">Process</a>
+                        </div>
+                    </div>
+                    <div class="tab-content content-center">
+                        <div id="home" class="tab-pane fade in active show">
+                            <img src="./images/cv.jpg" class="img-fluid">
+                        </div>
+                        <div id="menu1" class="tab-pane fade">
+                            <h3>Cover Letter</h3>
+                            <p>Content</p>
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+                            <h3>Menu 2</h3>
+                            <p>Content</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="order-right-sidebar">
+                <div class="requirements-content py-2 px-2">
+                    <div id="accordion">
+                        <div class="card foldingCard mb-2">
+                            <div class="card-header p-0" id="requirements">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#requirementsCollapse" aria-expanded="true" aria-controls="requirementsCollapse">
+                                        <div class="content-center">
+                                            <i class="fas fa-edit pr-2"></i>
+                                            <span>Requirements</span>
+                                        </div>
+                                        <i class="fa fa-chevron-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="requirementsCollapse" class="collapse show" aria-labelledby="requirements" data-parent="#accordion">
+                                <div class="card-body pt-2 pb-0 pl-2">
+                                    <ol>
+                                        <li>Need light color</li>
+                                        <li>More focus on content</li>
+                                        <li>Details Experience</li>
+                                        <li>Must mention achievements</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card foldingCard mb-2">
+                            <div class="card-header p-0" id="notes">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#notesCollapse" aria-expanded="true" aria-controls="notesCollapse">
+                                        <div class="content-center">
+                                            <i class="fa fa-sticky-note mr-2" aria-hidden="true"></i>
+                                            <span>Notes</span>
+                                        </div>
+                                        <i class="fa fa-chevron-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="notesCollapse" class="collapse" aria-labelledby="notes" data-parent="#accordion">
+                                <div class="card-body pt-2 pb-0 pl-2">
+                                    <div class="single-requirements pl-4">
+                                        <p>This is notes and must be comply while desiging CV and writing COntent</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card foldingCard mb-2">
+                            <div class="card-header p-0" id="charts">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#chartsCollapse" aria-expanded="true" aria-controls="chartsCollapse">
+                                        <div class="content-center">
+                                            <i class="fa fa-comment mr-2"></i>
+                                            <span>Chats</span>
+                                        </div>
+                                        <i class="fa fa-chevron-down"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="chartsCollapse" class="collapse" aria-labelledby="charts" data-parent="#accordion">
+                                <div class="card-body pt-2 pb-0 pl-2">
+                                    <div class="single-requirements pl-4">
+                                        <p>This is notes and must be comply while desiging CV and writing COntent</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="toggle-right-sidebar-btn">
+                    <i class="fa fa-caret-right"></i>
+                </div>
+            </div>
+
+
+<!---->
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock content %}

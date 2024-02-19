@@ -20,7 +20,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.db import IntegrityError
-
+from orders.models import Order
+from django.http import JsonResponse
+from orders.models import OrderFiles
 
 
 
@@ -28,7 +30,7 @@ from django.db import IntegrityError
 class AllOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     # Default template file
     # Refer to dashboards/urls.py file for more pages and template files
-    template_name = 'dashboard/admin_templates/allusers.html'
+    template_name = 'dashboard/orderprocessing_templates/allusers.html'
 
     def test_func(self):
         activity_tags = self.request.session.get('activity_tags', [])
@@ -44,17 +46,29 @@ class AllOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context = KTLayout.init(context)
         KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
 
-        all_users = CustomUser.objects.exclude(is_superuser=True)
-        departments = Department.objects.all()  # Query all departments
-        activity_tags = self.request.session.get('activity_tags', [])
-
-
-        context['all_users'] = all_users
-        context['departments'] = departments  # Add the departments to the context
+        context['orders'] = Order.objects.all()  # Add all orders to the context
         context['user'] = self.request.user
 
 
         return context
+
+    def get(self, request, *args, **kwargs):
+        print('just started')
+        # Check if it's an AJAX request by examining the HTTP headers
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            order_id = request.GET.get('order_id')  # Get the order ID from the AJAX request
+
+            if order_id:
+                print(order_id)
+                # Fetch the order files for the given order ID
+                order_files = OrderFiles.objects.filter(order__id=order_id).values('file', 'file_type', 'id')
+                print(len(order_files))
+                # Return the order files as JSON
+                return JsonResponse(list(order_files), safe=False)
+
+        # If not an AJAX request, continue with the normal get_context_data flow
+        return super().get(request, *args, **kwargs)
+
 
     def post(self, request, *args, **kwargs):
         user_id = request.POST.get('user_id')  # You need to include a hidden input in your form for 'user_id'

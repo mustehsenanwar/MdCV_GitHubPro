@@ -1,0 +1,45 @@
+# created by virtualenv automatically
+# Bytecode
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.sublime-*
+
+# Operating System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Django specific
+.env
+*.log
+*.pot
+*.mo
+# Consider excluding settings.py if it contains sensitive or local data
+
+# Static and media
+/static/
+/media/
+
+# SASS cache
+*.sass-cache
+
+# Cache directories
+.cache/
+
+# npm packages
+node_modules/
+
+# Build directory
+/dist/

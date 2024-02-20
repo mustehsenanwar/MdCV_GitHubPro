@@ -23,3 +23,6 @@ class SystemView(TemplateView):
         })
 
         return context
+
+
+# core

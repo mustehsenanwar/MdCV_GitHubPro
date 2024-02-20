@@ -32,7 +32,7 @@ export-env {
       }
     }
 
-    let virtual_env = 'D:\Mustehsen\3_CV Business\Websites\MDCVFINAL'
+    let virtual_env = 'D:\Mustehsen\3_CV Business\Websites\MdCV_GitHuB_Pro'
     let bin = 'Scripts'
 
     let is_windows = ($nu.os-info.family) == 'windows'

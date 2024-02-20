@@ -58,7 +58,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV 'D:\Mustehsen\3_CV Business\Websites\MDCVFINAL'
+set -gx VIRTUAL_ENV 'D:\Mustehsen\3_CV Business\Websites\MdCV_GitHuB_Pro'
 
 # https://github.com/fish-shell/fish-shell/issues/436 altered PATH handling
 if test (echo $FISH_VERSION | head -c 1) -lt 3

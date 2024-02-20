@@ -1,4 +1,4 @@
-@set "VIRTUAL_ENV=D:\Mustehsen\3_CV Business\Websites\MDCVFINAL"
+@set "VIRTUAL_ENV=D:\Mustehsen\3_CV Business\Websites\MdCV_GitHuB_Pro"
 
 @set "VIRTUAL_ENV_PROMPT="
 @if NOT DEFINED VIRTUAL_ENV_PROMPT (

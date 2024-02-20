@@ -45,6 +45,7 @@ EXTERNAL_APP = [
     'orders',
     'payments',
     'fileparser',
+    'resume_templates',
 
 ]
 

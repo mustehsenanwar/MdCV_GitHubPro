@@ -125,10 +125,10 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return HttpResponse('you are at home pge')
 
 
-class TemplateSelection(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+class TemplateList(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     # Default template file
     # Refer to dashboards/urls.py file for more pages and template files
-    template_name = 'dashboard/orderprocessing_templates/template_selection.html'
+    template_name = 'dashboard/orderprocessing_templates/template_list.html'
 
     def test_func(self):
         activity_tags = self.request.session.get('activity_tags', [])
@@ -145,8 +145,6 @@ class TemplateSelection(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
 
         context['user'] = self.request.user
-
-
         return context
 
 

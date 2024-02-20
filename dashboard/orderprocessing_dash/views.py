@@ -23,6 +23,7 @@ from django.db import IntegrityError
 from orders.models import Order
 from django.http import JsonResponse
 from orders.models import OrderFiles
+from resume_templates.models import Template, Variation
 
 
 
@@ -85,14 +86,15 @@ class AllOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         # Determine the redirect URL based on the template option selected
         if template_option == 'default':
-            redirect_url = reverse('dashboard:resumebuilder', args=[order_id])
+            redirect_url = reverse('dashboard:resumebuilder')
         else:
-            redirect_url = reverse('dashboard:template_selection')
+            redirect_url = reverse('dashboard:template_list')
         print(redirect_url)
         return JsonResponse({'status': 'success', 'redirect_url': redirect_url})
 
     def handle_no_permission(self):
         return HttpResponse('you are at home pge')
+
 
 class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     # Default template file
@@ -125,10 +127,23 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return HttpResponse('you are at home pge')
 
 
+
 class TemplateList(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
-    # Default template file
-    # Refer to dashboards/urls.py file for more pages and template files
     template_name = 'dashboard/orderprocessing_templates/template_list.html'
+
+    def test_func(self):
+        activity_tags = self.request.session.get('activity_tags', [])
+        if "orderprocessing" in activity_tags:
+            return True
+        return self.request.user.is_superuser
+
+
+    def handle_no_permission(self):
+        return HttpResponse('You are at the home page')
+
+
+class CreateNewTemplate(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'dashboard/orderprocessing_templates/create_new_template.html'
 
     def test_func(self):
         activity_tags = self.request.session.get('activity_tags', [])
@@ -147,8 +162,24 @@ class TemplateList(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['user'] = self.request.user
         return context
 
+    def get(self, request, *args, **kwargs):
+        templates = Template.objects.all()
+        return render(request, self.template_name, {'templates': templates, **self.get_context_data(**kwargs)})
+    def post(self, request, *args, **kwargs):
 
+        if 'template_name' in request.POST:  # This indicates a new template form submission
+            template_name = request.POST['template_name']
+            is_default = 'is_default' in request.POST
+            Template.objects.create(name=template_name, is_default=is_default)
+        elif 'variation_name' in request.POST:  # This indicates a new variation form submission
+            template_id = request.POST['template']
+            variation_name = request.POST['variation_name']
+            thumbnail = request.FILES.get('thumbnail')
+            file = request.FILES.get('file')
+            template = Template.objects.get(id=template_id)
+            Variation.objects.create(template=template, variation_name=variation_name, thumbnail=thumbnail, file=file)
+        return redirect('dashboard:create_new_template')  # Redirect back to the form page
 
 
     def handle_no_permission(self):
-        return HttpResponse('you are at home pge')
+        return HttpResponse('You are at the home page')

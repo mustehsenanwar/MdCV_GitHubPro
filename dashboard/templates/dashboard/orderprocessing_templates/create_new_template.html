@@ -1,0 +1,100 @@
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static  'dashboard/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static  'dashboard/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static  'dashboard/css/custom.css' %}">
+<link rel="stylesheet" href="{% static  'dashboard/css/order.css' %}">
+
+
+
+
+
+<!-- Start of Template Form -->
+<div class="card card-custom">
+    <div class="card-header">
+        <h3 class="card-title">Add New Template</h3>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        <div class="card-body">
+            <!-- Template Name -->
+            <div class="form-group">
+                <label for="templateName">Template Name</label>
+                <input type="text" class="form-control" id="templateName" name="template_name" placeholder="Enter template name" required>
+            </div>
+
+            <!-- Default Template Checkbox -->
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="isDefault" name="is_default">
+                <label class="form-check-label" for="isDefault">Set as default</label>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+        </div>
+    </form>
+</div>
+<!-- End of Template Form -->
+<!-- Start of Variation Form -->
+<div class="card card-custom mt-4">
+    <div class="card-header">
+        <h3 class="card-title">Add Variation</h3>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        <div class="card-body">
+            <!-- Template Selection (for Variation) -->
+            <div class="form-group">
+                <label for="variationTemplate">Template</label>
+                <select class="form-control" id="variationTemplate" name="template">
+                    {% for template in templates %}
+                    <option value="{{ template.id }}">{{ template.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Variation Name -->
+            <div class="form-group">
+                <label for="variationName">Variation Name</label>
+                <input type="text" class="form-control" id="variationName" name="variation_name" placeholder="Enter variation name" required>
+            </div>
+
+            <!-- Thumbnail Upload -->
+            <div class="form-group">
+                <label for="variationThumbnail">Thumbnail</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="variationThumbnail" name="thumbnail">
+                    <label class="custom-file-label" for="variationThumbnail">Choose file</label>
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div class="form-group">
+                <label for="variationFile">File</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="variationFile" name="file">
+                    <label class="custom-file-label" for="variationFile">Choose file</label>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+        </div>
+    </form>
+</div>
+<!-- End of Variation Form -->
+
+
+
+
+<script src="{% static  'dashboard/js/jquery.min.js' %}"></script>
+<script src="{% static  'dashboard/js/popper.min.js' %}"></script>
+<script src="{% static  'dashboard/js/bootstrap.min.js' %}"></script>
+<script src="{% static  'dashboard/js/order.js' %}"></script>
+
+{% endblock content %}

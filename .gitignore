@@ -1,10 +1,9 @@
-# created by virtualenv automatically
+# Created by virtualenv automatically
 # Bytecode
 *.pyc
 __pycache__/
 *.pyo
 *.pyd
-
 
 # Virtual environment
 venv/
@@ -12,25 +11,30 @@ env/
 .venv/
 
 # IDEs and Editors
-.idea/
-.vscode/
-*.sublime-*
+.idea/  # PyCharm specific settings
+.vscode/  # Visual Studio Code specific settings
+*.sublime-*  # Sublime Text specific settings
+*.swp  # Vim swap files
+*~  # Temporary files created by various editors
 
 # Operating System files
-.DS_Store
-Thumbs.db
-ehthumbs.db
+.DS_Store  # macOS folder settings
+Thumbs.db  # Windows image file cache
+ehthumbs.db  # Windows 'eh' thumbs database file
 
 # Django specific
-.env
-*.log
-*.pot
-*.mo
+.env  # Environment variables file
+*.log  # Log files
+*.pot  # Translation files
+*.mo  # Compiled translation files
 # Consider excluding settings.py if it contains sensitive or local data
 
+# Database
+*.db  # Generic database files
+*.sqlite3  # SQLite database files
+*.dblite  # Additional rule for SQLite database files
+
 # Static and media
-/static/
-/media/
 
 # SASS cache
 *.sass-cache

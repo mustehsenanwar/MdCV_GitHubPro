@@ -1,3 +1,55 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+# created by virtualenv automatically
+# Bytecode
+*.pyc
+_pycache_/
+*.pyo
+*.pyd
+venv/
+env/
+.venv/
+.idea/
+.vscode/
+.sublime-
+.DS_Store
+Thumbs.db
+ehthumbs.db
+.env
+*.log
+*.pot
+*.mo
+*.sass-cache
+.cache/
+/dist/
+# Bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.env
+
+# Database
+*.sqlite3
+
+# Static files
+/static/
+
+# Media files
+/media/
+
+# Local configuration
+local_settings.py
+
+# Development tools
+.idea/
+.vscode/
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db

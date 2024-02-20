@@ -23,3 +23,33 @@ ehthumbs.db
 *.sass-cache
 .cache/
 /dist/
+# Bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.env
+
+# Database
+*.sqlite3
+
+# Static files
+/static/
+
+# Media files
+/media/
+
+# Local configuration
+local_settings.py
+
+# Development tools
+.idea/
+.vscode/
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db

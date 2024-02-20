@@ -1,3 +1,25 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+# created by virtualenv automatically
+# Bytecode
+*.pyc
+_pycache_/
+*.pyo
+*.pyd
+venv/
+env/
+.venv/
+.idea/
+.vscode/
+.sublime-
+.DS_Store
+Thumbs.db
+ehthumbs.db
+.env
+*.log
+*.pot
+*.mo
+*.sass-cache
+.cache/
+/dist/

@@ -20,8 +20,8 @@ urlpatterns = [
     path('inputorder/', salesmarketing_dash_views.InputOrderPage.as_view(template_name = 'dashboard/salesmarketing_templates/inputorder.html'), name='inputorder'),
     # orderprocessing urls
     path('allorders/', orderprocessing_dash_views.AllOrdersPage.as_view(template_name = 'dashboard/orderprocessing_templates/allorders.html'), name='allorders'),
-    path('resumebuilder/', orderprocessing_dash_views.ResumeBuilder.as_view(template_name = 'dashboard/orderprocessing_templates/resumebuilder.html'), name='resumebuilder'),
-    path('template_list/', orderprocessing_dash_views.TemplateList.as_view(template_name = 'dashboard/orderprocessing_templates/template_list.html'), name='template_list'),
+    path('resumebuilder/<int:order_id>/', orderprocessing_dash_views.ResumeBuilder.as_view(template_name='dashboard/orderprocessing_templates/resumebuilder.html'), name='resumebuilder'),
+    path('template_list/<int:order_id>/', orderprocessing_dash_views.TemplateList.as_view(template_name='dashboard/orderprocessing_templates/template_list.html'), name='template_list'),
     path('create_new_template/', orderprocessing_dash_views.CreateNewTemplate.as_view(template_name = 'dashboard/orderprocessing_templates/create_new_template.html'), name='create_new_template'),
     # aftersales urls
 ]

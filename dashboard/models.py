@@ -48,13 +48,11 @@ class PreliminaryData(models.Model):
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='preliminary_data')
     requirements = models.TextField()
     TEMPLATE_CHOICES = [
-        ('none', 'None'),
-        ('temp1', 'Template 1'),
-        ('temp2', 'Template 2'),
+        ('', 'None'),
+        ('1', 'Template 1'),
+        ('2', 'Template 2'),
     ]
     template_selection = models.CharField(max_length=10, choices=TEMPLATE_CHOICES, default='none')
-    # old_cv = models.FileField(upload_to='old_cvs/', blank=True, null=True)
-    # other_files = models.FileField(upload_to='other_files/', blank=True, null=True)
 
     ORDER_TYPE_CHOICES = [
         ('new_order', 'New Order'),

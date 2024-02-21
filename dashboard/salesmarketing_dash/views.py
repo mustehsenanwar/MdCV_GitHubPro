@@ -22,6 +22,7 @@ from django.db import IntegrityError
 from dashboard.models import Contact, PreliminaryData, PreliminaryDataFile
 from django.db import transaction
 from django.core.files.storage import default_storage
+from resume_templates.models import Template
 
 CustomUser = get_user_model()
 
@@ -46,6 +47,8 @@ class InputOrderPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context = KTLayout.init(context)
         KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
 
+        templates_with_variations = Template.objects.prefetch_related('variations').all()
+        context['templates_with_variations'] = templates_with_variations
         context['user'] = self.request.user
 
         return context

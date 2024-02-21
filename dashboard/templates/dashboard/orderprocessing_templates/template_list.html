@@ -21,45 +21,57 @@
 
 
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Templates Column -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Templates</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        {% for template in templates %}
-                        <li class="list-group-item template-item" data-template-id="{{ template.id }}">
-                            {{ template.name }}
-                            {% if template.is_default %}
-                            <span class="badge badge-success">Default</span>
+
+
+<div class="container mt-5">
+    <form action="/your-submission-url/" method="POST">
+        <!-- Include CSRF token for security -->
+        {% csrf_token %}
+
+        <!-- Tab Navigation -->
+        <ul class="nav nav-tabs" id="templateTab" role="tablist">
+            {% for template in templates %}
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link {% if forloop.first %}active{% endif %}" id="template-{{ template.id }}-tab" data-toggle="tab" href="#template-{{ template.id }}" role="tab" aria-controls="template-{{ template.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                        {{ template.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="templateTabContent">
+
+
+
+
+            {% for template in templates %}
+                <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="template-{{ template.id }}" role="tabpanel" aria-labelledby="template-{{ template.id }}-tab">
+                    {% for variation in template.variations.all %}
+                        <div class="card" style="width: 18rem;">
+                            {% if variation.thumbnail %}
+                                <img src="{{ variation.thumbnail.url }}" class="card-img-top" alt="{{ variation.variation_name }}">
                             {% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ variation.variation_name }}</h5>
+                                <input type="radio" name="selected_variation" value="{{ variation.id }}" {% if forloop.first %}checked{% endif %}>
+                                <label for="selected_variation_{{ variation.id }}">Select this variation</label>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            </div>
+            {% endfor %}
         </div>
 
-        <!-- Variations Column -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Variations</h3>
-                </div>
-                <div class="card-body">
-                    <div id="variationsContainer">
-                        <!-- Variations will be loaded here dynamically -->
-                        <p>Select a template to view its variations.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <!-- Hidden field for order ID (you need to set this value accordingly) -->
+        <input type="hidden" name="order_id" value="your_order_id_here">
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
 </div>
+
+
 
 
 

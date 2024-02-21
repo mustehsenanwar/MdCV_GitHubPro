@@ -65,10 +65,14 @@
             <div class="col-md-6 form-group">
                 <label for="template_selection">Template Selection:</label>
                 <select class="form-control" id="template_selection" name="template_selection">
-                    <option value="none">None</option>
-                    <option value="temp1">Template 1</option>
-                    <option value="temp2">Template 2</option>
-                    <!-- Add more template options as needed -->
+                    <option value="Null">None</option>
+                    {% for template in templates_with_variations %}
+                        <optgroup label="{{ template.name }}">
+                            {% for variation in template.variations.all %}
+                                <option value="{{ variation.id }}">{{ variation.variation_name }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-md-6 form-group">

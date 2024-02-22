@@ -114,7 +114,7 @@ $(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
             let $originalCVContainer = $('#kt_tab_pane_7'),
                 $coverLetterContainer = $('#kt_tab_pane_8'),
                 $otherFilesContainer = $('#kt_tab_pane_9').find(".row");
-
+            $("#processOrderForm").find(`[name="order_id"]`).val(orderId);
             // Clear containers
             $originalCVContainer.empty();
             $coverLetterContainer.empty();
@@ -136,7 +136,6 @@ $(document).on('click', "#kt_datatable_fixed_columns tbody tr td", function () {
             $.each(response, function (index, file) {
                 let fileExtension = file.file.split('.').pop(),
                     filePath = '/media/' + file.file;
-
                 // Original CV
                 if (fileExtension === 'pdf' && file.file_type === 'original_cv') {
                     $originalCVContainer.html(`<iframe id="pdfViewer" style="width: 100%; height: 500px;" src="${filePath}"></iframe>`);

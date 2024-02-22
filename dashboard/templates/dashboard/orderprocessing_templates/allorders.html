@@ -77,13 +77,14 @@
                     </li>
                 </ul>
 
-<!--                    <a href="{# {% url 'dashboard:resumebuilder' %} #}" class="btn btn-sm fw-bold btn-primary ml-3">Process</a>-->
+                <!--                    <a href="{# {% url 'dashboard:resumebuilder' %} #}" class="btn btn-sm fw-bold btn-primary ml-3">Process</a>-->
 
-                  <form method="post" action="" class="d-flex align-items-center" id="processOrderForm" onsubmit="processOrder(event)">
+                <form method="post" action="" class="d-flex align-items-center" id="processOrderForm"
+                    onsubmit="processOrder(event)">
                     {% csrf_token %}
-                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <input type="hidden" name="order_id">
                     <button type="submit" class="btn btn-sm fw-bold btn-primary ml-3">Process</button>
-                  </form>
+                </form>
 
 
 

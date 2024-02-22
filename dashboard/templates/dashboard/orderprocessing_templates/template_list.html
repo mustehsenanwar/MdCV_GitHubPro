@@ -24,15 +24,24 @@
 
 
 <div class="container mt-5">
-    <form action="/your-submission-url/" method="POST">
+    <form action="" method="POST">
         <!-- Include CSRF token for security -->
         {% csrf_token %}
 
         <!-- Tab Navigation -->
         <ul class="nav nav-tabs" id="templateTab" role="tablist">
+            <!-- New Tab for Selected Variation -->
+            {% if selected_variation %}
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="selected-variation-tab" data-toggle="tab" href="#selected-variation" role="tab" aria-controls="selected-variation" aria-selected="true">
+                        Selected Variation
+                    </a>
+                </li>
+            {% endif %}
+
             {% for template in templates %}
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link {% if forloop.first %}active{% endif %}" id="template-{{ template.id }}-tab" data-toggle="tab" href="#template-{{ template.id }}" role="tab" aria-controls="template-{{ template.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                    <a class="nav-link {% if forloop.first and not selected_variation %}active{% endif %}" id="template-{{ template.id }}-tab" data-toggle="tab" href="#template-{{ template.id }}" role="tab" aria-controls="template-{{ template.id }}" aria-selected="{% if forloop.first and not selected_variation %}true{% else %}false{% endif %}">
                         {{ template.name }}
                     </a>
                 </li>
@@ -41,12 +50,24 @@
 
         <!-- Tab Content -->
         <div class="tab-content" id="templateTabContent">
-
-
-
+            <!-- New Tab Content for Selected Variation -->
+            {% if selected_variation %}
+                <div class="tab-pane fade show active" id="selected-variation" role="tabpanel" aria-labelledby="selected-variation-tab">
+                    <!-- Content for selected variation goes here. You might need to adjust this part based on how you're storing/accessing selected_variation -->
+                    <div class="card" style="width: 18rem;">
+                        {% if selected_variation.thumbnail %}
+                            <img src="{{ selected_variation.thumbnail.url }}" class="card-img-top" alt="{{ selected_variation.variation_name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ selected_variation.variation_name }}</h5>
+                            <!-- You might want to include more details about the selected variation here -->
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
 
             {% for template in templates %}
-                <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="template-{{ template.id }}" role="tabpanel" aria-labelledby="template-{{ template.id }}-tab">
+                <div class="tab-pane fade {% if forloop.first and not selected_variation %}show active{% endif %}" id="template-{{ template.id }}" role="tabpanel" aria-labelledby="template-{{ template.id }}-tab">
                     {% for variation in template.variations.all %}
                         <div class="card" style="width: 18rem;">
                             {% if variation.thumbnail %}
@@ -64,12 +85,13 @@
         </div>
 
         <!-- Hidden field for order ID (you need to set this value accordingly) -->
-        <input type="hidden" name="order_id" value="your_order_id_here">
+        <input type="hidden" name="order_id" value="{{ order_id }}">
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
 </div>
+
 
 
 

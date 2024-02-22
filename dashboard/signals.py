@@ -8,6 +8,7 @@ from payments.models import Payment
 from django.contrib.auth.hashers import make_password
 from django.utils.crypto import get_random_string
 from django.db import transaction
+from resume_templates.models import Template,Variation
 
 
 @receiver(post_save, sender=Contact)

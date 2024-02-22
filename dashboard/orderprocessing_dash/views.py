@@ -131,12 +131,34 @@ class TemplateList(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                 selected_variation = order_initial_data.template_variation_selected
             except OrderInitialData.DoesNotExist:
                 pass  # Handle the case where no OrderInitialData exists for the given order_id
-
-        context['templates'] = Template.objects.prefetch_related('variations').all()
+        resume_all_variations = Template.objects.prefetch_related('variations').all()
+        context['templates'] = resume_all_variations
         context['selected_variation'] = selected_variation  # Pass the selected variation to the template
+        context['order_id'] = order_id
         context['user'] = self.request.user
         return context
 
+    def post(self, request, *args, **kwargs):
+        # Process your form data here
+        selected_variation_id = request.POST.get('selected_variation')
+        order_id = request.POST.get('order_id')
+
+        # You might want to save this data or perform some action based on the form submission
+        # For example, updating an Order model with the selected variation
+        if order_id and selected_variation_id:
+            try:
+                order = OrderInitialData.objects.get(order_id=order_id)
+                order.template_variation_selected_id = selected_variation_id
+                order.save()
+                # Redirect after POST to prevent form resubmission issues
+                return HttpResponseRedirect(reverse('dashboard:resumebuilder', args=(order_id,)))
+            except OrderInitialData.DoesNotExist:
+                # Handle case where order doesn't exist
+                pass
+
+        # If there's no order_id or selected_variation_id, or if saving fails, re-render the page with existing context
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
     def handle_no_permission(self):
         return HttpResponse('You are at the home page')
 

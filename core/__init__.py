@@ -4,6 +4,12 @@ from core.libs.theme import KTTheme
 import importlib.util
 import sys
 
+from .celery import app as celery_app
+
+__all__ = ('celery_app',)
+
+
+
 
 class KTLayout:
     # Initialize the bootstrap files and page layout

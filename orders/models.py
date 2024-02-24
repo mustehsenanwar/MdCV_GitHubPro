@@ -39,3 +39,20 @@ class OrderInitialFiles(models.Model):
     def __str__(self):
         return f"{self.get_file_type_display()} for Order {self.order.id}"
 
+from django.db import models
+
+class OrderParse(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_parse')
+    parsed_data = models.JSONField(default=dict, blank=True, help_text='Stores the parsed CV data as JSON.')
+    parse_status = models.CharField(max_length=20, default='pending', choices=[
+        ('pending', 'Pending'),  # Parsing has not been initiated yet
+        ('processing', 'Processing'),  # Parsing is in progress
+        ('completed', 'Completed'),  # Parsing is completed
+        ('no_cv', 'No CV'),  # No CV was provided for parsing
+        ('failed', 'Failed')  # Parsing attempted but failed
+    ])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Parsed Data for Order {self.order.id}"

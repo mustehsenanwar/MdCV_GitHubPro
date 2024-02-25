@@ -70,9 +70,10 @@ $(document).on('change', ".preview-btn-control input", function () {
 $(document).on('change input', ".cv-input", function () {
     let $this = $(this),
         target = $this.attr("data-target"),
-        $value = $this.val();
+        value = $this.val();
     let $cvContent = $(".cvContent")
-    $cvContent.find(`[data-setVal="${target}"]`).text($value);
+    $cvContent.find(`[data-setVal="${target}"]`).text(value);
+    l($cvContent.find(`[data-setVal="${target}"]`))
 });
 
 // change cv images
@@ -91,7 +92,7 @@ $(document).on('change', '#file-upload', function () {
         reader.readAsDataURL(fileInput.files[0]);
     }
     // modal hide
-    $('.modal').modal('hide');
+    $('.close-window-popup').trigger("click");
 });
 
 
@@ -100,14 +101,52 @@ $(document).ready(function () {
         $('#cvEditorCarousel').carousel('next');
         setTimeout(() => {
             let target = $('#cvEditorCarousel').find(".carousel-item.active").data("panel");
-            l(target)
             $(".progress-bar").find(`[data-target="${target}"]`).trigger("click");
-        }, 500);
+            l($(".progress-bar").find(`[data-target="${target}"]`))
+        }, 1000);
         return false;
     });
 
     $('.carousel-control-prev').click(function () {
         $('#cvEditorCarousel').carousel('prev');
+        setTimeout(() => {
+            let target = $('#cvEditorCarousel').find(".carousel-item.active").data("panel");
+            $(".progress-bar").find(`[data-target="${target}"]`).trigger("click");
+            l($(".progress-bar").find(`[data-target="${target}"]`))
+        }, 1000);
         return false;
     });
+
+    // tinymce editor
+    tinymce.init({
+        selector: "#kt_docs_tinymce_basic", height: "480"
+    });
+});
+
+
+// Add Skill button
+$(document).on("click", ".add-skill-btn", function () {
+    let $parent = $(this).parents(".skill-container");
+    let skillHTML =
+        `<div class="skill-item mb-3">
+            <div class="left">
+                <div class="form-item mb-0">
+                    <input type="text" id="skill" autocomplete="off"
+                        placeholder="Skill">
+                    <label for="username">Skill</label>
+                </div>
+            </div>
+            <div class="right d-flex">
+                <input type="range" class="w-100">
+                <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill"></i>
+            </div>
+        </div>`;
+    $parent.find(".skill-item-container").append(skillHTML);
+})
+
+
+// Remove Single Skill
+$(document).on("click", ".delete-single-skill", function () {
+    let $parent = $(this).parents(".skill-item");
+    $parent.remove();
 });

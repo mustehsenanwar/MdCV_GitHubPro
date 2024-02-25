@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import make_password
 from django.utils.crypto import get_random_string
 from django.db import transaction
 from resume_templates.models import Template,Variation
+from dashboard.tasks import parse_order_originalcv
 
 
 @receiver(post_save, sender=Contact)
@@ -62,6 +63,9 @@ def handle_payment_confirmation(sender, instance, **kwargs):
                     transaction_id='Your_Transaction_ID',  # Set the actual transaction ID
                     payment_method='Your_Payment_Method',  # Set the actual payment method
                 )
+
+            # celery task to parse the original cv
+            parse_order_originalcv.delay(new_order.id)
 
             # Clean-up: Delete the Contact and associated PreliminaryData
             instance.preliminary_data.all().delete()

@@ -146,20 +146,17 @@ body {
 
 /* Sidebar */
 .editor-content-header .sidebar {
-    width: 60px;
-    background: var(--editorColor);
-    padding: 0 7px;
+    display: flex;
 }
 
 .editor-content-header .sidebar .item {
     width: 100%;
-    height: 60px;
     font-size: 18px;
-    color: #fff;
+    color: var(--editorColor);
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    margin: 0 10px;
 }
 
 /* Sidebar */
@@ -174,9 +171,11 @@ body {
 }
 
 .editor-sidebar-content {
-    width: 30%;
+    width: 35%;
     background: #fff;
     border-top: none;
+    height: 80vh;
+    overflow: auto;
 }
 
 .editor-sidebar-content .content-header {
@@ -261,6 +260,8 @@ body {
     overflow: auto;
     padding: 10px 25px 36px;
     background: #f2f2f2;
+    height: 80vh;
+    overflow: auto;
 }
 
 /* The switch - the box around the slider */
@@ -460,9 +461,62 @@ body {
 
 .editor-content-header .sidebar .item i {
     font-size: 20px;
-    color: #fff;
+    color: #333;
 }
 
 #cvEditorCarousel .carousel-item.active .content-header {
     display: block !important;
+}
+
+hr {
+    border: 1px solid #ccc;
+}
+
+.f-10 {
+    font-size: 10px !important;
+}
+
+.editor-sidebar-content .degree-name {
+    background: var(--editorColor);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    color: #fff;
+    font-size: 13px;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.f-20 {
+    font-size: 20px !important;
+}
+
+.main-color {
+    color: var(--editorColor) !important;
+}
+
+.skill-item-container .skill-item {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.skill-item-container .skill-item .left {
+    width: 48%;
+}
+
+.skill-item-container .skill-item .right {
+    width: 48%;
+}
+
+.f-16 {
+    font-size: 16px !important;
+}
+
+.text-dark {
+    color: #333 !important;
 }

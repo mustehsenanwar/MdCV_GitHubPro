@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    command: gunicorn core.wsgi:application --bind 0.0.0.0:5555
+    command:  python manage.py runserver 0.0.0.0:5555
     volumes:
       - .:/app
     ports:

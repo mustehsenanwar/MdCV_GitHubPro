@@ -107,27 +107,24 @@ $(document).on('click', ".other-view-details i", function () {
 });
 
 
+// Process Order Form
 $(document).on('submit', '#processOrderForm', function (e) {
-    e.preventDefault(); // Prevent default form submission
-
-    const formData = new FormData(this);
+    e.preventDefault();
+    let formData = new FormData(this);
 
     $.ajax({
-        url: '/dashboard/allorders/', // Update this URL to the one configured for processing orders
+        url: '/dashboard/allorders/',
         type: 'POST',
         data: formData,
-        processData: false, // Important: Don't process the files
-        contentType: false, // Important: Set content type to false
+        processData: false,
+        contentType: false,
         headers: {
             'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val(),
             'X-Requested-With': 'XMLHttpRequest'
         },
         success: function (response) {
-            if (response.status === 'success') {
-                window.location.href = response.redirect_url; // Redirect to the URL provided by the server
-            } else {
-                alert(response.message); // Show an error message
-            }
+            if (response.status === 'success') window.location.href = response.redirect_url;
+            else alert(response.message);
         },
         error: function (xhr, status, error) {
             console.error('AJAX Error:', status, error);

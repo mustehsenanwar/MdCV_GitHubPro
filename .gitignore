@@ -51,4 +51,7 @@ node_modules/
 
 
 db.sqlite3
+<<<<<<< HEAD
 db.sqlite3
+=======
+>>>>>>> f3dec39c193f8fb2df460c4c4f8e181e09c59934

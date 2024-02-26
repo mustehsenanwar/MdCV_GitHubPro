@@ -520,3 +520,51 @@ hr {
 .text-dark {
     color: #333 !important;
 }
+
+.collapse-field {
+    position: relative;
+}
+
+.collapse-field input {
+    padding-right: 28px;
+}
+
+.collapse-field .icon {
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    margin-left: 10px;
+    position: absolute;
+    top: 25%;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.collapse-field .form-item {
+    width: 100%;
+}
+
+.collapse-field-items-container .field-item {
+    border: 1px solid #ccc;
+    padding: 3px 11px;
+    border-radius: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.collapse-field-items-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.collapse-field-items-container .span,
+.collapse-field-items-container i {
+    color: #333;
+}

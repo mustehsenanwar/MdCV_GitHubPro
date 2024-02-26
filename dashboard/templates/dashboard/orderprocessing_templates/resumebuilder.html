@@ -89,7 +89,7 @@
             <div class="editor-sidebar-content">
                 <div id="cvEditorCarousel" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
-                        <div class="carousel-item content-header active" data-panel="contactPanel">
+                        <div class="carousel-item content-header" data-panel="contactPanel">
                             <div>
                                 <h4 class="heading">Customer Instructions:</h4>
                                 <div class="head-item">
@@ -147,53 +147,73 @@
                                             <label for="username">Email</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" id="nattionality" class="cv-input"
-                                                data-target="nattionality" autocomplete="off"
-                                                placeholder="e.g Oct Emirati">
-                                            <label for="username">Nattionality</label>
+                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="Nattionality">
+                                        <div class="collapse-field">
+                                            <div class="form-item mb-0">
+                                                <input type="text" id="nattionality" class="cv-input"
+                                                    data-target="nattionality" autocomplete="off"
+                                                    placeholder="e.g Oct Emirati">
+                                                <label for="username">Nattionality</label>
+                                            </div>
+                                            <i class="fa fa-minus icon"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" id="merital_status" class="cv-input"
-                                                data-target="merital_status" autocomplete="off"
-                                                placeholder="Merital Status">
-                                            <label for="username">Merital Status</label>
+                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="Merital Status">
+                                        <div class="collapse-field">
+                                            <div class="form-item mb-0">
+                                                <input type="text" id="merital_status" class="cv-input"
+                                                    data-target="merital_status" autocomplete="off"
+                                                    placeholder="Merital Status">
+                                                <label for="username">Merital Status</label>
+                                            </div>
+                                            <i class="fa fa-minus icon"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" id="dob" class="cv-input" data-target="dob"
-                                                autocomplete="off" placeholder="e.g Oct 1998">
-                                            <label for="username">DOB</label>
+                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="DOB">
+                                        <div class="collapse-field">
+                                            <div class="form-item mb-0">
+                                                <input type="text" id="dob" class="cv-input" data-target="dob"
+                                                    autocomplete="off" placeholder="e.g Oct 1998">
+                                                <label for="username">DOB</label>
+                                            </div>
+                                            <i class="fa fa-minus icon"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" class="cv-input" data-target="drivingLisence"
-                                                id="driving-lisence" autocomplete="off" placeholder="e.g UAE">
-                                            <label for="username">Driving lisence</label>
+                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="Driving lisence">
+                                        <div class="collapse-field">
+                                            <div class="form-item mb-0">
+                                                <input type="text" class="cv-input" data-target="drivingLisence"
+                                                    id="driving-lisence" autocomplete="off" placeholder="e.g UAE">
+                                                <label for="username">Driving lisence</label>
+                                            </div>
+                                            <i class="fa fa-minus icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3 collapse-field-container" data-text="Linked In">
+                                        <div class="collapse-field">
+                                            <div class="form-item mb-0">
+                                                <input type="text" data-target="linkedIn" class="cv-input"
+                                                    id="linked-in" autocomplete="off"
+                                                    placeholder="http://linkedin.com/profile">
+                                                <label for="username">Linked In</label>
+                                            </div>
+                                            <i class="fa fa-minus icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 mb-3 collapse-field-container" data-text="Country">
+                                        <div class="collapse-field">
+                                            <div class="form-item mb-0">
+                                                <input type="text" data-target="country" class="cv-input" id="country"
+                                                    autocomplete="off" placeholder="e.g United Arab Emirate">
+                                                <label for="username">Country</label>
+                                            </div>
+                                            <i class="fa fa-minus icon"></i>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="form-item">
-                                            <input type="text" data-target="linkedIn" class="cv-input" id="linked-in"
-                                                autocomplete="off" placeholder="http://linkedin.com/profile">
-                                            <label for="username">Linked In</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" data-target="country" class="cv-input" id="country"
-                                                autocomplete="off" placeholder="e.g United Arab Emirate">
-                                            <label for="username">Country</label>
-                                        </div>
+                                        <div class="collapse-field-items-container"></div>
                                     </div>
                                     <div class="col-md-12 pull-right mt-4 mb-5">
-                                        <!-- <button class="carousel-control-prev btn btn-primary px-5 py-4" role="button"
-                                            data-slide="prev">Previous</button> -->
                                         <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3"
                                             role="button" data-slide="next">
                                             Save
@@ -203,7 +223,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item content-header" data-panel="educationPanel">
+                        <div class="carousel-item content-header active" data-panel="educationPanel">
                             <div>
                                 <h4 class="heading">Customer Instructions:</h4>
                                 <div class="head-item">
@@ -231,26 +251,29 @@
                                 <div class="row mt-4">
                                     <div class="col-md-12">
                                         <div class="form-item">
-                                            <input type="text" id="degree" autocomplete="off" placeholder="Degree Name">
+                                            <input type="text" class="input-fill-value" data-fill="degree"
+                                                data-section="education" autocomplete="off" placeholder="Degree Name">
                                             <label for="username">Degree</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-item">
-                                            <input type="text" id="uni" autocomplete="off" placeholder="Universty">
+                                            <input type="text" class="input-fill-value" data-fill="universty"
+                                                data-section="education" autocomplete="off" placeholder="Universty">
                                             <label for="username">Universty</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-item">
-                                            <input type="text" id="location" autocomplete="off"
-                                                placeholder="e.g Emirati">
+                                            <input type="text" class="input-fill-value" data-fill="location"
+                                                data-section="education" autocomplete="off" placeholder="e.g Emirati">
                                             <label for="username">Location</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-item">
-                                            <input type="text" id="Dates" autocomplete="off"
+                                            <input type="text" class="input-fill-value" data-fill="date"
+                                                data-section="education" autocomplete="off"
                                                 placeholder="e.g (2020-2021)">
                                             <label for="username">Dates</label>
                                         </div>
@@ -273,7 +296,9 @@
                                     </div>
                                     <div class="col-md-12">
                                         <label for="username">Description</label>
-                                        <textarea name="description" class="form-control" cols="30" rows="5"></textarea>
+                                        <textarea name="description" class="form-control input-fill-value"
+                                            data-fill="description" data-section="education" cols="30"
+                                            rows="5"></textarea>
                                     </div>
                                     <div class="col-md-12 pull-right mt-4 mb-5">
                                         <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3"
@@ -642,7 +667,7 @@
                         <span>Preview</span>
                     </div>
                 </div>
-                <div class="wrapper-container w-100">
+                <div class="wrapper-container w-100 content-center">
                     <!-- Theme 1 -->
                     <div class="cvContent">
                         <div class="pull-right">
@@ -696,42 +721,42 @@
                                                 <span data-setVal="email">testing@gmail.com</span>
                                             </span>
                                         </p>
-                                        <p class="item">
+                                        <p class="item" data-text="Nattionality">
                                             <i class="fa fa-globe"></i>
                                             <span class="text">
                                                 <b>Nationality :</b>
                                                 <span data-setVal="nattionality">Pakistan</span>
                                             </span>
                                         </p>
-                                        <p class="item">
+                                        <p class="item" data-text="Merital Status">
                                             <i class="fa fa-circle"></i>
                                             <span class="text">
                                                 <b>Merital Status :</b>
                                                 <span data-setVal="merital_status">Married</span>
                                             </span>
                                         </p>
-                                        <p class="item">
+                                        <p class="item" data-text="DOB">
                                             <i class="fa fa-calendar"></i>
                                             <span class="text">
                                                 <b>Date Of Brith :</b>
                                                 <span data-setVal="dob">SEP-1993</span>
                                             </span>
                                         </p>
-                                        <p class="item">
+                                        <p class="item" data-text="Driving lisence">
                                             <i class="fa fa-car"></i>
                                             <span class="text">
                                                 <b>Driving Lisence :</b>
                                                 <span data-setVal="drivingLisence">UAE</span>
                                             </span>
                                         </p>
-                                        <p class="item">
+                                        <p class="item" data-text="Linked In">
                                             <i class="fa fa-car"></i>
                                             <span class="text">
                                                 <b>Linked in :</b>
                                                 <span data-setVal="linkedIn">https://pk.linkedin.com/</span>
                                             </span>
                                         </p>
-                                        <p class="item">
+                                        <p class="item" data-text="Country">
                                             <i class="fa fa-car"></i>
                                             <span class="text">
                                                 <b>Country :</b>
@@ -748,36 +773,22 @@
                                 <div class="section education">
                                     <div class="sec-heading">EDUCATION</div>
                                     <div class="items pl-3">
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <span class="text">Lorem ipsum dolor sit amet, wow consectetur
-                                                adipisicing.</span>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <div>
-                                                <span class="text">Lorem ipsum dolor sit amet, wow consectetur
-                                                    adipisicing.</span>
-                                                <ul class="pl-4 mb-0">
-                                                    <li>Lorem ipsum dolor sit.</li>
-                                                    <li>Lorem ipsum dolor sit.</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <div>
-                                                <span class="text">Lorem ipsum dolor sit amet,</span>
-                                                <ul class="pl-4 mb-0">
-                                                    <li>Lorem ipsum dolor sit.</li>
-                                                    <li>Lorem ipsum dolor sit.</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <span class="text">Lorem ipsum dolor sit amet,</span>
-                                        </div>
+                                        <span class="item" data-edit="degree">
+                                            Degree
+                                        </span>
+                                        <span class="item" data-edit="universty">
+                                            universty
+                                        </span>
+                                        <span class="item" data-edit="location">
+                                            Location
+                                        </span>
+                                        <span class="item" data-edit="date">
+                                            date
+                                        </span>
+                                        <span class="item" data-edit="description">
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi explicabo
+                                            necessitatibus rem.
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="section achievements">

@@ -150,3 +150,38 @@ $(document).on("click", ".delete-single-skill", function () {
     let $parent = $(this).parents(".skill-item");
     $parent.remove();
 });
+
+// collapse field
+$(document).on("click", ".collapse-field .icon", function () {
+    let $parent = $(this).parents(".collapse-field-container"),
+        text = $parent.data("text");
+    $parent.addClass("d-none");
+    $(".collapse-field-items-container").append(`<div class="field-item" data-text="${text}">
+                                                    <i class="fa fa-plus"></i>
+                                                    <span class="pl-2">${text}</span>
+                                                </div>`);
+    // CV profile itemm
+    let $profileInfo = $(".cvContent").find(".perInfo");
+    $profileInfo.find(`.item[data-text="${text}"]`).addClass("d-none");
+});
+
+// Show collapse field
+$(document).on("click", ".collapse-field-items-container .field-item", function () {
+    let text = $(this).data("text");
+    $(`.collapse-field-container[data-text="${text}"]`).removeClass("d-none");
+    $(this).remove();
+    // CV profile itemm
+    let $profileInfo = $(".cvContent").find(".perInfo");
+    $profileInfo.find(`.item[data-text="${text}"]`).removeClass("d-none");
+});
+
+// Resume fill value
+$(document).on("change input", ".input-fill-value", function () {
+    let section = $(this).data("section"),
+        target = $(this).data("fill"),
+        value = $(this).val();
+    l(section, target, value);
+    let $cvContent = $(".cvContent");
+    $cvContent.find(`.section.${section} .item[data-edit="${target}"]`).text(value);
+    l($cvContent.find(`.section.${section} .item[data-edit="${target}"]`))
+});

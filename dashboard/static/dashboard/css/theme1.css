@@ -1,6 +1,5 @@
 .cvContent {
     position: relative;
-    zoom: 0.6;
 }
 
 .cvContent .top-right-heading {
@@ -116,6 +115,9 @@
 .cvContent .sec-con1 .section .items {
     padding-top: 15px;
     padding-left: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .cvContent .perInfo .items .item img {
@@ -255,4 +257,34 @@
     .cv-color-changer {
         display: none !important;
     }
+}
+
+/* education order */
+.cvContent .sec-con1 .section.education .items .item[data-edit="degree"] {
+    order: 1;
+    width: 48%;
+}
+
+.cvContent .sec-con1 .section.education .items .item[data-edit="universty"] {
+    order: 2;
+    width: 48%;
+    text-align: right;
+    display: inline-block;
+}
+
+.cvContent .sec-con1 .section.education .items .item[data-edit="location"] {
+    order: 3;
+    width: 48%;
+}
+
+.cvContent .sec-con1 .section.education .items .item[data-edit="date"] {
+    order: 4;
+    width: 48%;
+    text-align: right;
+    display: inline-block;
+}
+
+.cvContent .sec-con1 .section.education .items .item[data-edit="description"] {
+    order: 5;
+    width: 100%;
 }

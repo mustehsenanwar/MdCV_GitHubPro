@@ -522,22 +522,35 @@ hr {
 }
 
 .collapse-field {
-    display: flex;
-    align-items: center;
+    position: relative;
+}
+
+.collapse-field input {
+    padding-right: 28px;
 }
 
 .collapse-field .icon {
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     color: #333;
     margin-left: 10px;
+    position: absolute;
+    top: 25%;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }
 
 .collapse-field .form-item {
     width: 100%;
 }
 
-.collapse-field-container .field-item {
+.collapse-field-items-container .field-item {
     border: 1px solid #ccc;
     padding: 3px 11px;
     border-radius: 15px;
@@ -546,12 +559,12 @@ hr {
     margin-bottom: 10px;
 }
 
-.collapse-field-container {
+.collapse-field-items-container {
     display: flex;
     flex-wrap: wrap;
 }
 
-.collapse-field-container .span,
-.collapse-field-container i {
+.collapse-field-items-container .span,
+.collapse-field-items-container i {
     color: #333;
 }

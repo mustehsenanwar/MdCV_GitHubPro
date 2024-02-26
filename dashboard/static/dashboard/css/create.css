@@ -7,6 +7,12 @@
     justify-content: center;
 }
 
+.cvContent {
+    transform: scale(1);
+    width: 1150px;
+    zoom: 0.6;
+}
+
 .wrapper {
     width: 80%;
     background-color: #fff;

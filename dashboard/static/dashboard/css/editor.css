@@ -520,3 +520,38 @@ hr {
 .text-dark {
     color: #333 !important;
 }
+
+.collapse-field {
+    display: flex;
+    align-items: center;
+}
+
+.collapse-field .icon {
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+    margin-left: 10px;
+}
+
+.collapse-field .form-item {
+    width: 100%;
+}
+
+.collapse-field-container .field-item {
+    border: 1px solid #ccc;
+    padding: 3px 11px;
+    border-radius: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.collapse-field-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.collapse-field-container .span,
+.collapse-field-container i {
+    color: #333;
+}

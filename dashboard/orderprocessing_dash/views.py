@@ -98,7 +98,6 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         # Assuming 'order_id' is passed to the template context by some means
         order_id = self.kwargs.get('order_id')
-        print(order_id )
         parsed_data = OrderParse.objects.filter(order_id=order_id).first()
         finalized_data = OrderFinalizedData.objects.filter(order_id=order_id).first()
 
@@ -107,7 +106,7 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             if finalized_data:
                 data.update(finalized_data.finalized_data)  # Merge with preference to finalized data
             context['resume_data'] = data
-
+        context['order_id'] = order_id
         return context
 
     def handle_no_permission(self):
@@ -118,10 +117,13 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return super(ResumeBuilder, self).dispatch(*args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        print("post request comming")
         # Handling AJAX save request
         try:
             order_id = self.kwargs.get('order_id')
             data = json.loads(request.body)
+            print("ye order id ha")
+            print(order_id)
             finalized_data, created = OrderFinalizedData.objects.update_or_create(
                 order_id=order_id,
                 defaults={'finalized_data': data}

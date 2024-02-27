@@ -185,3 +185,41 @@ $(document).on("change input", ".input-fill-value", function () {
     $cvContent.find(`.section.${section} .item[data-edit="${target}"]`).text(value);
     l($cvContent.find(`.section.${section} .item[data-edit="${target}"]`))
 });
+
+
+
+// function fetchResumeData() {
+//     // Retrieve the order ID from your HTML, e.g., from a hidden input or another element
+//     let orderId = $("#orderId").val();  // Make sure the element with id="orderId" exists in your HTML
+
+//     // Construct the URL to which the data should be sent
+//     let url = "/dashboard/resumebuilder/" + orderId + "/";
+
+//     // Sample data to be sent to the server
+//     let dataToSend = {
+//         "Name": "Sohail"  // Replace this with actual data you want to send
+//     };
+
+//     // AJAX request
+//     $.ajax({
+//         url: url,  // URL constructed above
+//         type: "POST",  // Use POST method
+//         contentType: "application/json",  // Indicate that the data sent is JSON
+//         data: JSON.stringify(dataToSend),  // Convert the JavaScript object to a JSON string
+//         dataType: "json",  // Expect JSON in response from the server
+//         success: function(response) {
+//             // This function is called if the request succeeds
+//             // 'response' contains the data sent back by the server
+//             console.log('Success:', response);
+//         },
+//         error: function(xhr, status, error) {
+//             // This function is called if the request fails
+//             console.log('Error:', xhr.responseText);
+//         }
+//     });
+// }
+
+// // Document Ready function to ensure the script runs after the DOM is fully loaded
+// $(document).ready(function() {
+//     $("#sendDataButton").click(fetchResumeData);
+// });

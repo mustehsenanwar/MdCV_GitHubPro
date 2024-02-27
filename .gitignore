@@ -51,3 +51,11 @@ node_modules/
 
 
 db.sqlite3
+<<<<<<< HEAD
+<<<<<<< HEAD
+db.sqlite3
+=======
+>>>>>>> f3dec39c193f8fb2df460c4c4f8e181e09c59934
+=======
+>>>>>>> f3dec39c193f8fb2df460c4c4f8e181e09c59934
+db.sqlite3

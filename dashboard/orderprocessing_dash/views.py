@@ -20,10 +20,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.db import IntegrityError
-from orders.models import Order, OrderInitialData
+from orders.models import Order, OrderInitialData, OrderInitialFiles,OrderParse, OrderFinalizedData
 from django.http import JsonResponse
-from orders.models import OrderInitialFiles
 from resume_templates.models import Template, Variation
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 
@@ -80,7 +81,6 @@ class AllOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     def handle_no_permission(self):
         return HttpResponse('you are at home pge')
 
-
 class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'dashboard/orderprocessing_templates/resumebuilder.html'
 
@@ -88,26 +88,50 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         activity_tags = self.request.session.get('activity_tags', [])
         if "orderprocessing" in activity_tags:
             return True
-
         return self.request.user.is_superuser
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
         KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
-
         context['user'] = self.request.user
 
+        # Assuming 'order_id' is passed to the template context by some means
+        order_id = self.kwargs.get('order_id')
+        print(order_id )
+        parsed_data = OrderParse.objects.filter(order_id=order_id).first()
+        finalized_data = OrderFinalizedData.objects.filter(order_id=order_id).first()
+
+        if parsed_data:
+            data = parsed_data.parsed_data
+            if finalized_data:
+                data.update(finalized_data.finalized_data)  # Merge with preference to finalized data
+            context['resume_data'] = data
 
         return context
 
-
-
-
     def handle_no_permission(self):
-        return HttpResponse('you are at home pge')
+        return HttpResponse('You are at home page')
 
+    @method_decorator(csrf_exempt)  # Disable CSRF for this view, consider a better method for production
+    def dispatch(self, *args, **kwargs):
+        return super(ResumeBuilder, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        # Handling AJAX save request
+        try:
+            order_id = self.kwargs.get('order_id')
+            data = json.loads(request.body)
+            finalized_data, created = OrderFinalizedData.objects.update_or_create(
+                order_id=order_id,
+                defaults={'finalized_data': data}
+            )
+            return JsonResponse({'status': 'success', 'message': 'Data saved successfully'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': 'An error occurred while saving the data'})
+
+
+    
 
 
 class TemplateList(LoginRequiredMixin, UserPassesTestMixin, TemplateView):

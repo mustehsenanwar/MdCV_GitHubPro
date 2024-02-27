@@ -205,7 +205,7 @@ $(document).ready(function () {
 
 
 //#region Education
-function appendEducationHTML(cardType, sectionCount) {
+function appendEducationHTML(sectionCount) {
     let $cvContent = $(".cvContent");
     let $cvHTML =
         `<div class="items pl-3" data-filling="educationCard${sectionCount}">
@@ -294,8 +294,8 @@ $(document).on('click', ".add-new-card-btn", function () {
     if (sectionName == "education") {
         let cardHTML = sectionCardHTML(sectionName);
         $parent.append(cardHTML);
-        sectionCount++;
     }
+    sectionCount++;
 });
 
 // Delete Card

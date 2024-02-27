@@ -1,3 +1,6 @@
+
+
+
 // Print CV
 function printCV() {
     let $cloned = $(".viewer .wrapper").clone(),

@@ -568,3 +568,60 @@ hr {
 .collapse-field-items-container i {
     color: #333;
 }
+
+.resume-folding-card .card-header {
+    min-height: 30px !important;
+    padding: 0 1rem !important;
+    background: var(--editorColor);
+}
+
+.resume-folding-card .card-header .card-title {
+    font-size: 15px !important;
+    color: #fff;
+}
+
+.resume-folding-card .card-header.active .fold-arrow {
+    transform: rotate(180deg);
+    transition: 0.5s;
+}
+
+.resume-folding-card .card-header .fold-arrow {
+    transform: rotate(0deg);
+    transition: 0.5s;
+}
+
+.tinymce-inline-editor {
+    min-height: 100px;
+    height: auto;
+    background: var(--bg-color);
+    padding: 8px 10px;
+    border: 1px solid var(--border-color-soft);
+    font-size: 14px;
+}
+
+/* Tinymce Editor */
+.tinymce-inline-editor {
+    min-height: 100px;
+    height: auto;
+    background: var(--bg-color);
+    padding: 8px 10px;
+    border: 1px solid var(--border-color-soft);
+    font-size: 14px;
+}
+
+.add-new-card-btn,
+.add-new-card-btn i {
+    color: var(--editorColor);
+}
+
+.ai-suggestion-btn {
+    display: inline-block;
+    color: var(--editorColor);
+    font-size: 14px;
+    margin-top: 9px;
+    padding: 5px 10px;
+    background: #fff;
+    box-shadow: 0 0 10px #ccc;
+    border-radius: 7px;
+    cursor: pointer;
+}

@@ -1,4 +1,5 @@
 let l = console.log;
+let sectionCount = 1;
 
 // Document ready
 $(document).ready(function () {
@@ -116,11 +117,6 @@ $(document).ready(function () {
         }, 1000);
         return false;
     });
-
-    // tinymce editor
-    tinymce.init({
-        selector: "#kt_docs_tinymce_basic", height: "480"
-    });
 });
 
 
@@ -179,47 +175,134 @@ $(document).on("click", ".collapse-field-items-container .field-item", function 
 $(document).on("change input", ".input-fill-value", function () {
     let section = $(this).data("section"),
         target = $(this).data("fill"),
-        value = $(this).val();
-    l(section, target, value);
+        value = $(this).val(),
+        cardName = $(this).data("card");
+
     let $cvContent = $(".cvContent");
-    $cvContent.find(`.section.${section} .item[data-edit="${target}"]`).text(value);
-    l($cvContent.find(`.section.${section} .item[data-edit="${target}"]`))
+    $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`).text(value);
+    if (target == "degree") {
+        $(this).parents(".resume-folding-card").first().find(".card-title").text(value);
+    }
+});
+
+// Fetch resume data
+function fetchResumeData() {
+    let orderId = $("#orderId").val();
+
+    $.ajax({
+        url: "/dashboard/resumebuilder/" + orderId + "/",
+        method: "POST",
+        dataType: "json",
+        data: JSON.stringify({ "Name": "sohail" }),
+        contentType: "application/json",
+        success: function (res) { },
+    });
+}
+// Document Ready fn
+$(document).ready(function () {
+    fetchResumeData();
 });
 
 
+//#region Education
+function appendEducationHTML(sectionCount) {
+    let $cvContent = $(".cvContent");
+    let $cvHTML =
+        `<div class="items pl-3" data-filling="educationCard${sectionCount}">
+            <span class="item" data-edit="degree"></span>
+            <span class="item" data-edit="universty"></span>
+            <span class="item" data-edit="location"></span>
+            <span class="item" data-edit="date"></span>
+            <span class="item" data-edit="description"></span>
+        </div>`;
+    $cvContent.find(`.section.education`).append($cvHTML);
+}
 
-// function fetchResumeData() {
-//     // Retrieve the order ID from your HTML, e.g., from a hidden input or another element
-//     let orderId = $("#orderId").val();  // Make sure the element with id="orderId" exists in your HTML
+function sectionCardHTML(cardType) {
+    let cardHTML =
+        `<div class="card shadow-sm resume-folding-card mb-3">
+            <div class="card-header collapsible cursor-pointer rotate active"
+                data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
+                <h3 class="card-title"></h3>
+                <div class="content-center">
+                    <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
+                    <div class="card-toolbar">
+                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="${cardType}Card${sectionCount}" class="collapse show">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="degree" data-section="education"
+                                    autocomplete="off" placeholder="Degree Name">
+                                <label for="username">Degree</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="universty" data-section="education"
+                                    autocomplete="off" placeholder="Universty">
+                                <label for="username">Universty</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="location" data-section="education"
+                                    autocomplete="off" placeholder="e.g Emirati">
+                                <label for="username">Location</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
+                                    data-section="education" autocomplete="off"
+                                    placeholder="e.g (2020-2021)">
+                                <label for="username">Dates</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="username">Description</label>
+                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                                class="form-control input-fill-value"
+                                data-fill="description" data-section="education" cols="30"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="ai-suggestion-btn">AI Suggestions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    if (cardType == "education") {
+        appendEducationHTML(sectionCount);
+    }
+    return cardHTML;
+}
+//#endregion Education
 
-//     // Construct the URL to which the data should be sent
-//     let url = "/dashboard/resumebuilder/" + orderId + "/";
+// Multiple cards add
+$(document).on('click', ".add-new-card-btn", function () {
+    let sectionName = $(this).data("add-section");
+    $parent = $(this).parents(`.${sectionName}-container`).find(".cards");
+    if (sectionName == "education") {
+        let cardHTML = sectionCardHTML(sectionName);
+        $parent.append(cardHTML);
+    }
+    sectionCount++;
+});
 
-//     // Sample data to be sent to the server
-//     let dataToSend = {
-//         "Name": "Sohail"  // Replace this with actual data you want to send
-//     };
-
-//     // AJAX request
-//     $.ajax({
-//         url: url,  // URL constructed above
-//         type: "POST",  // Use POST method
-//         contentType: "application/json",  // Indicate that the data sent is JSON
-//         data: JSON.stringify(dataToSend),  // Convert the JavaScript object to a JSON string
-//         dataType: "json",  // Expect JSON in response from the server
-//         success: function(response) {
-//             // This function is called if the request succeeds
-//             // 'response' contains the data sent back by the server
-//             console.log('Success:', response);
-//         },
-//         error: function(xhr, status, error) {
-//             // This function is called if the request fails
-//             console.log('Error:', xhr.responseText);
-//         }
-//     });
-// }
-
-// // Document Ready function to ensure the script runs after the DOM is fully loaded
-// $(document).ready(function() {
-//     $("#sendDataButton").click(fetchResumeData);
-// });
+// Delete Card
+$(document).on('click', ".delete-card-item", function () {
+    let deleteTarget = $(this).data("delete"),
+        card = $(this).data("card"),
+        $cvContent = $(".cvContent");
+    $(this).parents(".resume-folding-card").first().remove();
+    $cvContent.find(`.section.${card} .items[data-filling="${deleteTarget}"]`).remove();
+});

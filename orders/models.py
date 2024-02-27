@@ -56,3 +56,17 @@ class OrderParse(models.Model):
 
     def __str__(self):
         return f"Parsed Data for Order {self.order.id}"
+
+
+class OrderFinalizedData(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='finalized_data')
+    finalized_data = models.JSONField(default=dict, blank=True, help_text='Stores the finalized CV data as JSON.')
+    status = models.CharField(max_length=20, default='draft', choices=[
+        ('draft', 'Draft'),  # Data is still being edited
+        ('review', 'Review'),  # Data is under review
+        ('finalized', 'Finalized'),  # Data editing is completed and finalized
+    ])
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Finalized Data for Order {self.order.id}"

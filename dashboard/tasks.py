@@ -1,15 +1,6 @@
 from celery import shared_task
 from orders.models import Order, OrderInitialFiles, OrderParse
 
-# @shared_task
-# def parse_cv(cv_path):
-#     # Your logic to parse the CV using GPT API or other methods
-#     time.sleep(20)
-#     pass
-
-
-
-
 @shared_task
 def parse_order_originalcv(order_id):
     order = Order.objects.get(id=order_id)
@@ -19,7 +10,36 @@ def parse_order_originalcv(order_id):
         cv_file = cv_files.first()  # Assuming one CV per order; adjust logic if multiple CVs are possible
         # Implement your CV parsing logic here, possibly setting parse_status to 'processing'
         try:
-            parsed_data = {'name':'mustehsen'}  # Replace with actual parsing result
+            parsed_data =  {{
+            "name": "Mustehsen",
+            "PersonalInfo": {{
+                "Phone": "+971555555",
+                "Email": "engrmustehsen@gmail.com",
+                "Nationality": "Pakistani",
+                "VisaType": "Employment",
+                "DOB": "July-1995",
+                "DrivingLicense": "UAE"
+            }},
+            "Educations": [
+                {{
+                    "University": "University of Engineering & technology",
+                    "DegreeName": "Mechatronics & Control Engineering",
+                    "Location": "Lahore",
+                    "Date": "2012-2016"
+                }}
+            ],
+            "JobHeadings": [
+                {{
+                    "CompanyName": "Company 1",
+                    "Position": "MEP engineer",
+                    "Date": "2016",
+                    "Location": "Dubai"
+                }}
+            ],
+            "YearsOfExperience": "6 Years",
+            "Language": "English,Urdu",
+            "Hobbies": "Playing, reading,"
+        }}  # Replace with actual parsing result
             # Save parsed data to OrderParse model
             OrderParse.objects.create(
                 order=order,

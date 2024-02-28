@@ -49,7 +49,7 @@ def construct_messages(resume_text):
         {"role": "user", "content": prompt}
     ]
 def generate_response_with_openai(resume_text):
-    client = openai.OpenAI(api_key="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")
+    client = openai.OpenAI(api_key="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")
     message = construct_messages(resume_text)
     chat_completion = client.chat.completions.create(
         messages= message,
@@ -82,3 +82,10 @@ def pdfparser(request):
             return render(request, 'fileparser/pdfparser.html', context=context)
     # For GET requests or if there's no uploaded file in the POST request
     return render(request, 'fileparser/pdfparser.html')
+
+
+
+
+
+def texteditor(request):
+    return render(request, 'texteditor.html')

@@ -180,7 +180,7 @@ $(document).on("change input", ".input-fill-value", function () {
 
     let $cvContent = $(".cvContent");
     $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`).text(value);
-    if (target == "degree") {
+    if (target == "degree" || target == "designation" || target == "certificate" || target == "skill") {
         $(this).parents(".resume-folding-card").first().find(".card-title").text(value);
     }
 });
@@ -269,7 +269,7 @@ function appendEducationHTML(sectionCount) {
     $cvContent.find(`.section.education`).append($cvHTML);
 }
 
-function sectionCardHTML(cardType) {
+function educationSectionCardHTML(cardType) {
     let cardHTML =
         `<div class="card shadow-sm resume-folding-card mb-3">
             <div class="card-header collapsible cursor-pointer rotate active"
@@ -338,13 +338,244 @@ function sectionCardHTML(cardType) {
 }
 //#endregion Education
 
+//#region Experience 
+function appendExprienceHTML(sectionCount) {
+    let $cvContent = $(".cvContent");
+    let $cvHTML =
+        `<div class="items pl-3 mt-3" data-filling="experienceCard${sectionCount}">
+            <span class="item" data-edit="designation"></span>
+            <span class="item" data-edit="company-name"></span>
+            <span class="item" data-edit="location"></span>
+            <span class="item" data-edit="date"></span>
+            <span class="item" data-edit="description"></span>
+        </div>`;
+    $cvContent.find(`.section.experience .content`).append($cvHTML);
+}
+
+function expriencesectionCardHTML(cardType) {
+    let cardHTML =
+        `<div class="card shadow-sm resume-folding-card mb-3">
+            <div class="card-header collapsible cursor-pointer rotate active"
+                data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
+                <h3 class="card-title"></h3>
+                <div class="content-center">
+                    <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
+                    <div class="card-toolbar">
+                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="${cardType}Card${sectionCount}" class="collapse show">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="designation" data-section="experience"
+                                    autocomplete="off" placeholder="Designation">
+                                <label for="username">Designation</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="company-name" data-section="experience"
+                                    autocomplete="off" placeholder="Company Name">
+                                <label for="username">Company Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="location" data-section="experience"
+                                    autocomplete="off" placeholder="e.g Emirati">
+                                <label for="username">Location</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
+                                    data-section="experience" autocomplete="off"
+                                    placeholder="e.g (2020-2021)">
+                                <label for="username">Dates</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="username">Description</label>
+                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                                class="form-control input-fill-value"
+                                data-fill="description" data-section="experience" cols="30"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="ai-suggestion-btn">AI Suggestions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    if (cardType == "experience") {
+        appendExprienceHTML(sectionCount);
+    }
+    return cardHTML;
+}
+//#endregion Experience 
+
+//#region certificates
+function appendCertificatesHTML(sectionCount) {
+    let $cvContent = $(".cvContent");
+    let $cvHTML =
+        `<div class="items pl-3 mt-3" data-filling="certificatesCard${sectionCount}">
+            <span class="item" data-edit="certificate"></span>
+            <span class="item" data-edit="organization"></span>
+            <span class="item" data-edit="location"></span>
+            <span class="item" data-edit="date"></span>
+            <span class="item" data-edit="description"></span>
+        </div>`;
+    $cvContent.find(`.section.certificates .content`).append($cvHTML);
+}
+
+function certificateSectionCardHTML(cardType) {
+    let cardHTML =
+        `<div class="card shadow-sm resume-folding-card mb-3">
+            <div class="card-header collapsible cursor-pointer rotate active"
+                data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
+                <h3 class="card-title"></h3>
+                <div class="content-center">
+                    <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
+                    <div class="card-toolbar">
+                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="${cardType}Card${sectionCount}" class="collapse show">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="certificate" data-section="certificates"
+                                    autocomplete="off" placeholder="Certificate">
+                                <label for="username">Certificate</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="organization" data-section="certificates"
+                                    autocomplete="off" placeholder="Organization">
+                                <label for="username">Organization</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="location" data-section="certificates"
+                                    autocomplete="off" placeholder="e.g Emirati">
+                                <label for="username">Location</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
+                                    data-section="certificates" autocomplete="off"
+                                    placeholder="e.g (2020-2021)">
+                                <label for="username">Dates</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="username">Description</label>
+                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                                class="form-control input-fill-value"
+                                data-fill="description" data-section="certificates" cols="30"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="ai-suggestion-btn">AI Suggestions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    if (cardType == "certificates") {
+        appendCertificatesHTML(sectionCount);
+    }
+    return cardHTML;
+}
+//#endregion certificates 
+//#region soft skill
+function appendSoftSkillHTML(sectionCount) {
+    let $cvContent = $(".cvContent");
+    let $cvHTML =
+        `<div class="items pl-3 mt-3" data-filling="certificatesCard${sectionCount}">
+            <span class="item" data-edit="certificate"></span>
+            <span class="item" data-edit="organization"></span>
+            <span class="item" data-edit="location"></span>
+            <span class="item" data-edit="date"></span>
+            <span class="item" data-edit="description"></span>
+        </div>`;
+    $cvContent.find(`.section.certificates .content`).append($cvHTML);
+}
+
+function softSkillSectionCardHTML(cardType) {
+    let cardHTML =
+        `<div class="card shadow-sm resume-folding-card mb-3">
+            <div class="card-header collapsible cursor-pointer rotate active"
+                data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
+                <h3 class="card-title"></h3>
+                <div class="content-center">
+                    <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
+                    <div class="card-toolbar">
+                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="${cardType}Card${sectionCount}" class="collapse show">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="skill" data-section="softSkill"
+                                    autocomplete="off" placeholder="Skill">
+                                <label for="username">Skill</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="username">Description</label>
+                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                                class="form-control input-fill-value"
+                                data-fill="description" data-section="softSkill" cols="30"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="ai-suggestion-btn">AI Suggestions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    if (cardType == "softSkill") {
+        appendSoftSkillHTML(sectionCount);
+    }
+    return cardHTML;
+}
+//#endregion soft skill 
+
+
 // Multiple cards add
 $(document).on('click', ".add-new-card-btn", function () {
     let sectionName = $(this).data("add-section");
     $parent = $(this).parents(`.${sectionName}-container`).find(".cards");
     if (sectionName == "education") {
-        let cardHTML = sectionCardHTML(sectionName);
+        let cardHTML = educationSectionCardHTML(sectionName);
         $parent.append(cardHTML);
+    } else if (sectionName == "experience") {
+        $parent.append(expriencesectionCardHTML(sectionName));
+    } else if (sectionName == "certificates") {
+        $parent.append(certificateSectionCardHTML(sectionName));
+    } else if (sectionName == "softSkill") {
+        $parent.append(softSkillSectionCardHTML(sectionName));
     }
     sectionCount++;
 });

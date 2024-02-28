@@ -288,3 +288,104 @@
     order: 5;
     width: 100%;
 }
+
+/* education order */
+
+/* education order */
+.cvContent .section.education .items .item[data-edit="degree"] {
+    order: 1;
+    width: 48%;
+}
+
+.cvContent .section.education .items .item[data-edit="universty"] {
+    order: 2;
+    width: 48%;
+    text-align: right;
+    display: inline-block;
+}
+
+.cvContent .section.education .items .item[data-edit="location"] {
+    order: 3;
+    width: 48%;
+}
+
+.cvContent .section.education .items .item[data-edit="date"] {
+    order: 4;
+    width: 48%;
+    text-align: right;
+    display: inline-block;
+}
+
+.cvContent .section.education .items .item[data-edit="description"] {
+    order: 5;
+    width: 100%;
+}
+
+/* education order */
+
+
+/* Exprience order */
+.cvContent .section.experience .items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cvContent .section.experience .items .item[data-edit="designation"] {
+    order: 1;
+    width: 100%;
+}
+
+.cvContent .section.experience .items .item[data-edit="company-name"] {
+    order: 2;
+    width: 100%;
+}
+
+.cvContent .section.experience .items .item[data-edit="location"] {
+    order: 3;
+    width: 100%;
+}
+
+.cvContent .section.experience .items .item[data-edit="date"] {
+    order: 4;
+    width: 100%;
+}
+
+.cvContent .section.experience .items .item[data-edit="description"] {
+    order: 5;
+    width: 100%;
+}
+
+/* Exprience order */
+
+/* certificates order */
+.cvContent .section.certificates .items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cvContent .section.certificates .items .item[data-edit="certificate"] {
+    order: 1;
+    width: 100%;
+}
+
+.cvContent .section.certificates .items .item[data-edit="organization"] {
+    order: 2;
+    width: 100%;
+}
+
+.cvContent .section.certificates .items .item[data-edit="location"] {
+    order: 3;
+    width: 100%;
+}
+
+.cvContent .section.certificates .items .item[data-edit="date"] {
+    order: 4;
+    width: 100%;
+}
+
+.cvContent .section.certificates .items .item[data-edit="description"] {
+    order: 5;
+    width: 100%;
+}
+
+/* certificates order */

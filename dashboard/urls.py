@@ -3,6 +3,8 @@ from dashboard.admin_dash import views as admin_dash_views
 from dashboard.orderprocessing_dash import views as orderprocessing_dash_views
 from dashboard.salesmarketing_dash import views as salesmarketing_dash_views
 
+from dashboard.test import views as test_views
+
 
 
 app_name = 'dashboard'
@@ -23,5 +25,10 @@ urlpatterns = [
     path('resumebuilder/<int:order_id>/', orderprocessing_dash_views.ResumeBuilder.as_view(template_name='dashboard/orderprocessing_templates/resumebuilder.html'), name='resumebuilder'),
     path('template_list/<int:order_id>/', orderprocessing_dash_views.TemplateList.as_view(template_name='dashboard/orderprocessing_templates/template_list.html'), name='template_list'),
     path('create_new_template/', orderprocessing_dash_views.CreateNewTemplate.as_view(template_name = 'dashboard/orderprocessing_templates/create_new_template.html'), name='create_new_template'),
+    
+    
+    
+    path('test/',test_views.parse_order_originalcv),
+    
     # aftersales urls
 ]

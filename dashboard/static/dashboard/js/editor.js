@@ -191,7 +191,7 @@ $(document).on("change input", ".input-fill-value", function () {
 function handleResumeData(orderId, action, additionalData = {}) {
     let data = {
         action: action,  // 'fetch' or 'update'
-        ...additionalData
+        ...additionalData  
     };
 
     $.ajax({
@@ -216,8 +216,8 @@ $(document).ready(function () {
     // To fetch resume data
     handleResumeData(orderId, 'fetch');
     // To update the data 
-    $(".ai-suggestion-btn").click(function () {
-        handleResumeData(orderId, 'update', { resumeData: { "name": "mustehesn" } });
+    $(".ai-suggestion-btn").click(function() {
+        handleResumeData(orderId, 'update', { resumeData: {"name": "mustehesn"} });
     });
 
 });

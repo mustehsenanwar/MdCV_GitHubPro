@@ -25,6 +25,7 @@ from django.http import JsonResponse
 from resume_templates.models import Template, Variation
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+import json
 
 
 
@@ -98,7 +99,6 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         # Assuming 'order_id' is passed to the template context by some means
         order_id = self.kwargs.get('order_id')
-        print(order_id )
         parsed_data = OrderParse.objects.filter(order_id=order_id).first()
         finalized_data = OrderFinalizedData.objects.filter(order_id=order_id).first()
 
@@ -107,7 +107,7 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             if finalized_data:
                 data.update(finalized_data.finalized_data)  # Merge with preference to finalized data
             context['resume_data'] = data
-
+        context['order_id'] = order_id
         return context
 
     def handle_no_permission(self):
@@ -118,17 +118,75 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return super(ResumeBuilder, self).dispatch(*args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        # Handling AJAX save request
         try:
-            order_id = self.kwargs.get('order_id')
             data = json.loads(request.body)
-            finalized_data, created = OrderFinalizedData.objects.update_or_create(
-                order_id=order_id,
-                defaults={'finalized_data': data}
-            )
-            return JsonResponse({'status': 'success', 'message': 'Data saved successfully'})
+            action = data.get('action')
+
+            if action == 'fetch':
+                print("i am fetching")
+                # Retrieve 'order_id' from the URL kwargs or request body
+                order_id = self.kwargs.get('order_id') or data.get('order_id')
+
+                try:
+                    order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)
+                    resume_data = order_finalized_data.finalized_data  # This is a JSON field
+                    print(resume_data)
+                    return JsonResponse({'status': 'success', 'action': 'fetch', 'data': resume_data})
+                except ObjectDoesNotExist:
+                    return JsonResponse({'status': 'error', 'message': f'Order with id {order_id} not found'}, status=404)
+
+
+            elif action == 'update':
+                # Handle update action
+                # Update the resume data based on your logic and the provided data
+                # update_data = data.get('resumeData')
+                print("i am updating")
+                order_id = self.kwargs.get('order_id') or data.get('order_id')  # Assuming order_id is passed in the URL
+                update_data = data.get('resumeData')  # Your new resume data in the request body
+
+                # Find the OrderFinalizedData instance
+                try:
+                    order_finalized_data = OrderFinalizedData.objects.get(order_id=order_id)
+                    # Update the finalized_data field with new data
+                    order_finalized_data.finalized_data = update_data
+                    order_finalized_data.save()  # Don't forget to save the changes
+
+                    return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
+
+                except ObjectDoesNotExist:
+                    return JsonResponse({'status': 'error', 'message': 'Order not found'}, status=404)
+
+            else:
+                # Handle unknown action
+                return JsonResponse({'status': 'error', 'message': 'Unknown action'}, status=400)
+
         except Exception as e:
-            return JsonResponse({'status': 'error', 'message': 'An error occurred while saving the data'})
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+
+
+
+
+
+
+
+
+
+
+    # def post(self, request, *args, **kwargs):
+    #     # Handling AJAX save request
+    #     try:
+            # order_id = self.kwargs.get('order_id')
+            # data = json.loads(request.body)
+            # finalized_data, created = OrderFinalizedData.objects.update_or_create(
+            #     order_id=order_id,
+            #     defaults={'finalized_data': data}
+            # )
+    #         return JsonResponse({'status': 'success', 'message': 'Data saved successfully'})
+    #     except Exception as e:
+    #         print(e)
+    #         return JsonResponse({'status': 'error', 'message': 'An error occurred while saving the data'})
 
 
     

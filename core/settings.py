@@ -155,8 +155,11 @@ CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 
-
+# pdf viwer
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+
 
 
 # Default primary key field type

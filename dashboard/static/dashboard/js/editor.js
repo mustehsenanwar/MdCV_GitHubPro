@@ -186,22 +186,73 @@ $(document).on("change input", ".input-fill-value", function () {
 });
 
 // Fetch resume data
-function fetchResumeData() {
-    let orderId = $("#orderId").val();
+
+
+function handleResumeData(orderId, action, additionalData = {}) {
+    let data = {
+        action: action,  // 'fetch' or 'update'
+        ...additionalData  
+    };
 
     $.ajax({
         url: "/dashboard/resumebuilder/" + orderId + "/",
         method: "POST",
         dataType: "json",
-        data: JSON.stringify({ "Name": "sohail" }),
         contentType: "application/json",
-        success: function (res) { },
+        data: JSON.stringify(data),
+        success: function (res) {
+            console.log(res);
+        },
+        error: function (err) {
+            console.error("Error processing request:", err);
+        }
     });
 }
-// Document Ready fn
+
+// Document Ready function
 $(document).ready(function () {
-    fetchResumeData();
+    let orderId = $("#orderId").val();
+
+    // To fetch resume data
+    handleResumeData(orderId, 'fetch');
+    // To update the data 
+    $(".ai-suggestion-btn").click(function() {
+        handleResumeData(orderId, 'update', { resumeData: {"name": "mustehesn"} });
+    });
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function fetchResumeData() {
+//     let orderId = $("#orderId").val();
+
+//     $.ajax({
+//         url: "/dashboard/resumebuilder/" + orderId + "/",
+//         method: "POST",
+//         dataType: "json",
+//         data: JSON.stringify({ "Name": "sohail" }),
+//         contentType: "application/json",
+//         success: function (res) { },
+//     });
+// }
+// // Document Ready fn
+// $(document).ready(function () {
+//     fetchResumeData();
+// });
 
 
 //#region Education

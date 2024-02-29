@@ -552,7 +552,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item content-header active" data-panel="softSkillPanel">
+                        <div class="carousel-item content-header" data-panel="softSkillPanel">
                             <div>
                                 <h4 class="heading">Customer Instructions:</h4>
                                 <div class="head-item">
@@ -636,7 +636,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item content-header" data-panel="proSkillPanel">
+                        <div class="carousel-item content-header " data-panel="proSkillPanel">
                             <div>
                                 <h4 class="heading">Customer Instructions:</h4>
                                 <div class="head-item">
@@ -658,19 +658,23 @@
                                             <div class="skill-item mb-3">
                                                 <div class="left">
                                                     <div class="form-item mb-0">
-                                                        <input type="text" id="Skill" autocomplete="off"
-                                                            placeholder="Skill">
+                                                        <input type="text" class="fill-item-value" data-section="skills"
+                                                            data-card="proSkillCard" value="Project Management"
+                                                            data-fill="text" autocomplete="off" placeholder="Skill">
                                                         <label for="username">Skill</label>
                                                     </div>
                                                 </div>
                                                 <div class="right d-flex">
-                                                    <input type="range" class="w-100">
-                                                    <i
-                                                        class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill"></i>
+                                                    <input type="range" class="w-100 fill-item-value"
+                                                        data-section="skills" data-card="proSkillCard"
+                                                        data-fill="progress" min="1" max="100" value="50">
+                                                    <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill"
+                                                        data-delete="proSkillCard" data-section="skills"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="add-skill-btn cp">
+                                        <div class="add-skill-btn cp" data-section="skills" data-card="proSkillCard"
+                                            data-text="Skill">
                                             <i class="fa fa-plus-circle main-color"></i>
                                             <span class="main-color">Add Skill</span>
                                         </div>
@@ -690,7 +694,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item content-header" data-panel="languagePanel">
+                        <div class="carousel-item content-header active" data-panel="languagePanel">
                             <div>
                                 <h4 class="heading">Customer Instructions:</h4>
                                 <div class="head-item">
@@ -712,21 +716,25 @@
                                             <div class="skill-item mb-3">
                                                 <div class="left">
                                                     <div class="form-item mb-0">
-                                                        <input type="text" id="Skill" autocomplete="off"
-                                                            placeholder="Skill">
-                                                        <label for="username">Skill</label>
+                                                        <input type="text" value="English" class="fill-item-value"
+                                                            data-section="languages" autocomplete="off" data-fill="text"
+                                                            data-card="languagesCard" placeholder="Languages">
+                                                        <label for="username">Languages</label>
                                                     </div>
                                                 </div>
                                                 <div class="right d-flex">
-                                                    <input type="range" class="w-100">
+                                                    <input type="range" class="w-100 fill-item-value" min="1" max="100"
+                                                        value="50" data-section="languages" autocomplete="off"
+                                                        data-fill="progress" data-card="languagesCard">
                                                     <i
                                                         class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="add-skill-btn cp">
+                                        <div class="add-skill-btn cp" data-section="languages" data-card="languagesCard"
+                                            data-text="Language">
                                             <i class="fa fa-plus-circle main-color"></i>
-                                            <span class="main-color">Add Skill</span>
+                                            <span class="main-color">Add Language</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 pull-right mt-4 mb-5">
@@ -918,83 +926,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="section soft-skills">
+                                <div class="section softSkill">
                                     <div class="sec-heading">SOFT SKILLS</div>
-                                    <div class="items pl-3">
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <span class="text">Lorem ipsum dolor sit amet, wow consectetur
-                                                adipisicing.</span>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <div>
-                                                <span class="text">Lorem ipsum dolor sit amet, wow consectetur
-                                                    adipisicing.</span>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <div>
-                                                <span class="text">Lorem ipsum dolor sit amet, wow consectetur
-                                                    adipisicing.</span>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <span class="text">Lorem ipsum dolor sit amet, wow consectetur
-                                                adipisicing.</span>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <span class="text">Lorem ipsum dolor sit amet, wow consectetur
-                                                adipisicing.</span>
-                                        </div>
+                                    <div class="items pl-3" data-filling="softSkillCard">
+                                        <div class="item" data-edit="skill">Skill</div>
+                                        <div class="item" data-edit="description">Lorem ipsum dolor sit amet
+                                            consectetur, adipisicing elit. Iste, voluptas.</div>
                                     </div>
                                 </div>
                                 <div class="section languages">
                                     <div class="sec-heading">LANGUAGES</div>
                                     <div class="items pl-3">
-                                        <div class="item">
+                                        <div class="item" data-filling="languagesCard">
                                             <i class="fa fa-circle"></i>
                                             <div class="w-100 pull-away pr-5">
-                                                <span class="text">English</span>
+                                                <span class="text" data-edit="text">English</span>
                                                 <div class=" progress">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                        aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <div class="w-100 pull-away pr-5">
-                                                <span class="text">Malayalam</span>
-                                                <div class=" progress">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                        aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <div class="w-100 pull-away pr-5">
-                                                <span class="text">Tamil</span>
-                                                <div class=" progress">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                        aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="fa fa-circle"></i>
-                                            <div class="w-100 pull-away pr-5">
-                                                <span class="text">Hindi</span>
-                                                <div class=" progress">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                        aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                                    <div class="progress-bar" data-edit="progress" role="progressbar"
+                                                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width:70%">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1053,112 +1003,15 @@
                                     <div class="sec-heading">PROFESSIONAL SKILLS</div>
                                     <div class="content mt-4">
                                         <div class="items ml-5">
-                                            <div class="item">
+                                            <div class="item" data-filling="proSkillCard">
                                                 <div class="skill-item">
                                                     <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                                        <div class="progress-bar" data-edit="progress"
+                                                            role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                                                            aria-valuemax="100" style="width:70%">
                                                         </div>
                                                     </div>
-                                                    <span class="text">Project Management</span>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class=" progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Interpersonal</span>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="skill-item">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Strong Negotation Skills</span>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class=" progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Analytical Thingking</span>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="skill-item">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:30%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Problem-Solving Abilities</span>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class=" progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Attention to Safety Cuiture</span>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="skill-item">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Risk Management</span>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class=" progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Communication Skills</span>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="skill-item">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Stakeholder Engagements</span>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class=" progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Adaptanbbility</span>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="skill-item">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:90%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Conficit Resolution</span>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class=" progress">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text">Ethical Conduct</span>
+                                                    <span class="text" data-edit="text">Project Management</span>
                                                 </div>
                                             </div>
                                         </div>

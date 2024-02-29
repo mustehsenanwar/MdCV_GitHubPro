@@ -1,5 +1,6 @@
 let l = console.log;
 let sectionCount = 1;
+let cvMainContent = $(".cvContent");
 
 // Document ready
 $(document).ready(function () {
@@ -119,32 +120,98 @@ $(document).ready(function () {
     });
 });
 
+// PROFESSIONAL SKILLS
+function addProfessionalSkillItem(count) {
+    let skillHTML =
+        `<div class="item" data-filling="proSkillCard${count}">
+            <div class="skill-item">
+                <div class="progress">
+                    <div class="progress-bar" data-edit="progress"
+                        role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                        aria-valuemax="100" style="width:70%">
+                    </div>
+                </div>
+                <span class="text" data-edit="text"></span>
+            </div>
+        </div>`;
+    cvMainContent.find(`.section.skills .items`).append(skillHTML);
+}
+
+// Add Language fn
+function addLanguageSkillItem(count) {
+    let languageHtml =
+        `<div class="item" data-filling="languagesCard${count}">
+            <i class="fa fa-circle"></i>
+            <div class="w-100 pull-away pr-5">
+                <span class="text" data-edit="text"></span>
+                <div class=" progress">
+                    <div class="progress-bar" data-edit="progress" role="progressbar"
+                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                        style="width:70%">
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    cvMainContent.find(`.section.languages .items`).append(languageHtml);
+}
 
 // Add Skill button
 $(document).on("click", ".add-skill-btn", function () {
-    let $parent = $(this).parents(".skill-container");
+    let $parent = $(this).parents(".skill-container"),
+        cardTarget = $(this).data("card"),
+        text = $(this).data("text"),
+        section = $(this).data("section");
     let skillHTML =
         `<div class="skill-item mb-3">
             <div class="left">
                 <div class="form-item mb-0">
-                    <input type="text" id="skill" autocomplete="off"
-                        placeholder="Skill">
-                    <label for="username">Skill</label>
+                    <input type="text" class="fill-item-value" data-section="${section}"
+                    data-card="${cardTarget}${sectionCount}" data-fill="text" autocomplete="off"
+                    placeholder="${text}">
+                    <label for="username">${text}</label>
                 </div>
             </div>
             <div class="right d-flex">
-                <input type="range" class="w-100">
-                <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill"></i>
+                <input type="range" class="w-100 fill-item-value"
+                data-section="${section}" data-card="${cardTarget}${sectionCount}"
+                data-fill="progress" min="1" max="100" value="50">
+                <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill" data-delete="${cardTarget}${sectionCount}" data-section="${section}"></i>
             </div>
         </div>`;
     $parent.find(".skill-item-container").append(skillHTML);
-})
+    if (section == "languages") {
+        addLanguageSkillItem(sectionCount);
+    } else if (section == "skills") {
+        addProfessionalSkillItem(sectionCount);
+    }
+    sectionCount++;
+});
+
+// skill value fill
+$(document).on('change input', ".fill-item-value", function () {
+    let section = $(this).data("section"),
+        targetCard = $(this).data("card"),
+        fillVal = $(this).data("fill"),
+        $section = cvMainContent.find(`.section.${section}`);
+    let $targetEle = $section.find(`.item[data-filling="${targetCard}"] [data-edit="${fillVal}"]`);
+    let value = $(this).val();
+    l($section.find(`.item[data-filling="${targetCard}"`));
+    if (fillVal == "text") {
+        $targetEle.text(value);
+    } else {
+        $targetEle.css({ "width": value + "%" })
+    }
+});
 
 
 // Remove Single Skill
 $(document).on("click", ".delete-single-skill", function () {
     let $parent = $(this).parents(".skill-item");
     $parent.remove();
+    // remove cv item
+    let section = $(this).data("section"),
+        target = $(this).data("delete");
+    cvMainContent.find(`.section.${section} .item[data-filling="${target}"]`).remove();
 });
 
 // collapse field
@@ -191,7 +258,7 @@ $(document).on("change input", ".input-fill-value", function () {
 function handleResumeData(orderId, action, additionalData = {}) {
     let data = {
         action: action,  // 'fetch' or 'update'
-        ...additionalData  
+        ...additionalData
     };
 
     $.ajax({
@@ -216,8 +283,8 @@ $(document).ready(function () {
     // To fetch resume data
     handleResumeData(orderId, 'fetch');
     // To update the data 
-    $(".ai-suggestion-btn").click(function() {
-        handleResumeData(orderId, 'update', { resumeData: {"name": "mustehesn"} });
+    $(".ai-suggestion-btn").click(function () {
+        handleResumeData(orderId, 'update', { resumeData: { "name": "mustehesn" } });
     });
 
 });
@@ -507,14 +574,11 @@ function certificateSectionCardHTML(cardType) {
 function appendSoftSkillHTML(sectionCount) {
     let $cvContent = $(".cvContent");
     let $cvHTML =
-        `<div class="items pl-3 mt-3" data-filling="certificatesCard${sectionCount}">
-            <span class="item" data-edit="certificate"></span>
-            <span class="item" data-edit="organization"></span>
-            <span class="item" data-edit="location"></span>
-            <span class="item" data-edit="date"></span>
+        `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="softSkillCard${sectionCount}">
+            <span class="item" data-edit="skill"></span>
             <span class="item" data-edit="description"></span>
         </div>`;
-    $cvContent.find(`.section.certificates .content`).append($cvHTML);
+    $cvContent.find(`.section.softSkill`).append($cvHTML);
 }
 
 function softSkillSectionCardHTML(cardType) {

@@ -20,7 +20,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.db import IntegrityError
-from orders.models import Order, OrderInitialData, OrderInitialFiles,OrderParse, OrderFinalizedData
+from orders.models import Order,OrderStatusUpdate, OrderInitialData, OrderInitialFiles,OrderParse, OrderFinalizedData
 from django.http import JsonResponse
 from resume_templates.models import Template, Variation
 from django.views.decorators.csrf import csrf_exempt
@@ -28,7 +28,37 @@ from django.utils.decorators import method_decorator
 import json
 
 
+class MyOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    # Default template file
+    # Refer to dashboards/urls.py file for more pages and template files
+    template_name = 'dashboard/orderprocessing_templates/myorders.html'
 
+    def test_func(self):
+        activity_tags = self.request.session.get('activity_tags', [])
+        if "orderprocessing" in activity_tags:
+            return True
+
+        return self.request.user.is_superuser
+
+    # Predefined function
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
+        user_orders = Order.objects.filter(status_updates__updated_by=self.request.user).distinct().order_by('created_at')
+
+        context['myorders'] = user_orders  # Add filtered orders to the context
+        context['user'] = self.request.user
+
+        return context
+
+
+        return context
+
+
+    def handle_no_permission(self):
+        return HttpResponse('you are at home pge')
 
 class AllOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     # Default template file
@@ -73,8 +103,17 @@ class AllOrdersPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         order = get_object_or_404(Order, pk=order_id)
         if order.order_status != 'pending':
             return JsonResponse({'status': 'error', 'message': 'This order is already being processed'})
+        previous_status = order.order_status  # Store the previous status
         order.order_status = 'processing'
         order.save()
+
+        # Create a new OrderStatusUpdate instance to log this change
+        OrderStatusUpdate.objects.create(
+            order=order,
+            updated_by=request.user,
+            previous_status=previous_status,
+            current_status='processing'
+        )
 
         redirect_url = reverse('dashboard:template_list', kwargs={'order_id': order_id})  # Assuming you have a URL pattern named 'template_list'
         return JsonResponse({'status': 'success', 'redirect_url': redirect_url})

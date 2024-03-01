@@ -1,0 +1,54 @@
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <h1 class="page-title">My Orders</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in myorders %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>  <!-- Auto-incrementing counter for order number -->
+                    <td>{{ order.user.email }}</td>  <!-- Assuming 'user' is a ForeignKey in your Order model -->
+                    <td>{{ order.created_at|date:"Y-m-d" }}</td>  <!-- Formatting 'created_at' as a date -->
+                    <td>{{ order.updated_at|date:"Y-m-d" }}</td>  <!-- Formatting 'updated_at' as a date -->
+                    <td>{{ order.order_status }}</td>
+                    <td>{{ order.pk }}</td>  <!-- 'pk' is the primary key id of the order -->
+                    <td>
+                        <!-- Example action button, customize as needed -->
+                        <a href="{% url 'dashboard:resumebuilder' order.pk %}" class="btn btn-primary">Edit</a>
+
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No orders found</td>  <!-- Show this message if 'myorders' is empty -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

@@ -4,19 +4,62 @@ from resume_templates.models import  Variation
 
 
 
+# class Order(models.Model):
+#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')
+    
+#     order_status = models.CharField(max_length=20, default='pending', choices=[
+#         ('pending', 'Pending'),
+#         ('processing', 'Processing'),
+#         ('completed', 'Completed'),
+#         ('cancelled', 'Cancelled'),
+#     ])
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     def __str__(self):
+#         return f"Order {self.pk} for {self.user.email}"
+
+
+
 class Order(models.Model):
+    PENDING = 'pending'
+    PROCESSING = 'processing'
+    REVIEW = 'review'
+    COMPLETED = 'completed'
+    CANCELLED = 'cancelled'
+    REVISION = 'revision'  # If the order needs revisions after review
+
+    ORDER_STATUS_CHOICES = [
+        (PENDING, 'Pending'),  # Initial status, set by the Sales team
+        (PROCESSING, 'Processing'),  # Set by the Order Processing team when they start working on it
+        (REVIEW, 'Review'),  # Set by the After Sale department for review
+        (REVISION, 'Revision Needed'),  # Set if the After Sale department or client requests revisions
+        (COMPLETED, 'Completed'),  # Final status, set when the order is finalized and no further changes are needed
+        (CANCELLED, 'Cancelled'),  # Set if the order is cancelled at any point
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')
-    order_status = models.CharField(max_length=20, default='pending', choices=[
-        ('pending', 'Pending'),
-        ('processing', 'Processing'),
-        ('completed', 'Completed'),
-        ('cancelled', 'Cancelled'),
-    ])
+    order_status = models.CharField(max_length=20, default=PENDING, choices=ORDER_STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Order {self.pk} for {self.user.email}"
+
+
+
+
+class OrderStatusUpdate(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='status_updates')
+    updated_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='order_updates')
+    previous_status = models.CharField(max_length=20, choices=Order.ORDER_STATUS_CHOICES)
+    current_status = models.CharField(max_length=20, choices=Order.ORDER_STATUS_CHOICES)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Update for Order {self.order.id} to {self.current_status} by {self.updated_by.email}"
+
+
 
 class OrderInitialData(models.Model):
     order = models.ForeignKey(Order, related_name='initial_data', on_delete=models.CASCADE)  # Changed related_name to 'initial_data'

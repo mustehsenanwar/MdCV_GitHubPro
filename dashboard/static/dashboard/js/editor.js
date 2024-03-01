@@ -187,6 +187,96 @@ $(document).on("click", ".add-skill-btn", function () {
     sectionCount++;
 });
 
+// Add Language fn
+function addHobbiesItem(count) {
+    let hobbiesHtml =
+        `<div class="item" data-filling="hobbiesCard${count}">
+            <i class="fa fa-circle"></i>
+            <div class="w-100 pull-away pr-5">
+                <span class="text" data-edit="text"></span>
+            </div>
+        </div>`;
+    cvMainContent.find(`.section.hobbies .items`).append(hobbiesHtml);
+}
+
+// Add hobbies button
+$(document).on("click", ".add-hobbies-btn", function () {
+    let $parent = $(this).parents(".hobbies-container"),
+        cardTarget = $(this).data("card"),
+        text = $(this).data("text"),
+        section = $(this).data("section");
+    let skillHTML =
+        `<div class="hobbies-item mb-3">
+            <div class="left content-center">
+                <div class="form-item mb-0 w-100">
+                    <input type="text" value="" class="fill-item-value"
+                        data-section="hobbies" autocomplete="off" data-fill="text"
+                        data-card="hobbiesCard${sectionCount}" placeholder="Hobbies">
+                    <label for="username">Hobbies</label>
+                </div>
+                <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-hobbies" data-section="hobbies" data-delete="hobbiesCard${sectionCount}"></i>
+            </div>
+        </div>`;
+    $parent.find(".hobbies-item-container").append(skillHTML);
+    addHobbiesItem(sectionCount)
+    sectionCount++;
+});
+
+// Remove Single hobbies
+$(document).on("click", ".delete-single-hobbies", function () {
+    let $parent = $(this).parents(".hobbies-item");
+    $parent.remove();
+    // remove cv item
+    let section = $(this).data("section"),
+        target = $(this).data("delete");
+    cvMainContent.find(`.section.${section} .item[data-filling="${target}"]`).remove();
+});
+
+// Add reference fn
+function addReferencesItem(count) {
+    let referencesHtml =
+        `<div class="item" data-filling="referencesCard${count}">
+            <i class="fa fa-circle"></i>
+            <div class="w-100 pull-away pr-5">
+                <span class="text" data-edit="text"></span>
+            </div>
+        </div>`;
+    cvMainContent.find(`.section.references .items`).append(referencesHtml);
+}
+
+// Add hobbies button
+$(document).on("click", ".add-references-btn", function () {
+    let $parent = $(this).parents(".references-container"),
+        cardTarget = $(this).data("card"),
+        text = $(this).data("text"),
+        section = $(this).data("section");
+    let skillHTML =
+        `<div class="references-item mb-3">
+            <div class="left content-center">
+                <div class="form-item mb-0 w-100">
+                    <input type="text" value="" class="fill-item-value"
+                        data-section="references" autocomplete="off" data-fill="text"
+                        data-card="referencesCard${sectionCount}" placeholder="References">
+                    <label for="username">References</label>
+                </div>
+                <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-references" data-section="references" data-delete="referencesCard${sectionCount}"></i>
+            </div>
+        </div>`;
+    $parent.find(".references-item-container").append(skillHTML);
+    addReferencesItem(sectionCount)
+    sectionCount++;
+});
+
+// Remove Single hobbies
+$(document).on("click", ".delete-single-references", function () {
+    let $parent = $(this).parents(".references-item");
+    $parent.remove();
+    // remove cv item
+    let section = $(this).data("section"),
+        target = $(this).data("delete");
+    cvMainContent.find(`.section.${section} .item[data-filling="${target}"]`).remove();
+});
+
 // skill value fill
 $(document).on('change input', ".fill-item-value", function () {
     let section = $(this).data("section"),
@@ -247,7 +337,7 @@ $(document).on("change input", ".input-fill-value", function () {
 
     let $cvContent = $(".cvContent");
     $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`).text(value);
-    if (target == "degree" || target == "designation" || target == "certificate" || target == "skill") {
+    if (target == "degree" || target == "designation" || target == "certificate" || target == "skill" || target == "achievements") {
         $(this).parents(".resume-folding-card").first().find(".card-title").text(value);
     }
 });
@@ -626,6 +716,62 @@ function softSkillSectionCardHTML(cardType) {
 }
 //#endregion soft skill 
 
+//#region achievements
+function appendachievementsHTML(sectionCount) {
+    let $cvContent = $(".cvContent");
+    let $cvHTML =
+        `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="achievementsCard${sectionCount}">
+            <span class="item" data-edit="achievements"></span>
+            <span class="item" data-edit="description"></span>
+        </div>`;
+    $cvContent.find(`.section.achievements`).append($cvHTML);
+}
+
+function achievementsSectionCardHTML(cardType) {
+    let cardHTML =
+        `<div class="card shadow-sm resume-folding-card mb-3">
+            <div class="card-header collapsible cursor-pointer rotate active"
+                data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
+                <h3 class="card-title"></h3>
+                <div class="content-center">
+                    <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
+                    <div class="card-toolbar">
+                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="${cardType}Card${sectionCount}" class="collapse show">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-item">
+                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                    data-fill="achievements" data-section="achievements"
+                                    autocomplete="off" placeholder="Achievements">
+                                <label for="username">Achievements</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="username">Description</label>
+                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                                class="form-control input-fill-value"
+                                data-fill="description" data-section="achievements" cols="30"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="ai-suggestion-btn">AI Suggestions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    if (cardType == "achievements") {
+        appendachievementsHTML(sectionCount);
+    }
+    return cardHTML;
+}
+//#endregion achievements
+
 
 // Multiple cards add
 $(document).on('click', ".add-new-card-btn", function () {
@@ -640,6 +786,8 @@ $(document).on('click', ".add-new-card-btn", function () {
         $parent.append(certificateSectionCardHTML(sectionName));
     } else if (sectionName == "softSkill") {
         $parent.append(softSkillSectionCardHTML(sectionName));
+    } else if (sectionName == "achievements") {
+        $parent.append(achievementsSectionCardHTML(sectionName));
     }
     sectionCount++;
 });

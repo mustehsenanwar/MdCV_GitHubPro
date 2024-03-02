@@ -1,3 +1,34 @@
+from django.views.generic import TemplateView
+
+from django.http import HttpResponse
+from django.conf import settings
+from django.urls import resolve
+from core.__init__ import KTLayout
+from core.libs.theme import KTTheme
+from pprint import pprint
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.urls import reverse
+from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth import get_user_model
+CustomUser = get_user_model()
+from dashboard.models import Department,ActivityTag
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from django.db import IntegrityError
+from orders.models import Order,OrderStatusUpdate, OrderInitialData, OrderInitialFiles,OrderParse, OrderFinalizedData
+from django.http import JsonResponse
+from resume_templates.models import Template, Variation
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+import json
+
+
+
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -103,5 +134,3 @@ def pdfparser(cv_files):
         return context
 
 
-def example_page(request):
-    return render(request,'resume_templates/all_templates/template1.html')

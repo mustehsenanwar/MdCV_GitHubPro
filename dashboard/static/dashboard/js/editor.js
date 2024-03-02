@@ -800,3 +800,10 @@ $(document).on('click', ".delete-card-item", function () {
     $(this).parents(".resume-folding-card").first().remove();
     $cvContent.find(`.section.${card} .items[data-filling="${deleteTarget}"]`).remove();
 });
+
+// fill cv header data
+$(document).on('input', ".input-fill-finalize-data", function () {
+    let target = $(this).data("fill"),
+        value = $(this).val();
+    cvMainContent.find(`[data-filling="${target}"]`).text(value);
+});

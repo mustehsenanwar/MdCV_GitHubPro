@@ -29,7 +29,7 @@ urlpatterns = [
     
     
     
-    path('test/',test_views.parse_order_originalcv),
+    path('test/',test_views.example_page),
     
     # aftersales urls
 ]

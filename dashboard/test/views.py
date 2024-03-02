@@ -103,3 +103,5 @@ def pdfparser(cv_files):
         return context
 
 
+def example_page(request):
+    return render(request,'resume_templates/all_templates/template1.html')

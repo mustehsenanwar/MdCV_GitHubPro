@@ -31,7 +31,7 @@ import json
 # Create your views here.
 
 class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
-    template_name = 'resume_templates/all_resume_templates/template1.html'
+    template_name = 'resume_templates/index.html'
 
     def test_func(self):
         activity_tags = self.request.session.get('activity_tags', [])

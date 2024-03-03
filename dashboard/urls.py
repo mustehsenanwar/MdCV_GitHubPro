@@ -26,7 +26,7 @@ urlpatterns = [
     # orderprocessing urls
     path('myorders/', orders_views.MyOrders.as_view(template_name = 'orders/myorders.html'), name='myorders'),
     path('orderslist/', orders_views.OrdersList.as_view(template_name = 'orders/orderslist.html'), name='orderslist'),
-    path('resumebuilder/<int:order_id>/', resume_templates_views.ResumeBuilder.as_view(template_name='resume_templates/all_resume_templates/template1.html'), name='resumebuilder'),
+    path('resumebuilder/<int:order_id>/', resume_templates_views.ResumeBuilder.as_view(template_name='resume_templates/index.html'), name='resumebuilder'),
     path('template_list/<int:order_id>/', resume_templates_views.TemplateList.as_view(template_name='resume_templates/templates_list.html'), name='template_list'),
     path('create_new_template/', resume_templates_views.CreateNewTemplate.as_view(template_name = 'resume_templates/create_new_template.html'), name='create_new_template'),
     

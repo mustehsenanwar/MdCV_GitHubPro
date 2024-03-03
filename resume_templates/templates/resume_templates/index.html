@@ -1,0 +1,69 @@
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static  'resume_templates/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static  'resume_templates/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static  'resume_templates/css/editor.css' %}">
+<link rel="stylesheet" href="{% static  'resume_templates/css/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static  'resume_templates/css/create.css' %}">
+<link rel="stylesheet" href="{% static  'resume_templates/css/theme1.css' %}">
+
+<div class="main-container">
+    <div class="step-progress-bar-container pt-3">
+        {% include 'resume_templates/partials/nav-tabs.html' %}
+        <div class="editor-content-header">
+            <!-- editor panel -->
+            <div class="editor-sidebar-content">
+                <div id="cvEditorCarousel" class="carousel slide" data-interval="false">
+                    <div class="carousel-inner">
+                        {% include 'resume_templates/partials/panels/contact.html' %}
+                        {% include 'resume_templates/partials/panels/education.html' %}
+                        {% include 'resume_templates/partials/panels/experience.html' %}
+                        {% include 'resume_templates/partials/panels/certificate.html' %}
+                        {% include 'resume_templates/partials/panels/soft-skill.html' %}
+                        {% include 'resume_templates/partials/panels/pro-skill.html' %}
+                        {% include 'resume_templates/partials/panels/language.html' %}
+                        {% include 'resume_templates/partials/panels/achievements.html' %}
+                        {% include 'resume_templates/partials/panels/hobbies.html' %}
+                        {% include 'resume_templates/partials/panels/reference.html' %}
+                        {% include 'resume_templates/partials/panels/about-us.html' %}
+                    </div>
+                </div>
+            </div>
+            <div class="cv-content-container">
+                <div class="d-flex justify-content-between cv-topbar">
+                    <div class="content-left">
+                    </div>
+                    <div class="preview-btn-control mb-3">
+                        <span>Original</span>
+                        <label class="custom-switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        <span>Preview</span>
+                    </div>
+                </div>
+                <div class="wrapper-container w-100 content-center">
+                    <!-- Theme 1 -->
+                    {% include 'resume_templates/all_resume_templates/template1.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    {% include 'resume_templates/partials/popups/upload-image.html' %}
+    <input type="hidden" id="orderId" value="{{ order_id }}">
+    <script src="{% static  'resume_templates/js/jquery.min.js' %}"></script>
+    <script src="{% static  'resume_templates/js/popper.min.js' %}"></script>
+    <script src="{% static  'resume_templates/js/bootstrap.min.js' %}"></script>
+    <script src="{% static  'resume_templates/js/tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static  'resume_templates/js/function.js' %}"></script>
+    <script src="{% static  'resume_templates/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static  'resume_templates/js/editor.js' %}"></script>
+
+    {% endblock content %}

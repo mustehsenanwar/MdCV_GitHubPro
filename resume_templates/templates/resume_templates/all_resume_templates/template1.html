@@ -1,1277 +1,241 @@
-
-{% extends layout %}
-
-{% load i18n %}
-
-{% block title %}{% translate "Dashboard" %}{% endblock %}
-
-{% block content %}
-
-<link rel="stylesheet" href="{% static  'resume_templates/css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static  'resume_templates/css/font-awesome.min.css' %}">
-<link rel="stylesheet" href="{% static  'resume_templates/css/editor.css' %}">
-<link rel="stylesheet" href="{% static  'resume_templates/css/owl.carousel.min.css' %}">
-<link rel="stylesheet" href="{% static  'resume_templates/css/create.css' %}">
-<link rel="stylesheet" href="{% static  'resume_templates/css/theme1.css' %}">
-
-
-<div class="main-container">
-    <div class="step-progress-bar-container pt-3">
-        <div class="progress-bar owl-carousel owl-theme mb-4">
-            <div class="item">
-                <div class="step" data-target="contactPanel">
-                    <span>contact</span>
-                    <i class="fas fa-blender-phone"></i>
+<div class="cvContent">
+    <div class="pull-right">
+        <div class="top-right-heading">
+            <span class="text"><span data-filling="year">8</span>+ <span data-filling="yearText">Year
+                    Experience</span></span>
+            <i class="fa fa-star"></i>
+        </div>
+    </div>
+    <div class="cv-header">
+        <div class="user-img-header">
+            <div class="user-img content-center">
+                <img src="{% static  'resume_templates/images/user.png' %}" class="img-fluid">
+            </div>
+        </div>
+        <div class="user-info">
+            <h3 class="name" data-setVal="name">SANJAY PREMARJ</h3>
+            <p class="headline" data-filling="headline">Health, Environment, Safety and Quality
+                (HSEQ)</p>
+            <hr class="bar-line mt-3 mb-2">
+            <div class="profile section" data-target="profile">
+                <p class="paragraph mb-0" data-filling="summary">Lorem Ipsum is simply dummy text of
+                    the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                    ever
+                    since the 1500s, when an unknown printer took a galley of type and scrambled it
+                    to
+                    make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem
+                    Ipsum
+                    passages, and more recently with desktop publishing software like Aldus
+                    PageMaker
+                    including versions of Lorem Ipsum.</p>
+            </div>
+        </div>
+    </div>
+    <div class="cv-body">
+        <div class="sec-con1">
+            <div class="perInfo">
+                <div class="sec-heading">PERSONAL INFORMATION</div>
+                <div class="items pt-3 pl-4">
+                    <p class="item">
+                        <i class="fa fa-phone"></i>
+                        <span class="text">
+                            <b>Phone :</b>
+                            <span data-setVal="phone">+97255256359</span>
+                        </span>
+                    </p>
+                    <p class="item">
+                        <i class="fas fa-mail-bulk    "></i>
+                        <span class="text">
+                            <b>Email :</b>
+                            <span data-setVal="email">testing@gmail.com</span>
+                        </span>
+                    </p>
+                    <p class="item" data-text="Nattionality">
+                        <i class="fa fa-globe"></i>
+                        <span class="text">
+                            <b>Nationality :</b>
+                            <span data-setVal="nattionality">Pakistan</span>
+                        </span>
+                    </p>
+                    <p class="item" data-text="Merital Status">
+                        <i class="fa fa-circle"></i>
+                        <span class="text">
+                            <b>Merital Status :</b>
+                            <span data-setVal="merital_status">Married</span>
+                        </span>
+                    </p>
+                    <p class="item" data-text="DOB">
+                        <i class="fa fa-calendar"></i>
+                        <span class="text">
+                            <b>Date Of Brith :</b>
+                            <span data-setVal="dob">SEP-1993</span>
+                        </span>
+                    </p>
+                    <p class="item" data-text="Driving lisence">
+                        <i class="fa fa-car"></i>
+                        <span class="text">
+                            <b>Driving Lisence :</b>
+                            <span data-setVal="drivingLisence">UAE</span>
+                        </span>
+                    </p>
+                    <p class="item" data-text="Linked In">
+                        <i class="fa fa-car"></i>
+                        <span class="text">
+                            <b>Linked in :</b>
+                            <span data-setVal="linkedIn">https://pk.linkedin.com/</span>
+                        </span>
+                    </p>
+                    <p class="item" data-text="Country">
+                        <i class="fa fa-car"></i>
+                        <span class="text">
+                            <b>Country :</b>
+                            <span data-setVal="country">Pakistan</span>
+                        </span>
+                    </p>
+                    <p class="item d-flex">
+                        <i class="fab fa-linkedin icon"></i>
+                        <img src="{% static 'resume_templates/images/barcode.png'  %}" class="img-fluid ml-2">
+                    </p>
                 </div>
             </div>
-            <div class="item">
-                <div class="step" data-target="educationPanel">
-                    <span>Educations</span>
-                    <i class="fa fa-graduation-cap"></i>
+            <div class="section education">
+                <div class="sec-heading">EDUCATION</div>
+                <div class="items pl-3" data-filling="educationCard">
+                    <span class="item" data-edit="degree">
+                        Degree
+                    </span>
+                    <span class="item" data-edit="universty">
+                        universty
+                    </span>
+                    <span class="item" data-edit="location">
+                        Location
+                    </span>
+                    <span class="item" data-edit="date">
+                        date
+                    </span>
+                    <span class="item" data-edit="description">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi explicabo
+                        necessitatibus rem.
+                    </span>
                 </div>
             </div>
-            <div class="item">
-                <div class="step" data-target="expriencePanel">
-                    <span>Experience</span>
-                    <i class="fas fa-box"></i>
+            <div class="section achievements">
+                <div class="sec-heading">ACHIEVEMENTS</div>
+                <div class="items pl-3" data-filling="achievementsCard">
+                    <div class="item" data-edit="achievements">Achievements</div>
+                    <div class="item" data-edit="description">Lorem ipsum dolor sit amet
+                        consectetur, adipisicing elit. Iste, voluptas.</div>
                 </div>
             </div>
-            <div class="item">
-                <div class="step" data-target="certificatesPanel">
-                    <span>Certificates</span>
-                    <i class="fas fa-box"></i>
+            <div class="section softSkill">
+                <div class="sec-heading">SOFT SKILLS</div>
+                <div class="items pl-3" data-filling="softSkillCard">
+                    <div class="item" data-edit="skill">Skill</div>
+                    <div class="item" data-edit="description">Lorem ipsum dolor sit amet
+                        consectetur, adipisicing elit. Iste, voluptas.</div>
                 </div>
             </div>
-            <div class="item">
-                <div class="step" data-target="softSkillPanel">
-                    <span>soft skill</span>
-                    <i class="fa fa-wrench" aria-hidden="true"></i>
+            <div class="section languages">
+                <div class="sec-heading">LANGUAGES</div>
+                <div class="items pl-3">
+                    <div class="item" data-filling="languagesCard">
+                        <i class="fa fa-circle"></i>
+                        <div class="w-100 pull-away pr-5">
+                            <span class="text" data-edit="text">English</span>
+                            <div class=" progress">
+                                <div class="progress-bar" data-edit="progress" role="progressbar" aria-valuenow="70"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="item">
-                <div class="step" data-target="proSkillPanel">
-                    <span>pro skills</span>
-                    <i class="fa fa-wrench" aria-hidden="true"></i>
+            <div class="section hobbies">
+                <div class="sec-heading">HOBBIES</div>
+                <div class="items pl-3">
+                    <div class="item" data-filling="hobbiesCard">
+                        <i class="fa fa-circle"></i>
+                        <div class="w-100 pull-away pr-5">
+                            <span class="text" data-edit="text">Circket</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="item">
-                <div class="step" data-target="languagePanel">
-                    <span>Languages</span>
-                    <i class="fa fa-globe" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="item">
-                <div class="step" data-target="achievementsPanel">
-                    <span>Achievements</span>
-                    <i class="fa fa-globe" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="item">
-                <div class="step" data-target="hobbiesPanel">
-                    <span>Hobbies</span>
-                    <i class="fas fa-user-shield    "></i>
-                </div>
-            </div>
-            <div class="item">
-                <div class="step" data-target="referencesPanel">
-                    <span>References</span>
-                    <i class="fas fa-umbrella-beach    "></i>
-                </div>
-            </div>
-            <div class="item">
-                <div class="step" data-target="aboutUsPanel">
-                    <span>Finalize</span>
-                    <i class="fa fa-check" aria-hidden="true"></i>
+            <div class="section references">
+                <div class="sec-heading">REFERENCES</div>
+                <div class="items pl-3">
+                    <div class="item" data-filling="referencesCard">
+                        <i class="fa fa-circle"></i>
+                        <div class="w-100 pull-away pr-5">
+                            <span class="text" data-edit="text">References</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="editor-content-header">
-            <!-- editor panel -->
-            <div class="editor-sidebar-content">
-                <div id="cvEditorCarousel" class="carousel slide" data-interval="false">
-                    <div class="carousel-inner">
-                        <div class="carousel-item content-header active" data-panel="contactPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Phone Number in format +655555555</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Dont't Add my Address Or City</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Clean My Photo</span>
-                                </div>
-                                <hr class="line">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-item">
-                                            <div class="media">
-                                                <div class="user-img">
-                                                    <i class="fa fa-camera"></i>
-                                                    <img src="{% static  'resume_templates/images/user.jpg' %}"
-                                                        class="w-100 d-none h-100" style="border-radius: 50%;">
-                                                </div>
-                                                <div class="media-body ml-3">
-                                                    <p class="mb-0">Add a Photo to Resume (Optional)</p>
-                                                    <button class="btn btn-sm fw-bold btn-primary mt-2"
-                                                        data-toggle="modal" data-target="#userUploadPhotoPopup">Add
-                                                        Photo</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" id="name" class="cv-input" data-target="name"
-                                                autocomplete="off" placeholder="First & Last Name">
-                                            <label for="username">Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" id="phone" class="cv-input" data-target="phone"
-                                                autocomplete="off" placeholder="+555555555">
-                                            <label for="username">Phone</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-item">
-                                            <input type="text" id="email" class="cv-input" data-target="email"
-                                                autocomplete="off" placeholder="waseemsajjad.online@gmail.com">
-                                            <label for="username">Email</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="Nattionality">
-                                        <div class="collapse-field">
-                                            <div class="form-item mb-0">
-                                                <input type="text" id="nattionality" class="cv-input"
-                                                    data-target="nattionality" autocomplete="off"
-                                                    placeholder="e.g Oct Emirati">
-                                                <label for="username">Nattionality</label>
-                                            </div>
-                                            <i class="fa fa-minus icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="Merital Status">
-                                        <div class="collapse-field">
-                                            <div class="form-item mb-0">
-                                                <input type="text" id="merital_status" class="cv-input"
-                                                    data-target="merital_status" autocomplete="off"
-                                                    placeholder="Merital Status">
-                                                <label for="username">Merital Status</label>
-                                            </div>
-                                            <i class="fa fa-minus icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="DOB">
-                                        <div class="collapse-field">
-                                            <div class="form-item mb-0">
-                                                <input type="text" id="dob" class="cv-input" data-target="dob"
-                                                    autocomplete="off" placeholder="e.g Oct 1998">
-                                                <label for="username">DOB</label>
-                                            </div>
-                                            <i class="fa fa-minus icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 collapse-field-container" data-text="Driving lisence">
-                                        <div class="collapse-field">
-                                            <div class="form-item mb-0">
-                                                <input type="text" class="cv-input" data-target="drivingLisence"
-                                                    id="driving-lisence" autocomplete="off" placeholder="e.g UAE">
-                                                <label for="username">Driving lisence</label>
-                                            </div>
-                                            <i class="fa fa-minus icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-3 collapse-field-container" data-text="Linked In">
-                                        <div class="collapse-field">
-                                            <div class="form-item mb-0">
-                                                <input type="text" data-target="linkedIn" class="cv-input"
-                                                    id="linked-in" autocomplete="off"
-                                                    placeholder="http://linkedin.com/profile">
-                                                <label for="username">Linked In</label>
-                                            </div>
-                                            <i class="fa fa-minus icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 mb-3 collapse-field-container" data-text="Country">
-                                        <div class="collapse-field">
-                                            <div class="form-item mb-0">
-                                                <input type="text" data-target="country" class="cv-input" id="country"
-                                                    autocomplete="off" placeholder="e.g United Arab Emirate">
-                                                <label for="username">Country</label>
-                                            </div>
-                                            <i class="fa fa-minus icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="collapse-field-items-container"></div>
-                                    </div>
-                                    <div class="col-md-12 pull-right mt-4 mb-5">
-                                        <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3"
-                                            role="button" data-slide="next">
-                                            Save
-                                            <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="educationPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Educations Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <!-- Folding card -->
-                                <div class="education-container">
-                                    <div class="cards">
-                                        <div class="card shadow-sm resume-folding-card mb-3">
-                                            <div class="card-header collapsible cursor-pointer rotate active"
-                                                data-bs-toggle="collapse" data-bs-target="#educationCard">
-                                                <h3 class="card-title">Degree</h3>
-                                                <div class="content-center">
-                                                    <i class=" fa fa-trash text-white mr-3 delete-card-item"
-                                                        data-delete="educationCard" data-card="education"></i>
-                                                    <div class="card-toolbar">
-                                                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="educationCard" class="collapse show">
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="educationCard"
-                                                                    value="Degree" class="input-fill-value"
-                                                                    data-fill="degree" data-section="education"
-                                                                    autocomplete="off" placeholder="Degree Name">
-                                                                <label for="username">Degree</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="educationCard"
-                                                                    value="universty" class="input-fill-value"
-                                                                    data-fill="universty" data-section="education"
-                                                                    autocomplete="off" placeholder="Universty">
-                                                                <label for="username">Universty</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="educationCard"
-                                                                    value="Location" class="input-fill-value"
-                                                                    data-fill="location" data-section="education"
-                                                                    autocomplete="off" placeholder="e.g Emirati">
-                                                                <label for="username">Location</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="educationCard"
-                                                                    value="Dates" class="input-fill-value"
-                                                                    data-fill="date" data-section="education"
-                                                                    autocomplete="off" placeholder="e.g (2020-2021)">
-                                                                <label for="username">Dates</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label for="username">Description</label>
-                                                            <textarea name="description" data-card="educationCard"
-                                                                class="form-control input-fill-value"
-                                                                data-fill="description" data-section="education"
-                                                                cols="30"
-                                                                rows="5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi explicabo necessitatibus rem.</textarea>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="ai-suggestion-btn">AI Suggestions</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2">
-                                        <div class="add-new-card-btn cp" data-add-section="education">
-                                            <i class="fa fa-plus-circle"></i>
-                                            <span>Add Education</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 pull-right mt-4 mb-5">
-                                    <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3" role="button"
-                                        data-slide="prev">
-                                        <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                        Previous
-                                    </button>
-                                    <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3" role="button"
-                                        data-slide="next">
-                                        Next
-                                        <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="expriencePanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Experience Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <!-- Folding card -->
-                                <div class="experience-container">
-                                    <div class="cards">
-                                        <div class="card shadow-sm resume-folding-card mb-3">
-                                            <div class="card-header collapsible cursor-pointer rotate active"
-                                                data-bs-toggle="collapse" data-bs-target="#experienceCard">
-                                                <h3 class="card-title">Designation</h3>
-                                                <div class="content-center">
-                                                    <i class=" fa fa-trash text-white mr-3 delete-card-item"
-                                                        data-delete="experienceCard" data-card="experience"></i>
-                                                    <div class="card-toolbar">
-                                                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="experienceCard" class="collapse show">
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="experienceCard"
-                                                                    value="Designation" class="input-fill-value"
-                                                                    data-fill="designation" data-section="experience"
-                                                                    autocomplete="off" placeholder="Designation">
-                                                                <label for="username">Designation</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="experienceCard"
-                                                                    value="Company Name" class="input-fill-value"
-                                                                    data-fill="company-name" data-section="experience"
-                                                                    autocomplete="off" placeholder="Company Name">
-                                                                <label for="username">Company Name</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="experienceCard"
-                                                                    value="Location" class="input-fill-value"
-                                                                    data-fill="location" data-section="experience"
-                                                                    autocomplete="off" placeholder="e.g Emirati">
-                                                                <label for="username">Location</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="experienceCard"
-                                                                    value="Dates" class="input-fill-value"
-                                                                    data-fill="date" data-section="experience"
-                                                                    autocomplete="off" placeholder="e.g (2020-2021)">
-                                                                <label for="username">Dates</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label for="username">Description</label>
-                                                            <textarea name="description" data-card="experienceCard"
-                                                                class="form-control input-fill-value"
-                                                                data-fill="description" data-section="experience"
-                                                                cols="30" rows="5">Lorem Ipsum has been the industry's standard dummy text ever since the
-                                                                1500s, when an unknown printer took a galley of type and scrambled it to
-                                                                make a type specimen book. It has survived not only five centuries, but
-                                                                also the leap into electronic typesetting, remaining essentially
-                                                                unchanged. It was popularised in the 1960s with the release of Letraset
-                                                                sheets containing Lorem Ipsum passages,</textarea>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="ai-suggestion-btn">AI Suggestions</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2">
-                                        <div class="add-new-card-btn cp" data-add-section="experience">
-                                            <i class="fa fa-plus-circle"></i>
-                                            <span>Add Experience</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 pull-right mt-4 mb-5">
-                                    <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3" role="button"
-                                        data-slide="prev">
-                                        <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                        Previous
-                                    </button>
-                                    <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3" role="button"
-                                        data-slide="next">
-                                        Next
-                                        <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="certificatesPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Experience Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <!-- Folding card -->
-                                <div class="certificates-container">
-                                    <div class="cards">
-                                        <div class="card shadow-sm resume-folding-card mb-3">
-                                            <div class="card-header collapsible cursor-pointer rotate active"
-                                                data-bs-toggle="collapse" data-bs-target="#certificatesCard">
-                                                <h3 class="card-title">Certificate</h3>
-                                                <div class="content-center">
-                                                    <i class=" fa fa-trash text-white mr-3 delete-card-item"
-                                                        data-delete="certificatesCard" data-card="certificates"></i>
-                                                    <div class="card-toolbar">
-                                                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="certificatesCard" class="collapse show">
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="certificatesCard"
-                                                                    value="Certificate" class="input-fill-value"
-                                                                    data-fill="certificate" data-section="certificates"
-                                                                    autocomplete="off" placeholder="Certificate">
-                                                                <label for="username">Certificate</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="certificatesCard"
-                                                                    value="Organization" class="input-fill-value"
-                                                                    data-fill="organization" data-section="certificates"
-                                                                    autocomplete="off" placeholder="Organization">
-                                                                <label for="username">Organization</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="certificatesCard"
-                                                                    value="Location" class="input-fill-value"
-                                                                    data-fill="location" data-section="certificates"
-                                                                    autocomplete="off" placeholder="e.g Emirati">
-                                                                <label for="username">Location</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="certificatesCard"
-                                                                    value="Dates" class="input-fill-value"
-                                                                    data-fill="date" data-section="certificates"
-                                                                    autocomplete="off" placeholder="e.g (2020-2021)">
-                                                                <label for="username">Dates</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label for="username">Description</label>
-                                                            <textarea name="description" data-card="certificatesCard"
-                                                                class="form-control input-fill-value"
-                                                                data-fill="description" data-section="certificates"
-                                                                cols="30" rows="5">Lorem Ipsum has been the industry's standard dummy text ever since the
-                                                                1500s, when an unknown printer took a galley of type and scrambled it to
-                                                                make a type specimen book. It has survived not only five centuries, but
-                                                                also the leap into electronic typesetting, remaining essentially
-                                                                unchanged. It was popularised in the 1960s with the release of Letraset
-                                                                sheets containing Lorem Ipsum passages,</textarea>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="ai-suggestion-btn">AI Suggestions</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2">
-                                        <div class="add-new-card-btn cp" data-add-section="certificates">
-                                            <i class="fa fa-plus-circle"></i>
-                                            <span>Add Experience</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 pull-right mt-4 mb-5">
-                                    <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3" role="button"
-                                        data-slide="prev">
-                                        <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                        Previous
-                                    </button>
-                                    <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3" role="button"
-                                        data-slide="next">
-                                        Next
-                                        <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="softSkillPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Experience Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <!-- Folding card -->
-                                <div class="softSkill-container">
-                                    <div class="cards">
-                                        <div class="card shadow-sm resume-folding-card mb-3">
-                                            <div class="card-header collapsible cursor-pointer rotate active"
-                                                data-bs-toggle="collapse" data-bs-target="#softSkillCard">
-                                                <h3 class="card-title">Skill</h3>
-                                                <div class="content-center">
-                                                    <i class=" fa fa-trash text-white mr-3 delete-card-item"
-                                                        data-delete="softSkillCard" data-card="softSkill"></i>
-                                                    <div class="card-toolbar">
-                                                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="softSkillCard" class="collapse show">
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="softSkillCard"
-                                                                    value="Skill" class="input-fill-value"
-                                                                    data-fill="skill" data-section="softSkill"
-                                                                    autocomplete="off" placeholder="Skill">
-                                                                <label for="username">Skill</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label for="username">Description</label>
-                                                            <textarea name="description" data-card="softSkillCard"
-                                                                class="form-control input-fill-value"
-                                                                data-fill="description" data-section="softSkill"
-                                                                cols="30" rows="5">Lorem Ipsum has been the industry's standard dummy text ever since the
-                                                                1500s, when an unknown printer took a galley of type and scrambled it to
-                                                                make a type specimen book. It has survived not only five centuries, but
-                                                                also the leap into electronic typesetting, remaining essentially
-                                                                unchanged. It was popularised in the 1960s with the release of Letraset
-                                                                sheets containing Lorem Ipsum passages,</textarea>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="ai-suggestion-btn">AI Suggestions</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2">
-                                        <div class="add-new-card-btn cp" data-add-section="softSkill">
-                                            <i class="fa fa-plus-circle"></i>
-                                            <span>Soft Skill</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 pull-right mt-4 mb-5">
-                                    <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3" role="button"
-                                        data-slide="prev">
-                                        <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                        Previous
-                                    </button>
-                                    <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3" role="button"
-                                        data-slide="next">
-                                        Next
-                                        <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header " data-panel="proSkillPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Educations Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <div class="row mt-4">
-                                    <div class="col-md-12 skill-container">
-                                        <div class="skill-item-container mb-3">
-                                            <div class="skill-item mb-3">
-                                                <div class="left">
-                                                    <div class="form-item mb-0">
-                                                        <input type="text" class="fill-item-value" data-section="skills"
-                                                            data-card="proSkillCard" value="Project Management"
-                                                            data-fill="text" autocomplete="off" placeholder="Skill">
-                                                        <label for="username">Skill</label>
-                                                    </div>
-                                                </div>
-                                                <div class="right d-flex">
-                                                    <input type="range" class="w-100 fill-item-value"
-                                                        data-section="skills" data-card="proSkillCard"
-                                                        data-fill="progress" min="1" max="100" value="50">
-                                                    <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill"
-                                                        data-delete="proSkillCard" data-section="skills"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="add-skill-btn cp" data-section="skills" data-card="proSkillCard"
-                                            data-text="Skill">
-                                            <i class="fa fa-plus-circle main-color"></i>
-                                            <span class="main-color">Add Skill</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 pull-right mt-4 mb-5">
-                                        <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3"
-                                            role="button" data-slide="prev">
-                                            <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                            Previous
-                                        </button>
-                                        <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3"
-                                            role="button" data-slide="next">
-                                            Next
-                                            <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="languagePanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Educations Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <div class="row mt-4">
-                                    <div class="col-md-12 skill-container">
-                                        <div class="skill-item-container mb-3">
-                                            <div class="skill-item mb-3">
-                                                <div class="left">
-                                                    <div class="form-item mb-0">
-                                                        <input type="text" value="English" class="fill-item-value"
-                                                            data-section="languages" autocomplete="off" data-fill="text"
-                                                            data-card="languagesCard" placeholder="Languages">
-                                                        <label for="username">Languages</label>
-                                                    </div>
-                                                </div>
-                                                <div class="right d-flex">
-                                                    <input type="range" class="w-100 fill-item-value" min="1" max="100"
-                                                        value="50" data-section="languages" autocomplete="off"
-                                                        data-fill="progress" data-card="languagesCard">
-                                                    <i
-                                                        class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="add-skill-btn cp" data-section="languages" data-card="languagesCard"
-                                            data-text="Language">
-                                            <i class="fa fa-plus-circle main-color"></i>
-                                            <span class="main-color">Add Language</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 pull-right mt-4 mb-5">
-                                        <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3"
-                                            role="button" data-slide="prev">
-                                            <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                            Previous
-                                        </button>
-                                        <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3"
-                                            role="button" data-slide="next">
-                                            Next
-                                            <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="achievementsPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Achievements Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <!-- Folding card -->
-                                <div class="achievements-container">
-                                    <div class="cards">
-                                        <div class="card shadow-sm resume-folding-card mb-3">
-                                            <div class="card-header collapsible cursor-pointer rotate active"
-                                                data-bs-toggle="collapse" data-bs-target="#achievementsCard">
-                                                <h3 class="card-title">Achievements</h3>
-                                                <div class="content-center">
-                                                    <i class=" fa fa-trash text-white mr-3 delete-card-item"
-                                                        data-delete="achievementsCard" data-card="achievements"></i>
-                                                    <div class="card-toolbar">
-                                                        <i class="ki-duotone ki-down fs-1 text-white fold-arrow"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="achievementsCard" class="collapse show">
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-item">
-                                                                <input type="text" data-card="achievementsCard"
-                                                                    value="Achievements" class="input-fill-value"
-                                                                    data-fill="achievements" data-section="achievements"
-                                                                    autocomplete="off" placeholder="Achievements">
-                                                                <label for="username">Achievements</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label for="username">Description</label>
-                                                            <textarea name="description" data-card="achievementsCard"
-                                                                class="form-control input-fill-value"
-                                                                data-fill="description" data-section="achievements"
-                                                                cols="30" rows="5">Lorem Ipsum has been the industry's standard dummy text ever since the
-                                                                1500s, when an unknown printer took a galley of type and scrambled it to
-                                                                make a type specimen book. It has survived not only five centuries, but
-                                                                also the leap into electronic typesetting, remaining essentially
-                                                                unchanged. It was popularised in the 1960s with the release of Letraset
-                                                                sheets containing Lorem Ipsum passages,</textarea>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="ai-suggestion-btn">AI Suggestions</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2">
-                                        <div class="add-new-card-btn cp" data-add-section="achievements">
-                                            <i class="fa fa-plus-circle"></i>
-                                            <span>Add Achievements</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 pull-right mt-4 mb-5">
-                                    <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3" role="button"
-                                        data-slide="prev">
-                                        <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                        Previous
-                                    </button>
-                                    <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3" role="button"
-                                        data-slide="next">
-                                        Next
-                                        <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="hobbiesPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Hobbies Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <div class="row mt-4">
-                                    <div class="col-md-12 hobbies-container">
-                                        <div class="hobbies-item-container mb-3">
-                                            <div class="hobbies-item mb-3">
-                                                <div class="left content-center">
-                                                    <div class="form-item mb-0 w-100">
-                                                        <input type="text" value="Circket" class="fill-item-value"
-                                                            data-section="hobbies" autocomplete="off" data-fill="text"
-                                                            data-card="hobbiesCard" placeholder="Hobbies">
-                                                        <label for="username">Hobbies</label>
-                                                    </div>
-                                                    <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-hobbies"
-                                                        data-section="hobbies" data-delete="hobbiesCard"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="add-hobbies-btn cp" data-section="hobbies" data-card="hobbiesCard"
-                                            data-text="Language">
-                                            <i class="fa fa-plus-circle main-color"></i>
-                                            <span class="main-color">Add Hobbies</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 pull-right mt-4 mb-5">
-                                        <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3"
-                                            role="button" data-slide="prev">
-                                            <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                            Previous
-                                        </button>
-                                        <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3"
-                                            role="button" data-slide="next">
-                                            Next
-                                            <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="referencesPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>References Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <div class="row mt-4">
-                                    <div class="col-md-12 references-container">
-                                        <div class="references-item-container mb-3">
-                                            <div class="references-item mb-3">
-                                                <div class="left content-center">
-                                                    <div class="form-item mb-0 w-100">
-                                                        <input type="text" value="References" class="fill-item-value"
-                                                            data-section="references" autocomplete="off"
-                                                            data-fill="text" data-card="referencesCard"
-                                                            placeholder="References">
-                                                        <label for="username">References</label>
-                                                    </div>
-                                                    <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-references"
-                                                        data-section="references" data-delete="referencesCard"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="add-references-btn cp" data-section="references"
-                                            data-card="referencesCard" data-text="Language">
-                                            <i class="fa fa-plus-circle main-color"></i>
-                                            <span class="main-color">Add References</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 pull-right mt-4 mb-5">
-                                        <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3"
-                                            role="button" data-slide="prev">
-                                            <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                            Previous
-                                        </button>
-                                        <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3"
-                                            role="button" data-slide="next">
-                                            Next
-                                            <i class="fa fa-chevron-right ml-2 f-10"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item content-header" data-panel="aboutUsPanel">
-                            <div>
-                                <h4 class="heading">Customer Instructions:</h4>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>About Us Dates in a format (2023-2024)</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Location No Need</span>
-                                </div>
-                                <div class="head-item">
-                                    <i class="fa fa-star mr-2"></i>
-                                    <span>Description only Majars</span>
-                                </div>
-                                <hr>
-                                <div class="row finalize-data-container">
-                                    <div class="col-md-12">
-                                        <div class="form-item">
-                                            <input type="text" value="Designation" data-fill="headline"
-                                                class="input-fill-finalize-data" autocomplete="off"
-                                                placeholder="Designation">
-                                            <label for="username">Designation</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label for="username">Summary</label>
-                                        <textarea class="form-control input-fill-finalize-data" data-fill="summary"
-                                            rows="8">Lorem Ipsum has been the industry's standard dummy text ever since the
-                                            1500s, when an unknown printer took a galley of type and scrambled it to
-                                            make a type specimen book. It has survived not only five centuries, but
-                                            also the leap into electronic typesetting, remaining essentially
-                                            unchanged. It was popularised in the 1960s with the release of Letraset
-                                            sheets containing Lorem Ipsum passages,</textarea>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="d-flex mt-4">
-                                            <div class="form-item w-25 mr-2">
-                                                <input type="number" value="6" data-fill="year"
-                                                    class="input-fill-finalize-data" autocomplete="off">
-                                                <label for="username">Year</label>
-                                            </div>
-                                            <div class="form-item w-75">
-                                                <input type="text" value="Year Experience" data-fill="yearText"
-                                                    class="input-fill-finalize-data" autocomplete="off"
-                                                    placeholder="+ Year Experience">
-                                                <label for="username">Year Experience</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 pull-right mt-3 mb-5">
-                                        <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3"
-                                            role="button" data-slide="prev">
-                                            <i class="fa fa-chevron-left ml-2 f-10"></i>
-                                            Previous
-                                        </button>
-                                        <button class="btn btn-primary save-finalize-btn">
-                                            <i class="fas fa-save"></i>
-                                            Save & Preview
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="sec-con2">
+            <div class="section experience">
+                <div class="sec-heading">PROFESSIONAL EXPERIENCE</div>
+                <div class="content mt-4 left-bar">
+                    <div class="items pl-3" data-filling="experienceCard">
+                        <span class="item" data-edit="designation">Designation</span>
+                        <span class="item" data-edit="company-name">Company Name</span>
+                        <span class="item" data-edit="location">
+                            Location
+                        </span>
+                        <span class="item" data-edit="date">
+                            Dates
+                        </span>
+                        <span class="item" data-edit="description">
+                            Lorem Ipsum has been the industry's standard dummy text ever since the
+                            1500s, when an unknown printer took a galley of type and scrambled it to
+                            make a type specimen book. It has survived not only five centuries, but
+                            also the leap into electronic typesetting, remaining essentially
+                            unchanged. It was popularised in the 1960s with the release of Letraset
+                            sheets containing Lorem Ipsum passages,
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="cv-content-container">
-                <div class="d-flex justify-content-between cv-topbar">
-                    <div class="content-left">
-                    </div>
-                    <div class="preview-btn-control mb-3">
-                        <span>Original</span>
-                        <label class="custom-switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                        <span>Preview</span>
+            <div class="section certificates mt-5">
+                <div class="sec-heading">CERTIFICATES</div>
+                <div class="content mt-4 left-bar">
+                    <div class="items pl-3" data-filling="certificatesCard">
+                        <span class="item" data-edit="certificate">Certificate</span>
+                        <span class="item" data-edit="organization">Company Name</span>
+                        <span class="item" data-edit="location">
+                            Location
+                        </span>
+                        <span class="item" data-edit="date">
+                            Dates
+                        </span>
+                        <span class="item" data-edit="description">
+                            Lorem Ipsum has been the industry's standard dummy text ever since the
+                            1500s, when an unknown printer took a galley of type and scrambled it to
+                            make a type specimen book. It has survived not only five centuries, but
+                            also the leap into electronic typesetting, remaining essentially
+                            unchanged. It was popularised in the 1960s with the release of Letraset
+                            sheets containing Lorem Ipsum passages,
+                        </span>
                     </div>
                 </div>
-                <div class="wrapper-container w-100 content-center">
-                    <!-- Theme 1 -->
-                    <div class="cvContent">
-                        <div class="pull-right">
-                            <div class="top-right-heading">
-                                <span class="text"><span data-filling="year">8</span>+ <span
-                                        data-filling="yearText">Year Experience</span></span>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="cv-header">
-                            <div class="user-img-header">
-                                <div class="user-img content-center">
-                                    <img src="{% static  'resume_templates/images/user.png' %}" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="user-info">
-                                <h3 class="name" data-setVal="name">SANJAY PREMARJ</h3>
-                                <p class="headline" data-filling="headline">Health, Environment, Safety and Quality
-                                    (HSEQ)</p>
-                                <hr class="bar-line mt-3 mb-2">
-                                <div class="profile section" data-target="profile">
-                                    <p class="paragraph mb-0" data-filling="summary">Lorem Ipsum is simply dummy text of
-                                        the printing and
-                                        typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                        ever
-                                        since the 1500s, when an unknown printer took a galley of type and scrambled it
-                                        to
-                                        make a type specimen book. It has survived not only five centuries, but also the
-                                        leap into electronic typesetting, remaining essentially unchanged. It was
-                                        popularised in the 1960s with the release of Letraset sheets containing Lorem
-                                        Ipsum
-                                        passages, and more recently with desktop publishing software like Aldus
-                                        PageMaker
-                                        including versions of Lorem Ipsum.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cv-body">
-                            <div class="sec-con1">
-                                <div class="perInfo">
-                                    <div class="sec-heading">PERSONAL INFORMATION</div>
-                                    <div class="items pt-3 pl-4">
-                                        <p class="item">
-                                            <i class="fa fa-phone"></i>
-                                            <span class="text">
-                                                <b>Phone :</b>
-                                                <span data-setVal="phone">+97255256359</span>
-                                            </span>
-                                        </p>
-                                        <p class="item">
-                                            <i class="fas fa-mail-bulk    "></i>
-                                            <span class="text">
-                                                <b>Email :</b>
-                                                <span data-setVal="email">testing@gmail.com</span>
-                                            </span>
-                                        </p>
-                                        <p class="item" data-text="Nattionality">
-                                            <i class="fa fa-globe"></i>
-                                            <span class="text">
-                                                <b>Nationality :</b>
-                                                <span data-setVal="nattionality">Pakistan</span>
-                                            </span>
-                                        </p>
-                                        <p class="item" data-text="Merital Status">
-                                            <i class="fa fa-circle"></i>
-                                            <span class="text">
-                                                <b>Merital Status :</b>
-                                                <span data-setVal="merital_status">Married</span>
-                                            </span>
-                                        </p>
-                                        <p class="item" data-text="DOB">
-                                            <i class="fa fa-calendar"></i>
-                                            <span class="text">
-                                                <b>Date Of Brith :</b>
-                                                <span data-setVal="dob">SEP-1993</span>
-                                            </span>
-                                        </p>
-                                        <p class="item" data-text="Driving lisence">
-                                            <i class="fa fa-car"></i>
-                                            <span class="text">
-                                                <b>Driving Lisence :</b>
-                                                <span data-setVal="drivingLisence">UAE</span>
-                                            </span>
-                                        </p>
-                                        <p class="item" data-text="Linked In">
-                                            <i class="fa fa-car"></i>
-                                            <span class="text">
-                                                <b>Linked in :</b>
-                                                <span data-setVal="linkedIn">https://pk.linkedin.com/</span>
-                                            </span>
-                                        </p>
-                                        <p class="item" data-text="Country">
-                                            <i class="fa fa-car"></i>
-                                            <span class="text">
-                                                <b>Country :</b>
-                                                <span data-setVal="country">Pakistan</span>
-                                            </span>
-                                        </p>
-                                        <p class="item d-flex">
-                                            <i class="fab fa-linkedin icon"></i>
-                                            <img src="{% static 'resume_templates/images/barcode.png'  %}"
-                                                class="img-fluid ml-2">
-                                        </p>
+            </div>
+            <div class="section skills mt-5">
+                <div class="sec-heading">PROFESSIONAL SKILLS</div>
+                <div class="content mt-4">
+                    <div class="items ml-5">
+                        <div class="item" data-filling="proSkillCard">
+                            <div class="skill-item">
+                                <div class="progress">
+                                    <div class="progress-bar" data-edit="progress" role="progressbar" aria-valuenow="70"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:70%">
                                     </div>
                                 </div>
-                                <div class="section education">
-                                    <div class="sec-heading">EDUCATION</div>
-                                    <div class="items pl-3" data-filling="educationCard">
-                                        <span class="item" data-edit="degree">
-                                            Degree
-                                        </span>
-                                        <span class="item" data-edit="universty">
-                                            universty
-                                        </span>
-                                        <span class="item" data-edit="location">
-                                            Location
-                                        </span>
-                                        <span class="item" data-edit="date">
-                                            date
-                                        </span>
-                                        <span class="item" data-edit="description">
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi explicabo
-                                            necessitatibus rem.
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="section achievements">
-                                    <div class="sec-heading">ACHIEVEMENTS</div>
-                                    <div class="items pl-3" data-filling="achievementsCard">
-                                        <div class="item" data-edit="achievements">Achievements</div>
-                                        <div class="item" data-edit="description">Lorem ipsum dolor sit amet
-                                            consectetur, adipisicing elit. Iste, voluptas.</div>
-                                    </div>
-                                </div>
-                                <div class="section softSkill">
-                                    <div class="sec-heading">SOFT SKILLS</div>
-                                    <div class="items pl-3" data-filling="softSkillCard">
-                                        <div class="item" data-edit="skill">Skill</div>
-                                        <div class="item" data-edit="description">Lorem ipsum dolor sit amet
-                                            consectetur, adipisicing elit. Iste, voluptas.</div>
-                                    </div>
-                                </div>
-                                <div class="section languages">
-                                    <div class="sec-heading">LANGUAGES</div>
-                                    <div class="items pl-3">
-                                        <div class="item" data-filling="languagesCard">
-                                            <i class="fa fa-circle"></i>
-                                            <div class="w-100 pull-away pr-5">
-                                                <span class="text" data-edit="text">English</span>
-                                                <div class=" progress">
-                                                    <div class="progress-bar" data-edit="progress" role="progressbar"
-                                                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
-                                                        style="width:70%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="section hobbies">
-                                    <div class="sec-heading">HOBBIES</div>
-                                    <div class="items pl-3">
-                                        <div class="item" data-filling="hobbiesCard">
-                                            <i class="fa fa-circle"></i>
-                                            <div class="w-100 pull-away pr-5">
-                                                <span class="text" data-edit="text">Circket</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="section references">
-                                    <div class="sec-heading">REFERENCES</div>
-                                    <div class="items pl-3">
-                                        <div class="item" data-filling="referencesCard">
-                                            <i class="fa fa-circle"></i>
-                                            <div class="w-100 pull-away pr-5">
-                                                <span class="text" data-edit="text">References</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sec-con2">
-                                <div class="section experience">
-                                    <div class="sec-heading">PROFESSIONAL EXPERIENCE</div>
-                                    <div class="content mt-4 left-bar">
-                                        <div class="items pl-3" data-filling="experienceCard">
-                                            <span class="item" data-edit="designation">Designation</span>
-                                            <span class="item" data-edit="company-name">Company Name</span>
-                                            <span class="item" data-edit="location">
-                                                Location
-                                            </span>
-                                            <span class="item" data-edit="date">
-                                                Dates
-                                            </span>
-                                            <span class="item" data-edit="description">
-                                                Lorem Ipsum has been the industry's standard dummy text ever since the
-                                                1500s, when an unknown printer took a galley of type and scrambled it to
-                                                make a type specimen book. It has survived not only five centuries, but
-                                                also the leap into electronic typesetting, remaining essentially
-                                                unchanged. It was popularised in the 1960s with the release of Letraset
-                                                sheets containing Lorem Ipsum passages,
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="section certificates mt-5">
-                                    <div class="sec-heading">CERTIFICATES</div>
-                                    <div class="content mt-4 left-bar">
-                                        <div class="items pl-3" data-filling="certificatesCard">
-                                            <span class="item" data-edit="certificate">Certificate</span>
-                                            <span class="item" data-edit="organization">Company Name</span>
-                                            <span class="item" data-edit="location">
-                                                Location
-                                            </span>
-                                            <span class="item" data-edit="date">
-                                                Dates
-                                            </span>
-                                            <span class="item" data-edit="description">
-                                                Lorem Ipsum has been the industry's standard dummy text ever since the
-                                                1500s, when an unknown printer took a galley of type and scrambled it to
-                                                make a type specimen book. It has survived not only five centuries, but
-                                                also the leap into electronic typesetting, remaining essentially
-                                                unchanged. It was popularised in the 1960s with the release of Letraset
-                                                sheets containing Lorem Ipsum passages,
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="section skills mt-5">
-                                    <div class="sec-heading">PROFESSIONAL SKILLS</div>
-                                    <div class="content mt-4">
-                                        <div class="items ml-5">
-                                            <div class="item" data-filling="proSkillCard">
-                                                <div class="skill-item">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" data-edit="progress"
-                                                            role="progressbar" aria-valuenow="70" aria-valuemin="0"
-                                                            aria-valuemax="100" style="width:70%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="text" data-edit="text">Project Management</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <span class="text" data-edit="text">Project Management</span>
                             </div>
                         </div>
                     </div>
@@ -1279,43 +243,4 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="userUploadPhotoPopup" tabindex="-1" role="dialog"
-        aria-labelledby="userUploadPhotoPopupTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content px-3">
-                <div class="modal-header border-bottom-none">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add a Photo</h5>
-                </div>
-                <div class="modal-body pb-5">
-                    <div class="upload-image-container">
-                        <i class="fa fa-user user-icon"></i>
-                        <h4 class="img-upload-heading">Drag & Drop a Photo Here</h4>
-                        <span>or</span>
-                        <label for="file-upload" style="position: relative;">
-                            <input type="file" id="file-upload">
-                            <button class="btn btn-sm fw-bold btn-primary px-5 mt-3">Browse From Your Device</button>
-                        </label>
-                        <h4 class="img-extention">File Types: JPEG, PNG, GIF Size limited to 4 MB</h4>
-                    </div>
-                    <div class="pull-right mt-4 d-none">
-                        <button type="button" class="btn btn-sm fw-bold btn-primary px-4 close-window-popup"
-                            class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                        <button class="btn btn-sm fw-bold btn-primary px-4 ml-4">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <input type="hidden" id="orderId" value="{{ order_id }}">
-    <script src="{% static  'resume_templates/js/jquery.min.js' %}"></script>
-    <script src="{% static  'resume_templates/js/popper.min.js' %}"></script>
-    <script src="{% static  'resume_templates/js/bootstrap.min.js' %}"></script>
-    <script src="{% static  'resume_templates/js/tinymce/tinymce.min.js' %}"></script>
-    <script src="{% static  'resume_templates/js/function.js' %}"></script>
-    <script src="{% static  'resume_templates/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static  'resume_templates/js/editor.js' %}"></script>
-
-    {% endblock content %}
+</div>

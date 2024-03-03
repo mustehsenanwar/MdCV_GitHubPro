@@ -1,0 +1,130 @@
+<div class="carousel-item content-header active" data-panel="contactPanel">
+    <div>
+        <h4 class="heading">Customer Instructions:</h4>
+        <div class="head-item">
+            <i class="fa fa-star mr-2"></i>
+            <span>Phone Number in format +655555555</span>
+        </div>
+        <div class="head-item">
+            <i class="fa fa-star mr-2"></i>
+            <span>Dont't Add my Address Or City</span>
+        </div>
+        <div class="head-item">
+            <i class="fa fa-star mr-2"></i>
+            <span>Clean My Photo</span>
+        </div>
+        <hr class="line">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-item">
+                    <div class="media">
+                        <div class="user-img">
+                            <i class="fa fa-camera"></i>
+                            <img src="{% static  'resume_templates/images/user.jpg' %}" class="w-100 d-none h-100"
+                                style="border-radius: 50%;">
+                        </div>
+                        <div class="media-body ml-3">
+                            <p class="mb-0">Add a Photo to Resume (Optional)</p>
+                            <button class="btn btn-sm fw-bold btn-primary mt-2" data-toggle="modal"
+                                data-target="#userUploadPhotoPopup">Add
+                                Photo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <hr>
+            </div>
+            <div class="col-md-6">
+                <div class="form-item">
+                    <input type="text" id="name" class="cv-input" data-target="name" autocomplete="off"
+                        placeholder="First & Last Name">
+                    <label for="username">Name</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-item">
+                    <input type="text" id="phone" class="cv-input" data-target="phone" autocomplete="off"
+                        placeholder="+555555555">
+                    <label for="username">Phone</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-item">
+                    <input type="text" id="email" class="cv-input" data-target="email" autocomplete="off"
+                        placeholder="waseemsajjad.online@gmail.com">
+                    <label for="username">Email</label>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3 collapse-field-container" data-text="Nattionality">
+                <div class="collapse-field">
+                    <div class="form-item mb-0">
+                        <input type="text" id="nattionality" class="cv-input" data-target="nattionality"
+                            autocomplete="off" placeholder="e.g Oct Emirati">
+                        <label for="username">Nattionality</label>
+                    </div>
+                    <i class="fa fa-minus icon"></i>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3 collapse-field-container" data-text="Merital Status">
+                <div class="collapse-field">
+                    <div class="form-item mb-0">
+                        <input type="text" id="merital_status" class="cv-input" data-target="merital_status"
+                            autocomplete="off" placeholder="Merital Status">
+                        <label for="username">Merital Status</label>
+                    </div>
+                    <i class="fa fa-minus icon"></i>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3 collapse-field-container" data-text="DOB">
+                <div class="collapse-field">
+                    <div class="form-item mb-0">
+                        <input type="text" id="dob" class="cv-input" data-target="dob" autocomplete="off"
+                            placeholder="e.g Oct 1998">
+                        <label for="username">DOB</label>
+                    </div>
+                    <i class="fa fa-minus icon"></i>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3 collapse-field-container" data-text="Driving lisence">
+                <div class="collapse-field">
+                    <div class="form-item mb-0">
+                        <input type="text" class="cv-input" data-target="drivingLisence" id="driving-lisence"
+                            autocomplete="off" placeholder="e.g UAE">
+                        <label for="username">Driving lisence</label>
+                    </div>
+                    <i class="fa fa-minus icon"></i>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3 collapse-field-container" data-text="Linked In">
+                <div class="collapse-field">
+                    <div class="form-item mb-0">
+                        <input type="text" data-target="linkedIn" class="cv-input" id="linked-in" autocomplete="off"
+                            placeholder="http://linkedin.com/profile">
+                        <label for="username">Linked In</label>
+                    </div>
+                    <i class="fa fa-minus icon"></i>
+                </div>
+            </div>
+            <div class="col-md-8 mb-3 collapse-field-container" data-text="Country">
+                <div class="collapse-field">
+                    <div class="form-item mb-0">
+                        <input type="text" data-target="country" class="cv-input" id="country" autocomplete="off"
+                            placeholder="e.g United Arab Emirate">
+                        <label for="username">Country</label>
+                    </div>
+                    <i class="fa fa-minus icon"></i>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="collapse-field-items-container"></div>
+            </div>
+            <div class="col-md-12 pull-right mt-4 mb-5">
+                <button class="carousel-control-next btn btn-primary px-5 py-4 mr-3" role="button" data-slide="next">
+                    Save
+                    <i class="fa fa-chevron-right ml-2 f-10"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

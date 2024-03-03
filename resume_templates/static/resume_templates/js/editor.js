@@ -310,3 +310,86 @@ $(document).on('input', ".input-fill-finalize-data", function () {
         value = $(this).val();
     cvMainContent.find(`[data-filling="${target}"]`).text(value);
 });
+
+// Tc side panel close
+$(document).on('click', ".tc-side-panel-close", function () {
+    let $parent = $(this).parents(".tc-panel");
+    $parent.addClass("d-none");
+    $("#cvEditorCarousel").removeClass("d-none");
+});
+
+// Tc side panel open
+$(document).on('click', ".tc-side-panel-open", function () {
+    let target = $(this).data("target");
+    let $panelParent = $(".editor-sidebar-content");
+    $panelParent.find(".tc-panel").addClass("d-none");
+    $panelParent.find(`.tc-panel[data-toggle="${target}"]`).removeClass("d-none");
+    $("#cvEditorCarousel").addClass("d-none");
+});
+
+
+$(document).ready(function () {
+    let column1 = ["education1", "about-us1", "exprience1", "personal-info1"]
+    let column2 = ["education2", "about-us2", "exprience2", "personal-info2"]
+    for (let i = 0; i < column1.length; i++) {
+        const element = column1[i];
+        rearrangeSectionItems(element, ".rearrange-sec-1");
+    }
+    for (let i = 0; i < column2.length; i++) {
+        const element = column2[i];
+        rearrangeSectionItems(element, ".rearrange-sec-2");
+    }
+});
+
+
+// Initialize sortable on columns
+$('.rearrange-sections .column').sortable({
+    connectWith: '.rearrange-sections .column',
+    items: '.rearrange-section',
+    update: function (event, ui) {
+        let moveSec = $(ui.item).attr("data-target");
+        let targetColumn = $(ui.item).closest('.column');
+        let targetColumnIndex = $('.rearrange-sections .column').index(targetColumn) + 1; // Get index of target column
+
+        // If the item is moved to a different column
+        if ($(ui.sender).hasClass('column')) {
+            // Append the dragged item to the new column
+            $(ui.item).detach().appendTo(targetColumn);
+        }
+
+        // Update the data-target attribute to match the new column's index
+        $(ui.item).attr("data-target", moveSec.substring(0, moveSec.length - 1) + targetColumnIndex);
+    }
+}).disableSelection();
+
+
+// Append Rearrange Section & Content
+function rearrangeSectionItems(target, element) {
+    $("#customization .rearrange-sections").find(element).append(`
+    <div class="rearrange-section pull-away draggable-sec" draggable="true" data-type="section"  data-target="${target}">
+        <div class="d-flex align-center drag-sec">
+            <i class="fas fa-grip-vertical sec-icon"></i>
+            <p>
+                ${target}
+            </p>
+        </div>
+        <i class="fas fa-times text-danger cp delete"></i>
+    </div>
+    `);
+}
+
+
+// Append Rearrange Section & Content
+function rearrangeSectionItems(target, element) {
+    $("#customization .rearrange-sections").find(element).append(`
+    <div class="rearrange-section pull-away draggable-sec" draggable="true" data-type="section"  data-target="${target}">
+        <div class="d-flex align-center drag-sec">
+            <i class="fas fa-grip-vertical sec-icon"></i>
+            <p>
+                ${target}
+            </p>
+        </div>
+        <i class="fas fa-times text-danger cp delete"></i>
+    </div>
+    `);
+}

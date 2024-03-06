@@ -327,21 +327,6 @@ $(document).on('click', ".tc-side-panel-open", function () {
     $("#cvEditorCarousel").addClass("d-none");
 });
 
-
-$(document).ready(function () {
-    let column1 = ["education1", "about-us1", "exprience1", "personal-info1"]
-    let column2 = ["education2", "about-us2", "exprience2", "personal-info2"]
-    for (let i = 0; i < column1.length; i++) {
-        const element = column1[i];
-        rearrangeSectionItems(element, ".rearrange-sec-1");
-    }
-    for (let i = 0; i < column2.length; i++) {
-        const element = column2[i];
-        rearrangeSectionItems(element, ".rearrange-sec-2");
-    }
-});
-
-
 // Initialize sortable on columns
 $('.rearrange-sections .column').sortable({
     connectWith: '.rearrange-sections .column',
@@ -351,33 +336,51 @@ $('.rearrange-sections .column').sortable({
         let targetColumn = $(ui.item).closest('.column');
         let targetColumnIndex = $('.rearrange-sections .column').index(targetColumn) + 1; // Get index of target column
 
-        // If the item is moved to a different column
-        if ($(ui.sender).hasClass('column')) {
-            // Append the dragged item to the new column
-            $(ui.item).detach().appendTo(targetColumn);
-        }
+        let target = $(ui.item).next().attr("data-target"),
+            prevTarget = $(ui.item).prev().attr("data-target");
 
-        // Update the data-target attribute to match the new column's index
-        $(ui.item).attr("data-target", moveSec.substring(0, moveSec.length - 1) + targetColumnIndex);
+        let dragSection = $(`.cvContent .section[data-target=${moveSec}]`).detach();
+        let $parent = $(ui.item).parents(".column").first();
+        l(dragSection)
+        l("next " + target)
+        l("prev " + prevTarget)
+        if (target && !prevTarget) {
+            dragSection.insertBefore(`.cvContent .section[data-target=${target}]`);
+        } else if (!target && prevTarget) {
+            $(`.cvContent .section[data-target=${prevTarget}]`).parents('.sec-con').append(dragSection);
+        } else if (target && prevTarget) {
+            dragSection.insertAfter(`.cvContent .section[data-target=${prevTarget}]`);
+        } else if (!target && !prevTarget) {
+            if ($parent.hasClass("rearrange-sec-1")) {
+                $(`.cvContent .sec-con1`).append(dragSection);
+            } else {
+                $(`.cvContent .sec-con2`).append(dragSection);
+            }
+        } else {
+            if ($parent.hasClass("rearrange-sec-1")) {
+                // $(`.cvContent .body .sec-con1`).append(dragSection);
+                if (target && !prevTarget) {
+                    dragSection.insertBefore(`.cvContent .sec-con1 .section[data-target=${target}]`);
+                } else if (!target && prevTarget) {
+                    $(`.cvContent .sec-con1 .section[data-target=${prevTarget}]`).parents('.sec-con').append(dragSection);
+                } else if (target && prevTarget) {
+                    dragSection.insertAfter(`.cvContent .sec-con1 .section[data-target=${prevTarget}]`);
+                }
+            } else {
+                // $(`.cvContent .body .sec-con2`).append(dragSection);
+                if (target && !prevTarget) {
+                    dragSection.insertBefore(`.cvContent .sec-con2 .section[data-target=${target}]`);
+                } else if (!target && prevTarget) {
+                    $(`.cvContent .sec-con2 .section[data-target=${prevTarget}]`).parents('.sec-con').append(dragSection);
+                } else if (target && prevTarget) {
+                    dragSection.insertAfter(`.cvContent  .sec-con2 .section[data-target=${prevTarget}]`);
+                }
+            }
+        }
     }
 }).disableSelection();
 
 
-// Append Rearrange Section & Content
-function rearrangeSectionItems(target, element) {
-    $("#customization .rearrange-sections").find(element).append(`
-    <div class="rearrange-section pull-away draggable-sec" draggable="true" data-type="section"  data-target="${target}">
-        <div class="d-flex align-center drag-sec">
-            <i class="fas fa-grip-vertical sec-icon"></i>
-            <p>
-                ${target}
-            </p>
-        </div>
-        <i class="fas fa-times text-danger cp delete"></i>
-    </div>
-    `);
-}
-
 
 // Append Rearrange Section & Content
 function rearrangeSectionItems(target, element) {
@@ -393,3 +396,111 @@ function rearrangeSectionItems(target, element) {
     </div>
     `);
 }
+
+// CV sections structure
+const sections = {
+    'one': [
+        {
+            'target': 'education',
+            'heading': 'EDUCATION'
+        },
+        {
+            'target': 'achievements',
+            'heading': 'ACHIEVEMENTS'
+        },
+        {
+            'target': 'softSkill',
+            "heading": 'SOFT SKILLS'
+        },
+        {
+            'target': 'languages',
+            "heading": "LANGUAGES"
+        },
+        {
+            'target': 'hobbies',
+            "heading": "HOBBIES",
+        },
+        {
+            'target': 'references',
+            "heading": "REFERENCES"
+        },
+    ],
+    'two': [
+        {
+            'target': 'experience',
+            "heading": "PROFESSIONAL EXPERIENCE"
+        },
+        {
+            'target': 'certificates',
+            "heading": "CERTIFICATES"
+        },
+        {
+            'target': 'skills',
+            "heading": "PROFESSIONAL SKILLS"
+        },
+    ]
+};
+
+// In Word
+function inWords(num) {
+    var numberStr1 = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    var numberStr2 = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+    if ((num = num.toString()).length > 9) return 'overflow';
+
+    var n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+    if (!n) return '';
+
+    var str = '';
+
+    str += (n[1] != 0) ? (numberStr1[Number(n[1])] || numberStr2[n[1][0]] + ' ' + numberStr1[n[1][1]]) + ' crore ' : '';
+    str += (n[2] != 0) ? (numberStr1[Number(n[2])] || numberStr2[n[2][0]] + ' ' + numberStr1[n[2][1]]) + ' lakh ' : '';
+    str += (n[3] != 0) ? (numberStr1[Number(n[3])] || numberStr2[n[3][0]] + ' ' + numberStr1[n[3][1]]) + ' thousand ' : '';
+    str += (n[4] != 0) ? (numberStr1[Number(n[4])] || numberStr2[n[4][0]] + ' ' + numberStr1[n[4][1]]) + ' hundred ' : '';
+    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (numberStr1[Number(n[5])] || numberStr2[n[5][0]] + ' ' + numberStr1[n[5][1]]) : '';
+
+    return str.trim();
+}
+
+
+
+// Append new section fn
+function appendNewSection(data, element) {
+    let target = data.target,
+        heading = data.heading;
+    sectionItem = "";
+    // if (target == "education") {
+    //     sectionItem = appendEducationHTML(sectionCount);
+    // }
+    contentClass = "";
+    if (target == "experience" || target == "certificates" || target == "skills") contentClass = "left-bar"
+    $(element).append(`
+    <div class="section ${target}" data-target="${target}">
+        <div class="sec-heading">${target.toUpperCase()}</div>
+        <div class="content ${contentClass}">
+        ${sectionItem}
+        </div>
+    </div>`);
+    sectionCount++;
+}
+
+// Load sections from json fn
+function loadSectionsFromJson(data, targetElement, index = null) {
+    data.forEach(section => {
+        // appendNewSection(section, targetElement);
+        rearrangeSectionItems(section.target, `.rearrange-sec-${index}`);
+    });
+}
+
+// Load cv Data
+function cvHTMLStructureLoad() {
+    let allSec = sections;
+    // Remove sections
+    // cvMainContent.find(`.section:not(.profile)`).remove();
+    for (let i = 1; i < 3; i++) {
+        let type = inWords(i),
+            selector = `.cvContent .sec-con${i}`;
+        loadSectionsFromJson(allSec[type], selector, i);
+    }
+}
+cvHTMLStructureLoad();

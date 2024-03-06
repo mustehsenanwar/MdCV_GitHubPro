@@ -113,7 +113,7 @@ function appendEducationHTML(sectionCount) {
             <span class="item" data-edit="date"></span>
             <span class="item" data-edit="description"></span>
         </div>`;
-    cvMainContent.find(`.section.education`).append($cvHTML);
+    cvMainContent.find(`.section.education .content`).append($cvHTML);
 }
 
 function educationSectionCardHTML(cardType) {
@@ -362,7 +362,7 @@ function appendSoftSkillHTML(sectionCount) {
             <span class="item" data-edit="skill"></span>
             <span class="item" data-edit="description"></span>
         </div>`;
-    $cvContent.find(`.section.softSkill`).append($cvHTML);
+    $cvContent.find(`.section.softSkill .content`).append($cvHTML);
 }
 
 function softSkillSectionCardHTML(cardType) {
@@ -418,7 +418,7 @@ function appendachievementsHTML(sectionCount) {
             <span class="item" data-edit="achievements"></span>
             <span class="item" data-edit="description"></span>
         </div>`;
-    $cvContent.find(`.section.achievements`).append($cvHTML);
+    $cvContent.find(`.section.achievements .content`).append($cvHTML);
 }
 
 function achievementsSectionCardHTML(cardType) {

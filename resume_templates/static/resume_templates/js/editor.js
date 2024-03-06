@@ -472,13 +472,13 @@ function appendNewSection(data, element) {
     // if (target == "education") {
     //     sectionItem = appendEducationHTML(sectionCount);
     // }
-    contentClass = "";
-    if (target == "experience" || target == "certificates" || target == "skills") contentClass = "left-bar"
+    items = "";
+    if (target == "skills" || target == "languages" || target == "hobbies" || target == "references") items = `<div class="items"></div>`;
     $(element).append(`
     <div class="section ${target}" data-target="${target}">
         <div class="sec-heading">${target.toUpperCase()}</div>
-        <div class="content ${contentClass}">
-        ${sectionItem}
+        <div class="content">
+        ${items}
         </div>
     </div>`);
     sectionCount++;
@@ -487,7 +487,7 @@ function appendNewSection(data, element) {
 // Load sections from json fn
 function loadSectionsFromJson(data, targetElement, index = null) {
     data.forEach(section => {
-        // appendNewSection(section, targetElement);
+        appendNewSection(section, targetElement);
         rearrangeSectionItems(section.target, `.rearrange-sec-${index}`);
     });
 }
@@ -496,7 +496,7 @@ function loadSectionsFromJson(data, targetElement, index = null) {
 function cvHTMLStructureLoad() {
     let allSec = sections;
     // Remove sections
-    // cvMainContent.find(`.section:not(.profile)`).remove();
+    cvMainContent.find(`.section:not(.profile)`).remove();
     for (let i = 1; i < 3; i++) {
         let type = inWords(i),
             selector = `.cvContent .sec-con${i}`;

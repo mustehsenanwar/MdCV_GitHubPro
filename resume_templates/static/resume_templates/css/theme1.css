@@ -191,6 +191,11 @@
     width: 2px;
 }
 
+.cvContent .sec-con2 .section.skills .content::before,
+.cvContent .sec-con2 .section.skills .content::after {
+    display: none;
+}
+
 .cvContent .sec-con2 .section .content::before {
     content: "";
     height: 10px;

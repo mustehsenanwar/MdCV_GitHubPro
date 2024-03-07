@@ -721,3 +721,14 @@ hr {
     overflow: hidden !important;
     text-overflow: ellipsis;
 }
+
+.single-section {
+    display: inline-block;
+    padding: 5px 15px;
+    background: #f3f4f6;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-transform: uppercase;
+}

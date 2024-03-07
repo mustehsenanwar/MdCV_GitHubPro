@@ -1,6 +1,6 @@
 let l = console.log;
 // Global variables
-let sectionCount = 1;
+// let sectionCount = 1;
 let cvMainContent = $(".cvContent");
 
 // Document ready
@@ -206,7 +206,6 @@ $(document).on('change input', ".fill-item-value", function () {
         $section = cvMainContent.find(`.section.${section}`);
     let $targetEle = $section.find(`.item[data-filling="${targetCard}"] [data-edit="${fillVal}"]`);
     let value = $(this).val();
-    l($section.find(`.item[data-filling="${targetCard}"`));
     if (fillVal == "text") {
         $targetEle.text(value);
     } else {
@@ -341,9 +340,6 @@ $('.rearrange-sections .column').sortable({
 
         let dragSection = $(`.cvContent .section[data-target=${moveSec}]`).detach();
         let $parent = $(ui.item).parents(".column").first();
-        l(dragSection)
-        l("next " + target)
-        l("prev " + prevTarget)
         if (target && !prevTarget) {
             dragSection.insertBefore(`.cvContent .section[data-target=${target}]`);
         } else if (!target && prevTarget) {
@@ -385,7 +381,7 @@ $('.rearrange-sections .column').sortable({
 // Append Rearrange Section & Content
 function rearrangeSectionItems(target, element) {
     $("#customization .rearrange-sections").find(element).append(`
-    <div class="rearrange-section pull-away draggable-sec" draggable="true" data-type="section"  data-target="${target}">
+    <div class="rearrange-section pull-away draggable-sec toggle-cv-section" data-section-text="${target}" draggable="true" data-type="section"  data-target="${target}">
         <div class="d-flex align-center drag-sec">
             <i class="fas fa-grip-vertical sec-icon"></i>
             <p>
@@ -397,46 +393,122 @@ function rearrangeSectionItems(target, element) {
     `);
 }
 
+let descriptionData = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+quia.`;
 // CV sections structure
 const sections = {
+
     'one': [
         {
-            'target': 'education',
-            'heading': 'EDUCATION'
+            target: 'education',
+            heading: 'EDUCATION',
+            data: [
+                {
+                    degree: "Degree one",
+                    university: "University one",
+                    location: "Location one",
+                    date: "20-02-2024",
+                    description: descriptionData
+                }, {
+                    degree: "Degree two",
+                    university: "University two",
+                    location: "Location two",
+                    date: "21-02-2024",
+                    description: descriptionData
+                }
+            ]
         },
         {
             'target': 'achievements',
-            'heading': 'ACHIEVEMENTS'
+            'heading': 'ACHIEVEMENTS',
+            data: [
+                {
+                    achievements: "achievements one",
+                    description: descriptionData
+                }, {
+                    achievements: "achievements two",
+                    description: descriptionData
+                }
+            ]
         },
         {
             'target': 'softSkill',
-            "heading": 'SOFT SKILLS'
+            "heading": 'SOFT SKILLS',
+            data: [
+                {
+                    skill: "skill one",
+                    description: descriptionData,
+                }, {
+                    skill: "skill two",
+                    description: descriptionData,
+                }
+            ]
         },
         {
             'target': 'languages',
-            "heading": "LANGUAGES"
+            "heading": "LANGUAGES",
+            data: []
         },
         {
             'target': 'hobbies',
             "heading": "HOBBIES",
+            data: []
         },
         {
             'target': 'references',
-            "heading": "REFERENCES"
+            "heading": "REFERENCES",
+            data: []
         },
     ],
     'two': [
         {
             'target': 'experience',
-            "heading": "PROFESSIONAL EXPERIENCE"
+            "heading": "PROFESSIONAL EXPERIENCE",
+            data: [
+                {
+                    designation: "designation one",
+                    'company-name': "company-name one",
+                    location: "Location one",
+                    date: "20-02-2024",
+                    description: descriptionData
+                }, {
+                    designation: "designation two",
+                    'company-name': "company-name two",
+                    location: "Location two",
+                    date: "21-02-2024",
+                    description: descriptionData
+                }
+            ]
         },
         {
             'target': 'certificates',
-            "heading": "CERTIFICATES"
+            "heading": "CERTIFICATES",
+            data: [
+                {
+                    certificate: "certificate one",
+                    organization: "organization one",
+                    location: "Location one",
+                    date: "20-02-2024",
+                    description: descriptionData
+                }, {
+                    certificate: "Degree two",
+                    organization: "University two",
+                    location: "Location two",
+                    date: "21-02-2024",
+                    description: descriptionData
+                }
+            ]
         },
         {
             'target': 'skills',
-            "heading": "PROFESSIONAL SKILLS"
+            "heading": "PROFESSIONAL SKILLS",
+            data: []
         },
     ]
 };
@@ -467,11 +539,9 @@ function inWords(num) {
 // Append new section fn
 function appendNewSection(data, element) {
     let target = data.target,
-        heading = data.heading;
-    sectionItem = "";
-    // if (target == "education") {
-    //     sectionItem = appendEducationHTML(sectionCount);
-    // }
+        heading = data.heading,
+        sectionData = data.data
+    // default items div
     items = "";
     if (target == "skills" || target == "languages" || target == "hobbies" || target == "references") items = `<div class="items"></div>`;
     $(element).append(`
@@ -481,7 +551,23 @@ function appendNewSection(data, element) {
         ${items}
         </div>
     </div>`);
-    sectionCount++;
+    // fill data
+    for (let i = 0; i < sectionData.length; i++) {
+        secData = sectionData[i];
+        let $container = $(`.${target}-container`).find(".cards");
+        if (target == "education") {
+            $container.append(educationSectionCardHTML(target, secData));
+        } else if (target == "achievements") {
+            $container.append(achievementsSectionCardHTML(target, secData));
+        } else if (target == "softSkill") {
+            $container.append(softSkillSectionCardHTML(target, secData));
+        } else if (target == "certificates") {
+            $container.append(certificateSectionCardHTML(target, secData));
+        } else if (target == "experience") {
+            $container.append(expriencesectionCardHTML(target, secData));
+        }
+        sectionCount++
+    }
 }
 
 // Load sections from json fn
@@ -504,3 +590,28 @@ function cvHTMLStructureLoad() {
     }
 }
 cvHTMLStructureLoad();
+
+
+// Hide sections
+$(document).on('click', ".toggle-cv-section .delete", function () {
+    let $parent = $(this).parents(".toggle-cv-section"),
+        section = $parent.data("target"),
+        sectionText = $parent.data("section-text");
+    $parent.addClass("d-none");
+    // hide section append
+    $parent.parents(".customization-sections").find(".hide-section-container").append(`
+    <div class="single-section" data-target="${section}">
+     <i class="fa fa-plus mr-1"></i>
+        ${sectionText}
+    </div>`);
+    cvMainContent.find(`.section.${section}`).addClass("d-none");
+});
+
+// Show section
+$(document).on('click', ".hide-section-container .single-section", function () {
+    let $parent = $(this).parents(".customization-sections"),
+        section = $(this).data("target");
+    $parent.find(`.toggle-cv-section[data-target="${section}"]`).removeClass("d-none");
+    cvMainContent.find(`.section.${section}`).removeClass("d-none");
+    $(this).remove();
+});

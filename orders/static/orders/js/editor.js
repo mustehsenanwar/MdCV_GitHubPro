@@ -418,7 +418,7 @@ function appendEducationHTML(sectionCount) {
     let $cvHTML =
         `<div class="items pl-3" data-filling="educationCard${sectionCount}">
             <span class="item" data-edit="degree"></span>
-            <span class="item" data-edit="universty"></span>
+            <span class="item" data-edit="university"></span>
             <span class="item" data-edit="location"></span>
             <span class="item" data-edit="date"></span>
             <span class="item" data-edit="description"></span>
@@ -453,9 +453,9 @@ function educationSectionCardHTML(cardType) {
                         <div class="col-md-12">
                             <div class="form-item">
                                 <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
-                                    data-fill="universty" data-section="education"
-                                    autocomplete="off" placeholder="Universty">
-                                <label for="username">Universty</label>
+                                    data-fill="university" data-section="education"
+                                    autocomplete="off" placeholder="University">
+                                <label for="username">University</label>
                             </div>
                         </div>
                         <div class="col-md-6">

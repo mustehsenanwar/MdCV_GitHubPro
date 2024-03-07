@@ -272,7 +272,7 @@
     width: 48%;
 }
 
-.cvContent .sec-con1 .section.education .items .item[data-edit="universty"] {
+.cvContent .sec-con1 .section.education .items .item[data-edit="university"] {
     order: 2;
     width: 48%;
     text-align: right;
@@ -304,7 +304,7 @@
     width: 48%;
 }
 
-.cvContent .section.education .items .item[data-edit="universty"] {
+.cvContent .section.education .items .item[data-edit="university"] {
     order: 2;
     width: 48%;
     text-align: right;

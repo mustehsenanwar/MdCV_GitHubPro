@@ -279,7 +279,7 @@
     width: 48%;
 }
 
-.cvContent .sec-con1 .section.education .items .item[data-edit="universty"],
+.cvContent .sec-con1 .section.education .items .item[data-edit="university"],
 .cvContent .sec-con1 .section.certificates .items .item[data-edit="organization"],
 .cvContent .sec-con1 .section.experience .items .item[data-edit="company-name"] {
     order: 2;
@@ -328,7 +328,7 @@
 }
 
 .cvContent .sec-con2 .section.certificates .items .item[data-edit="organization"],
-.cvContent .sec-con2 .section.education .items .item[data-edit="universty"],
+.cvContent .sec-con2 .section.education .items .item[data-edit="university"],
 .cvContent .sec-con2 .section.experience .items .item[data-edit="company-name"] {
     order: 2;
     width: 100%;

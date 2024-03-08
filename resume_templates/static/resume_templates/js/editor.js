@@ -99,17 +99,14 @@ $(document).ready(function () {
     });
 });
 
-// Add Skill button
-$(document).on("click", ".add-skill-btn", function () {
-    let $parent = $(this).parents(".skill-container"),
-        cardTarget = $(this).data("card"),
-        text = $(this).data("text"),
-        section = $(this).data("section");
+function addSkillORLanguageRow(section, text, cardTarget, data = {}) {
+    let skillVal = data.text || "",
+        average = data.average || 0;
     let skillHTML =
         `<div class="skill-item mb-3">
             <div class="left">
                 <div class="form-item mb-0">
-                    <input type="text" class="fill-item-value" data-section="${section}"
+                    <input type="text" value="${skillVal}" class="fill-item-value" data-section="${section}"
                     data-card="${cardTarget}${sectionCount}" data-fill="text" autocomplete="off"
                     placeholder="${text}">
                     <label for="username">${text}</label>
@@ -118,18 +115,46 @@ $(document).on("click", ".add-skill-btn", function () {
             <div class="right d-flex">
                 <input type="range" class="w-100 fill-item-value"
                 data-section="${section}" data-card="${cardTarget}${sectionCount}"
-                data-fill="progress" min="1" max="100" value="50">
+                data-fill="progress" min="1" max="100" value="${average}">
                 <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill" data-delete="${cardTarget}${sectionCount}" data-section="${section}"></i>
             </div>
         </div>`;
-    $parent.find(".skill-item-container").append(skillHTML);
+    return skillHTML;
+}
+
+// Add Skill button
+$(document).on("click", ".add-skill-btn", function () {
+    let $parent = $(this).parents(".skill-container"),
+        cardTarget = $(this).data("card"),
+        text = $(this).data("text"),
+        section = $(this).data("section");
+
+    skillHTML = addSkillORLanguageRow(section, text, cardTarget);
+    $(`.skill-item-container.${section}-items-container`).append(skillHTML);
     if (section == "languages") {
         addLanguageSkillItem(sectionCount);
     } else if (section == "skills") {
-        addProfessionalSkillItem(sectionCount);
+        addProfessionalSkillItem();
     }
     sectionCount++;
 });
+
+function addHobbiesRow(data = {}) {
+    let text = data.text || "";
+    let $html =
+        `<div class="hobbies-item mb-3">
+        <div class="left content-center">
+            <div class="form-item mb-0 w-100">
+                <input type="text" value="${text}" class="fill-item-value"
+                    data-section="hobbies" autocomplete="off" data-fill="text"
+                    data-card="hobbiesCard${sectionCount}" placeholder="Hobbies">
+                <label for="username">Hobbies</label>
+            </div>
+            <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-hobbies" data-section="hobbies" data-delete="hobbiesCard${sectionCount}"></i>
+        </div>
+    </div>`;
+    return $html;
+}
 
 // Add hobbies button
 $(document).on("click", ".add-hobbies-btn", function () {
@@ -137,20 +162,9 @@ $(document).on("click", ".add-hobbies-btn", function () {
         cardTarget = $(this).data("card"),
         text = $(this).data("text"),
         section = $(this).data("section");
-    let skillHTML =
-        `<div class="hobbies-item mb-3">
-            <div class="left content-center">
-                <div class="form-item mb-0 w-100">
-                    <input type="text" value="" class="fill-item-value"
-                        data-section="hobbies" autocomplete="off" data-fill="text"
-                        data-card="hobbiesCard${sectionCount}" placeholder="Hobbies">
-                    <label for="username">Hobbies</label>
-                </div>
-                <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-hobbies" data-section="hobbies" data-delete="hobbiesCard${sectionCount}"></i>
-            </div>
-        </div>`;
-    $parent.find(".hobbies-item-container").append(skillHTML);
-    addHobbiesItem(sectionCount)
+
+    $parent.find(".hobbies-item-container").append(addHobbiesRow());
+    addHobbiesItem()
     sectionCount++;
 });
 
@@ -164,26 +178,32 @@ $(document).on("click", ".delete-single-hobbies", function () {
     cvMainContent.find(`.section.${section} .item[data-filling="${target}"]`).remove();
 });
 
+function addReferencesRow(data = {}) {
+    let text = data.text || "";
+    let $html =
+        `<div class="references-item mb-3">
+        <div class="left content-center">
+            <div class="form-item mb-0 w-100">
+                <input type="text" value="${text}" class="fill-item-value"
+                    data-section="references" autocomplete="off" data-fill="text"
+                    data-card="referencesCard${sectionCount}" placeholder="References">
+                <label for="username">References</label>
+            </div>
+            <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-references" data-section="references" data-delete="referencesCard${sectionCount}"></i>
+        </div>
+    </div>`;
+    return $html;
+}
+
 // Add hobbies button
 $(document).on("click", ".add-references-btn", function () {
     let $parent = $(this).parents(".references-container"),
         cardTarget = $(this).data("card"),
         text = $(this).data("text"),
         section = $(this).data("section");
-    let skillHTML =
-        `<div class="references-item mb-3">
-            <div class="left content-center">
-                <div class="form-item mb-0 w-100">
-                    <input type="text" value="" class="fill-item-value"
-                        data-section="references" autocomplete="off" data-fill="text"
-                        data-card="referencesCard${sectionCount}" placeholder="References">
-                    <label for="username">References</label>
-                </div>
-                <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-references" data-section="references" data-delete="referencesCard${sectionCount}"></i>
-            </div>
-        </div>`;
-    $parent.find(".references-item-container").append(skillHTML);
-    addReferencesItem(sectionCount)
+
+    $parent.find(".references-item-container").append(addReferencesRow());
+    addReferencesItem()
     sectionCount++;
 });
 
@@ -401,9 +421,22 @@ obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
 nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
 tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
 quia.`;
+
 // CV sections structure
 const sections = {
-
+    personal_information: {
+        name: "Sohail Akbar",
+        headline: "Health, Environment, Safety and Quality (HSEQ)",
+        summary: descriptionData,
+        phone: "0305465543542",
+        email: "test@gmail.com",
+        nationality: "pakistan",
+        merital_status: "Married",
+        dob: "SEP-1999",
+        driving_lisence: "USA",
+        linked_in: "https://pk.linkedin.com/",
+        country: "PK",
+    },
     'one': [
         {
             target: 'education',
@@ -453,17 +486,43 @@ const sections = {
         {
             'target': 'languages',
             "heading": "LANGUAGES",
-            data: []
+            data: [
+                {
+                    text: "English",
+                    average: 50,
+                }, {
+                    text: "French",
+                    average: 80,
+                }, {
+                    text: "Urdu",
+                    average: 100,
+                }, {
+                    text: "Punjabi",
+                    average: 50,
+                },
+            ]
         },
         {
             'target': 'hobbies',
             "heading": "HOBBIES",
-            data: []
+            data: [
+                { text: "hobbies one" },
+                { text: "hobbies two" },
+                { text: "hobbies three" },
+                { text: "hobbies four" },
+                { text: "hobbies five" },
+            ]
         },
         {
             'target': 'references',
             "heading": "REFERENCES",
-            data: []
+            data: [
+                { text: "references one" },
+                { text: "references two" },
+                { text: "references three" },
+                { text: "references four" },
+                { text: "references five" },
+            ]
         },
     ],
     'two': [
@@ -508,7 +567,21 @@ const sections = {
         {
             'target': 'skills',
             "heading": "PROFESSIONAL SKILLS",
-            data: []
+            data: [
+                {
+                    text: "HTML",
+                    average: 50,
+                }, {
+                    text: "CSS",
+                    average: 80,
+                }, {
+                    text: "JavaScript",
+                    average: 100,
+                }, {
+                    text: "Jquery",
+                    average: 50,
+                },
+            ]
         },
     ]
 };
@@ -565,6 +638,20 @@ function appendNewSection(data, element) {
             $container.append(certificateSectionCardHTML(target, secData));
         } else if (target == "experience") {
             $container.append(expriencesectionCardHTML(target, secData));
+        } else if (target == "languages") {
+            skillHTML = addSkillORLanguageRow(target, "Language", "languagesCard", secData);
+            $(`.skill-item-container.${target}-items-container`).append(skillHTML);
+            addLanguageSkillItem(secData);
+        } else if (target == "skills") {
+            skillHTML = addSkillORLanguageRow(target, "Skill", "proSkillCard", secData);
+            $(`.skill-item-container.${target}-items-container`).append(skillHTML);
+            addProfessionalSkillItem(secData);
+        } else if (target == "references") {
+            $(".references-container").find(".references-item-container").append(addReferencesRow(secData));
+            addReferencesItem(secData);
+        } else if (target == "hobbies") {
+            $(".hobbies-container").find(".hobbies-item-container").append(addHobbiesRow(secData));
+            addHobbiesItem(secData)
         }
         sectionCount++
     }

@@ -425,8 +425,8 @@ quia.`;
 // CV sections structure
 const sections = {
     personal_information: {
-        name: "Sohail Akbar",
-        headline: "Health, Environment, Safety and Quality (HSEQ)",
+        name: "Sohail Akbar test",
+        headline: "Health, Environment, Safety and Quality (HSEQ) Test",
         summary: descriptionData,
         phone: "0305465543542",
         email: "test@gmail.com",
@@ -434,7 +434,7 @@ const sections = {
         merital_status: "Married",
         dob: "SEP-1999",
         driving_lisence: "USA",
-        linked_in: "https://pk.linkedin.com/",
+        linkedIn: "https://pk.linkedin.com/",
         country: "PK",
     },
     'one': [
@@ -607,6 +607,18 @@ function inWords(num) {
     return str.trim();
 }
 
+// Fill personl information
+function fillPersonalInformation(perInfo) {
+    let sidebarContainer = $(".editor-sidebar-content");
+
+    // Iterate over the properties of the perInfo object
+    for (let key in perInfo) {
+        let $target = sidebarContainer.find(`[data-target="${key}"]`);
+        $target.val(perInfo[key]);
+        if ($target)
+            $target.trigger("change");
+    }
+}
 
 
 // Append new section fn
@@ -675,6 +687,7 @@ function cvHTMLStructureLoad() {
             selector = `.cvContent .sec-con${i}`;
         loadSectionsFromJson(allSec[type], selector, i);
     }
+    fillPersonalInformation(allSec['personal_information']);
 }
 cvHTMLStructureLoad();
 

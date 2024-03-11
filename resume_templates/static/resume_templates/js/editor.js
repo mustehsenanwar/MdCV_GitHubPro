@@ -45,9 +45,7 @@ $('.owl-carousel').owlCarousel({
 });
 
 // CV Print
-$(document).on('change', ".preview-btn-control input", function () {
-    let isChecked = $(this).is(":checked");
-    if (!isChecked) return false;
+$(document).on('click', "#cvPrint", function () {
     printCV();
 });
 
@@ -443,16 +441,16 @@ const sections = {
             heading: 'EDUCATION',
             data: [
                 {
-                    degree: "Degree one",
-                    university: "University one",
-                    location: "Location one",
-                    date: "20-02-2024",
+                    degree: "Master of Business Administration",
+                    university: "Mangalore University",
+                    location: "India",
+                    date: "(2008 - 2010)",
                     description: descriptionData
                 }, {
-                    degree: "Degree two",
-                    university: "University two",
-                    location: "Location two",
-                    date: "21-02-2024",
+                    degree: "Master of Business Administration",
+                    university: "Mangalore University",
+                    location: "India",
+                    date: "(2008 - 2010)",
                     description: descriptionData
                 }
             ]
@@ -462,10 +460,10 @@ const sections = {
             'heading': 'ACHIEVEMENTS',
             data: [
                 {
-                    achievements: "achievements one",
+                    achievements: "Master of Business Administration",
                     description: descriptionData
                 }, {
-                    achievements: "achievements two",
+                    achievements: "Master of Business Administration",
                     description: descriptionData
                 }
             ]
@@ -475,10 +473,10 @@ const sections = {
             "heading": 'SOFT SKILLS',
             data: [
                 {
-                    skill: "skill one",
+                    skill: "Python",
                     description: descriptionData,
                 }, {
-                    skill: "skill two",
+                    skill: "C++",
                     description: descriptionData,
                 }
             ]
@@ -531,16 +529,16 @@ const sections = {
             "heading": "PROFESSIONAL EXPERIENCE",
             data: [
                 {
-                    designation: "designation one",
-                    'company-name': "company-name one",
-                    location: "Location one",
-                    date: "20-02-2024",
+                    designation: "LACOTE GENERAL TRADING",
+                    'company-name': "PROCUREMENT OFFICER",
+                    location: "(UAE)",
+                    date: "SEP 2022 TO PRESENT",
                     description: descriptionData
                 }, {
-                    designation: "designation two",
-                    'company-name': "company-name two",
-                    location: "Location two",
-                    date: "21-02-2024",
+                    designation: "LACOTE GENERAL TRADING",
+                    'company-name': "PROCUREMENT OFFICER",
+                    location: "(UAE)",
+                    date: "SEP 2022 TO PRESENT",
                     description: descriptionData
                 }
             ]
@@ -550,16 +548,16 @@ const sections = {
             "heading": "CERTIFICATES",
             data: [
                 {
-                    certificate: "certificate one",
-                    organization: "organization one",
-                    location: "Location one",
-                    date: "20-02-2024",
+                    certificate: "LACOTE GENERAL TRADING",
+                    organization: "PROCUREMENT OFFICER",
+                    location: "(UAE)",
+                    date: "SEP 2022 TO PRESENT",
                     description: descriptionData
                 }, {
-                    certificate: "Degree two",
-                    organization: "University two",
-                    location: "Location two",
-                    date: "21-02-2024",
+                    certificate: "LACOTE GENERAL TRADING",
+                    organization: "PROCUREMENT OFFICER",
+                    location: "(UAE)",
+                    date: "SEP 2022 TO PRESENT",
                     description: descriptionData
                 }
             ]

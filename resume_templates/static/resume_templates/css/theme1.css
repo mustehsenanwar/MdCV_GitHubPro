@@ -44,8 +44,8 @@
     border-radius: 50%;
     /* width: 85%; */
     margin-top: 30px;
-    width: 280px;
-    height: 280px;
+    width: calc(100% - 30px);
+    /* height: 280px; */
 }
 
 .cvContent .user-info {
@@ -105,15 +105,34 @@
 
 .cvContent .perInfo .items .item i {
     margin-right: 10px;
+    color: white;
+    font-size: 18px;
+    margin-right: 18px;
+}
+
+.cvContent .perInfo .items .item .text {
+    font-size: 16px;
+}
+
+.cvContent .perInfo .items .item i.icon-circle {
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cvContent .perInfo .items .item {
     color: white;
     opacity: 0.7;
+    display: flex;
 }
 
-.cvContent .sec-con1 .section .items {
-    padding-top: 15px;
+.cvContent .section .items {
+    margin-top: 15px !important;
     padding-left: 25px;
     display: flex;
     flex-direction: row;
@@ -128,7 +147,16 @@
     display: flex;
     color: white;
     opacity: 0.7;
-    margin-bottom: 5px;
+    font-size: 16px;
+    margin-right: 5px;
+    font-family: sans-serif;
+}
+
+.cvContent .sec-con2 .section .items .item {
+    display: flex;
+    font-size: 16px;
+    margin-right: 5px;
+    font-family: sans-serif;
 }
 
 .cvContent .sec-con1 .section .items .item .text {
@@ -272,43 +300,27 @@
     }
 }
 
-.cvContent .sec-con1 .section.education .items .item[data-edit="degree"],
-.cvContent .sec-con1 .section.certificates .items .item[data-edit="certificate"],
-.cvContent .sec-con1 .section.experience .items .item[data-edit="designation"] {
-    order: 1;
-    width: 48%;
+.cvContent .section {
+    margin-bottom: 25px;
 }
 
-.cvContent .sec-con1 .section.education .items .item[data-edit="university"],
-.cvContent .sec-con1 .section.certificates .items .item[data-edit="organization"],
-.cvContent .sec-con1 .section.experience .items .item[data-edit="company-name"] {
-    order: 2;
-    width: 48%;
-    text-align: right;
-    display: inline-block;
+.cvContent .section.education .items .item[data-edit="degree"],
+.cvContent .section.softSkill .items .item[data-edit="skill"],
+.cvContent .section.achievements .items .item[data-edit="achievements"],
+.cvContent .section.experience .items .item[data-edit="designation"],
+.cvContent .section.certificates .items .item[data-edit="certificate"] {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.cvContent .sec-con1 .section.education .items .item[data-edit="location"],
-.cvContent .sec-con1 .section.certificates .items .item[data-edit="location"],
-.cvContent .sec-con1 .section.experience .items .item[data-edit="location"] {
-    order: 3;
-    width: 48%;
-}
-
-.cvContent .sec-con1 .section.education .items .item[data-edit="date"],
-.cvContent .sec-con1 .section.certificates .items .item[data-edit="date"],
-.cvContent .sec-con1 .section.experience .items .item[data-edit="date"] {
-    order: 4;
-    width: 48%;
-    text-align: right;
-    display: inline-block;
-}
-
-.cvContent .sec-con1 .section.education .items .item[data-edit="description"],
-.cvContent .sec-con1 .section.certificates .items .item[data-edit="description"],
-.cvContent .sec-con1 .section.experience .items .item[data-edit="description"] {
+.cvContent .section.education .items .item[data-edit="description"],
+.cvContent .section.softSkill .items .item[data-edit="description"],
+.cvContent .section.experience .items .item[data-edit="description"],
+.cvContent .section.certificates .items .item[data-edit="description"] {
     order: 5;
     width: 100%;
+    margin-top: 10px;
 }
 
 
@@ -318,57 +330,7 @@
     flex-wrap: wrap;
 }
 
-.cvContent .sec-con2 .section.certificates .items .item[data-edit="certificate"],
-.cvContent .sec-con2 .section.education .items .item[data-edit="degree"],
-.cvContent .sec-con2 .section.experience .items .item[data-edit="designation"] {
-    order: 1;
-    width: 100%;
-    text-align: left;
-    display: flex;
-}
-
-.cvContent .sec-con2 .section.certificates .items .item[data-edit="organization"],
-.cvContent .sec-con2 .section.education .items .item[data-edit="university"],
-.cvContent .sec-con2 .section.experience .items .item[data-edit="company-name"] {
-    order: 2;
-    width: 100%;
-    text-align: left;
-    display: flex;
-}
-
-.cvContent .sec-con2 .section.certificates .items .item[data-edit="location"],
-.cvContent .sec-con2 .section.education .items .item[data-edit="location"],
-.cvContent .sec-con2 .section.experience .items .item[data-edit="location"] {
-    order: 3;
-    width: 100%;
-    text-align: left;
-    display: flex;
-}
-
-.cvContent .sec-con2 .section.certificates .items .item[data-edit="date"],
-.cvContent .sec-con2 .section.education .items .item[data-edit="date"],
-.cvContent .sec-con2 .section.experience .items .item[data-edit="date"] {
-    order: 4;
-    width: 100%;
-    text-align: left;
-    display: flex;
-}
-
-.cvContent .sec-con2 .section.certificates .items .item[data-edit="description"],
-.cvContent .sec-con2 .section.education .items .item[data-edit="description"],
-.cvContent .sec-con2 .section.experience .items .item[data-edit="description"] {
-    order: 5;
-    width: 100%;
-    text-align: left;
-    display: flex;
-}
-
-/* certificates order */
 
 .cvContent .cv-body .sec-con2 .section {
     margin-bottom: 30px;
-}
-
-.cvContent .sec-con2 .section .items {
-    margin-top: 10px;
 }

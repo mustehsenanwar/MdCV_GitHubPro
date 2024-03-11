@@ -82,7 +82,7 @@ class OrderInitialFiles(models.Model):
     def __str__(self):
         return f"{self.get_file_type_display()} for Order {self.order.id}"
 
-from django.db import models
+
 
 class OrderParse(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_parse')
@@ -94,6 +94,7 @@ class OrderParse(models.Model):
         ('no_cv', 'No CV'),  # No CV was provided for parsing
         ('failed', 'Failed')  # Parsing attempted but failed
     ])
+    pdf_to_text_data = models.TextField(blank=True, help_text='Stores the PDF to text data.')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -109,6 +110,7 @@ class OrderFinalizedData(models.Model):
         ('review', 'Review'),  # Data is under review
         ('finalized', 'Finalized'),  # Data editing is completed and finalized
     ])
+    pdf_to_text_data = models.TextField(blank=True, help_text='Stores the PDF to text data.')
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

@@ -6,6 +6,8 @@ from dashboard.salesmarketing_dash import views as salesmarketing_dash_views
 from orders import views as orders_views
 from resume_templates import views as resume_templates_views
 
+from chatgpt_integration import views as chatgpt_integration_views
+
 from dashboard.test import views as test_views
 
 
@@ -31,6 +33,10 @@ urlpatterns = [
     path('create_new_template/', resume_templates_views.CreateNewTemplate.as_view(template_name = 'resume_templates/create_new_template.html'), name='create_new_template'),
     
     
+    
+    
+     path('chatgpt/', chatgpt_integration_views.ChatPromptList.as_view(template_name = 'chatgpt_integration/chatgpt.html'), name='chatgpt'),
+   
     
     # path('test/',test_views.example_page),
     # path('test/<int:order_id>/', test_views.example_page.as_view(template_name='resume_templates/all_templates/template1.html'), name='resumebuilder'),

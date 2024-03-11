@@ -42,6 +42,9 @@ def parse_order_originalcv(order_id):
                         order_parse.parsed_data = processed_prompt
                         order_parse.save()
 
+                        
+                        
+                        
                         # Update or create OrderFinalizedData with processed_prompt
                         order_finalized_data, _ = OrderFinalizedData.objects.update_or_create(
                             order=order,

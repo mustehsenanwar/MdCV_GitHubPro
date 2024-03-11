@@ -32,10 +32,11 @@ def generate_response_with_openai(processed_prompt):
         ]
     chat_completion = client.chat.completions.create(
         messages= message,
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         temperature = 0,
+        response_format={ "type": "json_object" },
     )
-    return chat_completion.choices[0].message.content
+    return json.loads(chat_completion.choices[0].message.content)
 
 def extract_and_replace_tags_in_prompt(prompt, order_parse):
     # Regex to match your tag format, assuming tags are like @tagname

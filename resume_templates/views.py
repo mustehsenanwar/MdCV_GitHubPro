@@ -47,14 +47,12 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         # Assuming 'order_id' is passed to the template context by some means
         order_id = self.kwargs.get('order_id')
-        parsed_data = OrderParse.objects.filter(order_id=order_id).first()
+        # parsed_data = OrderParse.objects.filter(order_id=order_id).first()
         finalized_data = OrderFinalizedData.objects.filter(order_id=order_id).first()
 
-        if parsed_data:
-            data = parsed_data.parsed_data
-            if finalized_data:
-                data.update(finalized_data.finalized_data)  # Merge with preference to finalized data
-            context['resume_data'] = data
+        # if finalized_data:
+        #     order_resume = finalized_data.finalized_data  
+        # context['resume_data'] = order_resume
         context['order_id'] = order_id
         return context
 
@@ -199,8 +197,24 @@ class CreateNewTemplate(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             variation_name = request.POST['variation_name']
             thumbnail = request.FILES.get('thumbnail')
             file = request.FILES.get('file')
+            is_default_variation = 'is_default_variation' in request.POST  # Check if the variation is marked as default
+            variation_types = {
+                'one_targets': ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references'],
+                'two_targets': ['experience', 'certificates', 'skills']
+            }
             template = Template.objects.get(id=template_id)
-            Variation.objects.create(template=template, variation_name=variation_name, thumbnail=thumbnail, file=file)
+            new_variation = Variation.objects.create(
+                template=template, 
+                variation_name=variation_name, 
+                thumbnail=thumbnail, 
+                file=file,
+                variation_types=variation_types,
+                is_default_variation=is_default_variation
+            )
+             # If the new variation is marked as the default, ensure it's the only default for this template
+            if is_default_variation:
+                Variation.objects.filter(template=template).exclude(id=new_variation.id).update(is_default_variation=False)
+            # Variation.objects.create(template=template, variation_name=variation_name, thumbnail=thumbnail, file=file)
         return redirect('dashboard:create_new_template')  # Redirect back to the form page
 
 

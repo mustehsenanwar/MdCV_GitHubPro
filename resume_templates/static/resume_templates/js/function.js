@@ -21,33 +21,37 @@ function changeColor(newColor) {
 }
 
 // Professional Skill
-function addProfessionalSkillItem(count) {
+function addProfessionalSkillItem(data = {}) {
+    let text = data.text || "",
+        average = data.average || 0;
     let skillHTML =
-        `<div class="item" data-filling="proSkillCard${count}">
+        `<div class="item" data-filling="proSkillCard${sectionCount}">
             <div class="skill-item">
                 <div class="progress">
                     <div class="progress-bar" data-edit="progress"
-                        role="progressbar" aria-valuenow="70" aria-valuemin="0"
-                        aria-valuemax="100" style="width:70%">
+                        role="progressbar" aria-valuenow="${average}" aria-valuemin="0"
+                        aria-valuemax="100" style="width:${average}%">
                     </div>
                 </div>
-                <span class="text" data-edit="text"></span>
+                <span class="text" data-edit="text">${text}</span>
             </div>
         </div>`;
     cvMainContent.find(`.section.skills .items`).append(skillHTML);
 }
 
 // Add Language fn
-function addLanguageSkillItem(count) {
+function addLanguageSkillItem(data = {}) {
+    let text = data.text || "",
+        average = data.average || 0;
     let languageHtml =
-        `<div class="item" data-filling="languagesCard${count}">
+        `<div class="item" data-filling="languagesCard${sectionCount}">
             <i class="fa fa-circle"></i>
             <div class="w-100 pull-away pr-5">
-                <span class="text" data-edit="text"></span>
+                <span class="text" data-edit="text">${text}</span>
                 <div class=" progress">
                     <div class="progress-bar" data-edit="progress" role="progressbar"
-                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
-                        style="width:70%">
+                        aria-valuenow="${average}" aria-valuemin="0" aria-valuemax="100"
+                        style="width:${average}%">
                     </div>
                 </div>
             </div>
@@ -56,24 +60,26 @@ function addLanguageSkillItem(count) {
 }
 
 // Add Language fn
-function addHobbiesItem(count) {
+function addHobbiesItem(data = {}) {
+    let text = data.text || "";
     let hobbiesHtml =
-        `<div class="item" data-filling="hobbiesCard${count}">
+        `<div class="item" data-filling="hobbiesCard${sectionCount}">
             <i class="fa fa-circle"></i>
             <div class="w-100 pull-away pr-5">
-                <span class="text" data-edit="text"></span>
+                <span class="text" data-edit="text">${text}</span>
             </div>
         </div>`;
     cvMainContent.find(`.section.hobbies .items`).append(hobbiesHtml);
 }
 
 // Add reference fn
-function addReferencesItem(count) {
+function addReferencesItem(data = {}) {
+    let text = data.text || "";
     let referencesHtml =
-        `<div class="item" data-filling="referencesCard${count}">
+        `<div class="item" data-filling="referencesCard${sectionCount}">
             <i class="fa fa-circle"></i>
             <div class="w-100 pull-away pr-5">
-                <span class="text" data-edit="text"></span>
+                <span class="text" data-edit="text">${text}</span>
             </div>
         </div>`;
     cvMainContent.find(`.section.references .items`).append(referencesHtml);

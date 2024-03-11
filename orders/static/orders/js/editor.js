@@ -802,7 +802,7 @@ $(document).on('click', ".delete-card-item", function () {
 });
 
 // fill cv header data
-$(document).on('input', ".input-fill-finalize-data", function () {
+$(document).on('input change', ".input-fill-finalize-data", function () {
     let target = $(this).data("fill"),
         value = $(this).val();
     cvMainContent.find(`[data-filling="${target}"]`).text(value);

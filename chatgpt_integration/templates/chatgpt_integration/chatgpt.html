@@ -1,0 +1,143 @@
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+<style>
+    .auto-height {
+        
+        height: auto;
+    }
+</style>
+
+<div class="container">
+    <h2 class="mb-4">Chat Prompts</h2>
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPromptModal">
+        Add New Chat Prompt
+    </button>
+
+    <!-- Modal for adding new chat prompt -->
+    <div class="modal fade" id="addPromptModal" tabindex="-1" aria-labelledby="addPromptModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPromptModalLabel">New Chat Prompt</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post" class="form" id="addPromptForm">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="modal_category_name">Category</label>
+                            <select class="form-select" id="modal_category_name" name="category_name">
+                                {% for category in categories %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                {% endfor %}
+                                <option value="new">Add new...</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3" id="modal_new_category" style="display:none;">
+                            <input type="text" class="form-control" id="modal_new_category_name" placeholder="New Category Name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" id="modal_prompt_name" name="prompt_name" placeholder="Prompt Name" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <textarea class="form-control" id="modal_template" name="template" placeholder="Template" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <textarea class="form-control" id="modal_description" name="description" placeholder="Description" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Prompt</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="accordion mb-2" id="accordion">
+                {% for category in categories %}
+                
+                <div class="accordion-item">
+                        <h2 class="accordion-header d-flex align-items-center justify-content-between" id="heading{{ category.id }}">
+                            <button class="accordion-button flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ category.id }}" aria-expanded="true" aria-controls="collapse{{ category.id }}">
+                                {{ category.name }}
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger ms-2" onclick="deletePromptCategory('{{ category.id }}')">Delete</button>
+                        </h2>
+                    <div id="collapse{{ category.id }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ category.id }}" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <ul class="list-group">
+                                {% for prompt in category.prompts.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="flex-grow-1">
+                                        <textarea class="form-control mb-2 auto-height" style="resize: none;" id="prompt_text_{{ prompt.id }}">{{ prompt.template }}</textarea>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary me-2" onclick="updatePrompt('{{ prompt.id }}')">Update</button>
+                                        <button class="btn btn-sm btn-outline-danger" onclick="deletePrompt('{{ prompt.id }}')">Delete</button>
+                                        {% csrf_token %}
+
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to toggle visibility of new category input
+    function toggleNewCategoryInput() {
+        var selectBox = document.getElementById("modal_category_name");
+        var newCategoryDiv = document.getElementById("modal_new_category");
+        if (selectBox.value === "new") {
+            newCategoryDiv.style.display = "block";
+        } else {
+            newCategoryDiv.style.display = "none";
+        }
+    }
+
+    // Event listener for the category dropdown change
+    document.getElementById("modal_category_name").addEventListener("change", toggleNewCategoryInput);
+
+    // Override the form submission to include the new category name if "Add new..." is selected
+    document.getElementById("addPromptForm").addEventListener("submit", function(event) {
+        var selectBox = document.getElementById("modal_category_name");
+        var newCategoryInput = document.getElementById("modal_new_category_name");
+        if (selectBox.value === "new" && newCategoryInput.value.trim() !== "") {
+            // Append a new hidden input with the new category name to the form
+            var hiddenInput = document.createElement("input");
+            hiddenInput.setAttribute("type", "hidden");
+            hiddenInput.setAttribute("name", "category_name");
+            hiddenInput.setAttribute("value", newCategoryInput.value);
+            this.appendChild(hiddenInput);
+        }
+    });
+
+
+
+
+
+</script>
+
+
+
+
+
+<script src="{% static  'chatgpt_integration/js/customscript_chatgpt.js' %}"></script>
+
+{% endblock content %}

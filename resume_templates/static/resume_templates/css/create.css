@@ -59,7 +59,8 @@
     .navbar,
     .sidebar,
     .editor-sidebar-content,
-    .cv-topbar {
+    .cv-topbar,
+    .tc-side-panel-open {
         display: none !important;
     }
 

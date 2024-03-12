@@ -28,6 +28,9 @@ from django.utils.decorators import method_decorator
 import json
 
 
+from django.db import transaction
+from django.db.models import F
+
 
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
@@ -39,6 +42,11 @@ from django.core.files.storage import FileSystemStorage
 import fitz  # PyMuPDF
 import openai
 import json
+
+
+
+from orders.models import Order, OrderInitialFiles, OrderParse,OrderFinalizedData,OrderInitialData
+from resume_templates.models import Variation, DefaultVariation   
 
 from django.http import HttpResponse
 
@@ -134,3 +142,76 @@ def pdfparser(cv_files):
         return context
 
 
+ 
+
+
+def example_page(request):
+    res = OrderFinalizedData.objects.get(id=25)
+    processed_prompt = res.finalized_data
+    
+    order_id = 71
+    
+    try:
+        order_initial_data = OrderInitialData.objects.get(order__id=order_id)  # Fetch the OrderInitialData instance for the given order_id
+    except OrderInitialData.DoesNotExist:
+        return HttpResponse('OrderInitialData not found.')
+
+    if order_initial_data.template_variation_selected:
+        # Variation is selected, fetch its variation_types
+        variation = order_initial_data.template_variation_selected
+        variation_types = variation.variation_types
+        return HttpResponse(f'Variation selected: {variation.variation_name}, Variation Types: {variation_types}')
+    else:
+        # If no variation is selected, fetch the default variation's variation_types
+        default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
+        if default_variation_instance:
+            default_variation = default_variation_instance.variation
+            variation_types = default_variation.variation_types
+            return HttpResponse(f'Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types["one_targets"]}')
+        else:
+            set_default_variation(variation_id = 8)
+            return HttpResponse('No default variation found.')
+    
+    
+def set_default_variation(variation_id):
+    try:
+        with transaction.atomic():  # Use a transaction to ensure data integrity
+            # Retrieve the variation you want to set as default
+            variation = Variation.objects.get(id=variation_id)
+            
+            # Check if a default variation already exists
+            if DefaultVariation.objects.exists():
+                # Update the existing default variation
+                default_variation = DefaultVariation.objects.first()
+                default_variation.variation = variation
+            else:
+                # Create a new default variation if it doesn't exist
+                default_variation = DefaultVariation(variation=variation)
+            
+            default_variation.save()
+            return True, "Default variation set successfully."
+    except Variation.DoesNotExist:
+        return False, "Variation does not exist."
+    except Exception as e:
+        return False, str(e)
+    
+    
+    
+    
+    formated_template_data = {
+    'one': [],
+    'two': []
+    }
+    one_targets = ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references']
+    two_targets = ['experience', 'certificates', 'skills']
+    # Iterate through the original data and distribute items to the new structure
+    for item in processed_prompt['data']:
+        if item['target'] in one_targets:
+            formated_template_data['one'].append(item)
+        elif item['target'] in two_targets:
+            formated_template_data['two'].append(item)
+    
+    
+    print(formated_template_data)
+    
+    return HttpResponse(formated_template_data)

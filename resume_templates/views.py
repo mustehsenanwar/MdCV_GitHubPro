@@ -190,15 +190,15 @@ class CreateNewTemplate(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         if 'template_name' in request.POST:  # This indicates a new template form submission
             template_name = request.POST['template_name']
-            is_default = 'is_default' in request.POST
             Template.objects.create(name=template_name, is_default=is_default)
         elif 'variation_name' in request.POST:  # This indicates a new variation form submission
             template_id = request.POST['template']
             variation_name = request.POST['variation_name']
             thumbnail = request.FILES.get('thumbnail')
             file = request.FILES.get('file')
-            is_default_variation = 'is_default_variation' in request.POST  # Check if the variation is marked as default
+            is_default_variation = request.POST.get('is_default_variation') == 'on'
             variation_types = {
+                'static_targets': ['personal_informattion', 'profile_summary'],
                 'one_targets': ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references'],
                 'two_targets': ['experience', 'certificates', 'skills']
             }
@@ -209,14 +209,41 @@ class CreateNewTemplate(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                 thumbnail=thumbnail, 
                 file=file,
                 variation_types=variation_types,
-                is_default_variation=is_default_variation
             )
              # If the new variation is marked as the default, ensure it's the only default for this template
+            print("default check")
             if is_default_variation:
-                Variation.objects.filter(template=template).exclude(id=new_variation.id).update(is_default_variation=False)
+                self.set_default_variation(variation_id=new_variation.id)
+                print(new_variation.id)
+                # Variation.objects.filter(template=template).exclude(id=new_variation.id).update(is_default_variation=False)
             # Variation.objects.create(template=template, variation_name=variation_name, thumbnail=thumbnail, file=file)
         return redirect('dashboard:create_new_template')  # Redirect back to the form page
 
 
+    def set_default_variation(self,variation_id):
+        try:
+            with transaction.atomic():  # Use a transaction to ensure data integrity
+                # Retrieve the variation you want to set as default
+                variation = Variation.objects.get(id=variation_id)
+                
+                # Check if a default variation already exists
+                if DefaultVariation.objects.exists():
+                    # Update the existing default variation
+                    default_variation = DefaultVariation.objects.first()
+                    default_variation.variation = variation
+                else:
+                    # Create a new default variation if it doesn't exist
+                    default_variation = DefaultVariation(variation=variation)
+                
+                default_variation.save()
+                return True, "Default variation set successfully."
+        except Variation.DoesNotExist:
+            return False, "Variation does not exist."
+        except Exception as e:
+            return False, str(e)
+
+
+
     def handle_no_permission(self):
         return HttpResponse('You are at the home page')
+    

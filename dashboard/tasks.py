@@ -1,7 +1,8 @@
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from celery import shared_task
-from orders.models import Order, OrderInitialFiles, OrderParse,OrderFinalizedData
+from orders.models import Order, OrderInitialFiles, OrderParse,OrderFinalizedData,OrderInitialData
+from resume_templates.models import DefaultVariation     
 
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
@@ -42,6 +43,44 @@ def parse_order_originalcv(order_id):
                         order_parse.parsed_data = processed_prompt
                         order_parse.save()
 
+                        formated_template_data = {'static_sections' : [], 'one': [],'two': []}
+                        
+                        
+                        try:
+                            order_initial_data = OrderInitialData.objects.get(order__id=order_id)  # Fetch the OrderInitialData instance for the given order_id
+                        except OrderInitialData.DoesNotExist:
+                            return HttpResponse('OrderInitialData not found.')
+
+                        if order_initial_data.template_variation_selected:
+                            # Variation is selected, fetch its variation_types
+                            variation = order_initial_data.template_variation_selected
+                            variation_types = variation.variation_types
+                            # return HttpResponse(f'Variation selected: {variation.variation_name}, Variation Types: {variation_types}')
+                        else:
+                            # If no variation is selected, fetch the default variation's variation_types
+                            default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
+                            if default_variation_instance:
+                                default_variation = default_variation_instance.variation
+                                variation_types = default_variation.variation_types
+                                # return HttpResponse(f'Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types['one_targets']}')
+                            else:
+                                # set_default_variation(variation_id = 8)
+                                return HttpResponse('No default variation found.')
+                            
+                            
+                            
+                        
+                        one_targets = variation_types['one_targets']
+                        two_targets = variation_types['two_targets']
+                        # static_targets = variation_types['static_targets']
+                        # Iterate through the original data and distribute items to the new structure
+                        for item in processed_prompt['data']:
+                            if item['target'] in one_targets:
+                                formated_template_data['one'].append(item)
+                            elif item['target'] in two_targets:
+                                formated_template_data['two'].append(item)
+                            # elif item['target'] in static_targets: 
+                            #     formated_template_data['static_sections'].append(item)
                         
                         
                         
@@ -50,7 +89,7 @@ def parse_order_originalcv(order_id):
                             order=order,
                             defaults={
                                 'pdf_to_text_data': pdf_to_text_data,  # Include pdf_to_text_data
-                                'finalized_data': processed_prompt,  # Include processed_prompt
+                                'finalized_data': formated_template_data,  # Include processed_prompt
                                 'status': 'draft'
                             }
                         )

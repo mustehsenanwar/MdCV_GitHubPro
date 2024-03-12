@@ -159,8 +159,32 @@
     font-family: sans-serif;
 }
 
+.cvContent .sec-con2 .section.references .items .item,
+.cvContent .sec-con2 .section.languages .items .item,
+.cvContent .sec-con2 .section.hobbies .items .item {
+    width: 48%;
+    font-size: 18px;
+}
+
+.cvContent .sec-con2 .section.references .items .item i,
+.cvContent .sec-con2 .section.hobbies .items .item i,
+.cvContent .sec-con2 .section.languages .items .item i {
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+}
+
+.cvContent .sec-con2 .section.references .content::before,
+.cvContent .sec-con2 .section.references .content::after,
+.cvContent .sec-con2 .section.hobbies .content::before,
+.cvContent .sec-con2 .section.hobbies .content::after,
+.cvContent .sec-con2 .section.languages .content::before,
+.cvContent .sec-con2 .section.languages .content::after {
+    display: none;
+}
+
 .cvContent .sec-con1 .section .items .item .text {
-    font-size: 15px;
+    font-size: 18px;
     font-family: sans-serif;
 }
 
@@ -288,14 +312,16 @@
     margin-right: 20px;
 }
 
-.cvContent .sec-con2 .section.skills .items .item .progress-bar {
+.cvContent .section.skills .items .item .progress-bar {
     background: #e8ba40;
 }
 
 
 
 @media print {
-    .cv-color-changer {
+
+    .cv-color-changer,
+    .tc-side-panel-open {
         display: none !important;
     }
 }
@@ -333,4 +359,21 @@
 
 .cvContent .cv-body .sec-con2 .section {
     margin-bottom: 30px;
+}
+
+.cvContent .sec-con1 .section.skills .items .item {
+    width: 100%;
+}
+
+.cvContent .sec-con1 .section.skills .items .item .skill-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.cvContent .sec-con1 .section.skills .items .item .progress {
+    width: 50%;
+    margin-bottom: 10px;
 }

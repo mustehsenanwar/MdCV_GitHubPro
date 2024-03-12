@@ -437,25 +437,6 @@ const sections = {
     },
     'one': [
         {
-            target: 'education',
-            heading: 'EDUCATION',
-            data: [
-                {
-                    degree: "Master of Business Administration",
-                    university: "Mangalore University",
-                    location: "India",
-                    date: "(2008 - 2010)",
-                    description: descriptionData
-                }, {
-                    degree: "Master of Business Administration",
-                    university: "Mangalore University",
-                    location: "India",
-                    date: "(2008 - 2010)",
-                    description: descriptionData
-                }
-            ]
-        },
-        {
             'target': 'achievements',
             'heading': 'ACHIEVEMENTS',
             data: [
@@ -501,17 +482,6 @@ const sections = {
             ]
         },
         {
-            'target': 'hobbies',
-            "heading": "HOBBIES",
-            data: [
-                { text: "hobbies one" },
-                { text: "hobbies two" },
-                { text: "hobbies three" },
-                { text: "hobbies four" },
-                { text: "hobbies five" },
-            ]
-        },
-        {
             'target': 'references',
             "heading": "REFERENCES",
             data: [
@@ -520,6 +490,25 @@ const sections = {
                 { text: "references three" },
                 { text: "references four" },
                 { text: "references five" },
+            ]
+        },
+        {
+            'target': 'skills',
+            "heading": "PROFESSIONAL SKILLS",
+            data: [
+                {
+                    text: "HTML",
+                    average: 50,
+                }, {
+                    text: "CSS",
+                    average: 80,
+                }, {
+                    text: "JavaScript",
+                    average: 100,
+                }, {
+                    text: "Jquery",
+                    average: 50,
+                },
             ]
         },
     ],
@@ -544,6 +533,25 @@ const sections = {
             ]
         },
         {
+            target: 'education',
+            heading: 'EDUCATION',
+            data: [
+                {
+                    degree: "Master of Business Administration",
+                    university: "Mangalore University",
+                    location: "India",
+                    date: "(2008 - 2010)",
+                    description: descriptionData
+                }, {
+                    degree: "Master of Business Administration",
+                    university: "Mangalore University",
+                    location: "India",
+                    date: "(2008 - 2010)",
+                    description: descriptionData
+                }
+            ]
+        },
+        {
             'target': 'certificates',
             "heading": "CERTIFICATES",
             data: [
@@ -563,22 +571,14 @@ const sections = {
             ]
         },
         {
-            'target': 'skills',
-            "heading": "PROFESSIONAL SKILLS",
+            'target': 'hobbies',
+            "heading": "HOBBIES",
             data: [
-                {
-                    text: "HTML",
-                    average: 50,
-                }, {
-                    text: "CSS",
-                    average: 80,
-                }, {
-                    text: "JavaScript",
-                    average: 100,
-                }, {
-                    text: "Jquery",
-                    average: 50,
-                },
+                { text: "hobbies one" },
+                { text: "hobbies two" },
+                { text: "hobbies three" },
+                { text: "hobbies four" },
+                { text: "hobbies five" },
             ]
         },
     ]

@@ -342,7 +342,7 @@
     width: 100%;
 }
 
-.cvContent .section.experience .items .item[data-edit="company-name"] {
+.cvContent .section.experience .items .item[data-edit="companyName"] {
     order: 2;
     width: 100%;
 }

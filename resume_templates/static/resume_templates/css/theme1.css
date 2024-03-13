@@ -42,10 +42,9 @@
 
 .cvContent .user-img-header .user-img img {
     border-radius: 50%;
-    /* width: 85%; */
     margin-top: 30px;
-    width: calc(100% - 30px);
-    /* height: 280px; */
+    height: 250px;
+    width: 250px;
 }
 
 .cvContent .user-info {
@@ -332,7 +331,7 @@
 
 .cvContent .section.education .items .item[data-edit="degree"],
 .cvContent .section.softSkill .items .item[data-edit="skill"],
-.cvContent .section.achievements .items .item[data-edit="achievements"],
+.cvContent .section.achievements .items .item[data-edit="achievement"],
 .cvContent .section.experience .items .item[data-edit="designation"],
 .cvContent .section.certificates .items .item[data-edit="certificate"] {
     width: 100%;

@@ -100,7 +100,10 @@ function handleResumeData(orderId, action, additionalData = {}) {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (res) {
-            console.log(res);
+            l(res)
+            if (res.status == "success")
+                cvHTMLStructureLoad(res.data);
+            else alert("Resume Data Not Fount!");
         },
         error: function (err) {
             console.error("Error processing request:", err);
@@ -217,14 +220,14 @@ function educationSectionCardHTML(cardType, data = {}) {
 //#region Experience 
 function appendExprienceHTML(sectionCount, data = {}) {
     let designation = data.designation || "",
-        companyName = data['company-name'] || "",
+        companyName = data.companyName || "",
         location = data.location || "",
         date = data.date || "",
         description = data.description || "";
     let $cvHTML =
         `<div class="items pl-3 mt-3" data-filling="experienceCard${sectionCount}">
             <span class="item" data-edit="designation">${designation}</span>
-            <span class="item" data-edit="company-name">${companyName}</span>
+            <span class="item" data-edit="companyName">${companyName}</span>
             <span class="item" data-edit="location">${location}</span>
             <span class="item" data-edit="date">${date}</span>
             <span class="item" data-edit="description">${description}</span>
@@ -234,7 +237,7 @@ function appendExprienceHTML(sectionCount, data = {}) {
 
 function expriencesectionCardHTML(cardType, data = {}) {
     let designation = data.designation || "",
-        companyName = data['company-name'] || "",
+        companyName = data.companyName || "",
         location = data.location || "",
         date = data.date || "",
         description = data.description || "";
@@ -264,7 +267,7 @@ function expriencesectionCardHTML(cardType, data = {}) {
                         <div class="col-md-12">
                             <div class="form-item">
                                 <input type="text" value="${companyName}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
-                                    data-fill="company-name" data-section="experience"
+                                    data-fill="companyName" data-section="experience"
                                     autocomplete="off" placeholder="Company Name">
                                 <label for="username">Company Name</label>
                             </div>
@@ -461,19 +464,19 @@ function softSkillSectionCardHTML(cardType, data = {}) {
 
 //#region achievements
 function appendachievementsHTML(sectionCount, data = {}) {
-    let achievements = data.achievements || "",
+    let achievements = data.achievement || "",
         description = data.description || "";
     let $cvContent = $(".cvContent");
     let $cvHTML =
         `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="achievementsCard${sectionCount}">
-            <span class="item" data-edit="achievements">${achievements}</span>
+            <span class="item" data-edit="achievement">${achievements}</span>
             <span class="item" data-edit="description">${description}</span>
         </div>`;
     $cvContent.find(`.section.achievements .content`).append($cvHTML);
 }
 
 function achievementsSectionCardHTML(cardType, data = {}) {
-    let achievements = data.achievements || "",
+    let achievements = data.achievement || "",
         description = data.description || "";
     let cardHTML =
         `<div class="card shadow-sm resume-folding-card mb-3">
@@ -493,7 +496,7 @@ function achievementsSectionCardHTML(cardType, data = {}) {
                         <div class="col-md-12">
                             <div class="form-item">
                                 <input type="text" value="${achievements}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
-                                    data-fill="achievements" data-section="achievements"
+                                    data-fill="achievement" data-section="achievements"
                                     autocomplete="off" placeholder="Achievements">
                                 <label for="username">Achievements</label>
                             </div>

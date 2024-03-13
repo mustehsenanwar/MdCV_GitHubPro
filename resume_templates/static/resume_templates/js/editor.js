@@ -519,13 +519,13 @@ const sections = {
             data: [
                 {
                     designation: "LACOTE GENERAL TRADING",
-                    'company-name': "PROCUREMENT OFFICER",
+                    'companyName': "PROCUREMENT OFFICER",
                     location: "(UAE)",
                     date: "SEP 2022 TO PRESENT",
                     description: descriptionData
                 }, {
                     designation: "LACOTE GENERAL TRADING",
-                    'company-name': "PROCUREMENT OFFICER",
+                    'companyName': "PROCUREMENT OFFICER",
                     location: "(UAE)",
                     date: "SEP 2022 TO PRESENT",
                     description: descriptionData
@@ -608,13 +608,24 @@ function inWords(num) {
 // Fill personl information
 function fillPersonalInformation(perInfo) {
     let sidebarContainer = $(".editor-sidebar-content");
-
     // Iterate over the properties of the perInfo object
-    for (let key in perInfo) {
-        let $target = sidebarContainer.find(`[data-target="${key}"]`);
-        $target.val(perInfo[key]);
-        if ($target)
-            $target.trigger("change");
+    for (let i = 0; i < perInfo.length; i++) {
+        let perInfoData = perInfo[i],
+            data = perInfoData.data;
+
+        for (let a = 0; a < data.length; a++) {
+            let singleData = data[a];
+            // Single Data
+            for (let key in singleData) {
+                let $target = sidebarContainer.find(`[data-target="${key}"]`);
+                let value = singleData[key];
+                if ($target.length > 0) { // Check if the target exists
+                    $target.val(value).trigger("change");
+                    cvMainContent.find(`[data-setval="${key}"]`).text(value);
+                    cvMainContent.find(`[data-filling="${key}"]`).text(value);
+                }
+            }
+        }
     }
 }
 
@@ -649,10 +660,12 @@ function appendNewSection(data, element) {
         } else if (target == "experience") {
             $container.append(expriencesectionCardHTML(target, secData));
         } else if (target == "languages") {
+            secData = { text: secData.language, average: 90 };
             skillHTML = addSkillORLanguageRow(target, "Language", "languagesCard", secData);
             $(`.skill-item-container.${target}-items-container`).append(skillHTML);
             addLanguageSkillItem(secData);
         } else if (target == "skills") {
+            secData = { text: secData.skill, average: 90 };
             skillHTML = addSkillORLanguageRow(target, "Skill", "proSkillCard", secData);
             $(`.skill-item-container.${target}-items-container`).append(skillHTML);
             addProfessionalSkillItem(secData);
@@ -676,8 +689,8 @@ function loadSectionsFromJson(data, targetElement, index = null) {
 }
 
 // Load cv Data
-function cvHTMLStructureLoad() {
-    let allSec = sections;
+function cvHTMLStructureLoad(cvData) {
+    let allSec = cvData;
     // Remove sections
     cvMainContent.find(`.section:not(.profile)`).remove();
     for (let i = 1; i < 3; i++) {
@@ -685,9 +698,8 @@ function cvHTMLStructureLoad() {
             selector = `.cvContent .sec-con${i}`;
         loadSectionsFromJson(allSec[type], selector, i);
     }
-    fillPersonalInformation(allSec['personal_information']);
+    fillPersonalInformation(allSec['static_sections']);
 }
-cvHTMLStructureLoad();
 
 
 // Hide sections

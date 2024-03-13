@@ -501,7 +501,7 @@ function appendExprienceHTML(sectionCount) {
     let $cvHTML =
         `<div class="items pl-3 mt-3" data-filling="experienceCard${sectionCount}">
             <span class="item" data-edit="designation"></span>
-            <span class="item" data-edit="company-name"></span>
+            <span class="item" data-edit="companyName"></span>
             <span class="item" data-edit="location"></span>
             <span class="item" data-edit="date"></span>
             <span class="item" data-edit="description"></span>
@@ -536,7 +536,7 @@ function expriencesectionCardHTML(cardType) {
                         <div class="col-md-12">
                             <div class="form-item">
                                 <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
-                                    data-fill="company-name" data-section="experience"
+                                    data-fill="companyName" data-section="experience"
                                     autocomplete="off" placeholder="Company Name">
                                 <label for="username">Company Name</label>
                             </div>
@@ -721,7 +721,7 @@ function appendachievementsHTML(sectionCount) {
     let $cvContent = $(".cvContent");
     let $cvHTML =
         `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="achievementsCard${sectionCount}">
-            <span class="item" data-edit="achievements"></span>
+            <span class="item" data-edit="achievement"></span>
             <span class="item" data-edit="description"></span>
         </div>`;
     $cvContent.find(`.section.achievements`).append($cvHTML);
@@ -746,7 +746,7 @@ function achievementsSectionCardHTML(cardType) {
                         <div class="col-md-12">
                             <div class="form-item">
                                 <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
-                                    data-fill="achievements" data-section="achievements"
+                                    data-fill="achievement" data-section="achievements"
                                     autocomplete="off" placeholder="Achievements">
                                 <label for="username">Achievements</label>
                             </div>

@@ -1,7 +1,8 @@
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from celery import shared_task
-from orders.models import Order, OrderInitialFiles, OrderParse,OrderFinalizedData
+from orders.models import Order, OrderInitialFiles, OrderParse,OrderFinalizedData,OrderInitialData
+from resume_templates.models import DefaultVariation     
 
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
@@ -22,7 +23,7 @@ def parse_order_originalcv(order_id):
         if cv_files.exists():
             cv_file = cv_files.first()
             pdf_to_text_data = pdfparser(cv_file.file.path)  # Convert PDF to text
-
+            print(pdf_to_text_data)
             with transaction.atomic():
                 # Create or update OrderParse with pdf_to_text_data
                 order_parse, _ = OrderParse.objects.update_or_create(
@@ -42,15 +43,76 @@ def parse_order_originalcv(order_id):
                         order_parse.parsed_data = processed_prompt
                         order_parse.save()
 
+                        formated_template_data = {'static_sections' : [], 'one': [],'two': []}
+                        
+                        print(processed_prompt)
+                        
+                        try:
+                            order_initial_data = OrderInitialData.objects.get(order__id=order_id)  # Fetch the OrderInitialData instance for the given order_id
+                        except OrderInitialData.DoesNotExist:
+                            return HttpResponse('OrderInitialData not found.')
+
+                        if order_initial_data.template_variation_selected:
+                            # Variation is selected, fetch its variation_types
+                            variation = order_initial_data.template_variation_selected
+                            variation_types = variation.variation_types
+                            print("already selected template selections")
+                            # return HttpResponse(f'Variation selected: {variation.variation_name}, Variation Types: {variation_types}')
+                        else:
+                            # If no variation is selected, fetch the default variation's variation_types
+                            default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
+                            if default_variation_instance:
+                                print("default vairation selected")
+                                default_variation = default_variation_instance.variation
+                                variation_types = default_variation.variation_types
+                                
+                                print(f"Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types['one_targets']}")
+
+                                # return HttpResponse(f'Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types['one_targets']}')
+                            else:
+                                # set_default_variation(variation_id = 8)
+                                return HttpResponse('No default variation found.')
+                            
+                            
+                            
+                        
+                        one_targets = variation_types['one_targets']
+                        two_targets = variation_types['two_targets']
+                        static_targets = variation_types['static_targets']
+                        
+                        print(static_targets)
+                        print("loop started")
+                        # Iterate through the original data and distribute items to the new structure
+                        # for item in processed_prompt['data']:
+                        #     if item['target'] in one_targets:
+                        #         formated_template_data['one'].append(item)
+                        #         print("item added in one ")
+                        #     elif item['target'] in two_targets:
+                        #         print("item added in two")
+                        #         formated_template_data['two'].append(item)
                         
                         
+                        for section_key, section_value in processed_prompt.items():
+                            # Check if the current section's target is in one_targets or two_targets
+                            if section_value['target'] in one_targets:
+                                formated_template_data['one'].append(section_value)
+                                print("item added in one")
+                            elif section_value['target'] in two_targets:
+                                formated_template_data['two'].append(section_value)
+                                print("item added in two")
+                            elif section_value['target'] in static_targets:
+                                formated_template_data['static_sections'].append(section_value)
+                                print("item added in static_sections")
+                        
+                        
+                        print(formated_template_data)
                         
                         # Update or create OrderFinalizedData with processed_prompt
                         order_finalized_data, _ = OrderFinalizedData.objects.update_or_create(
                             order=order,
                             defaults={
                                 'pdf_to_text_data': pdf_to_text_data,  # Include pdf_to_text_data
-                                'finalized_data': processed_prompt,  # Include processed_prompt
+                                'finalized_data': formated_template_data,  # Include processed_prompt
                                 'status': 'draft'
                             }
                         )

@@ -6,7 +6,6 @@ from django.db.models import JSONField  # This is compatible with SQLite in Djan
 
 class Template(models.Model):
     name = models.CharField(max_length=100)
-    is_default = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -18,14 +17,20 @@ class Variation(models.Model):
     thumbnail = models.ImageField(upload_to='variations_thumbnails/', blank=True, null=True)
     file = models.FileField(upload_to='template_files/')
     created_at = models.DateTimeField(auto_now_add=True)
-    variation_types = JSONField(default=dict)  # Use default=dict to ensure the field is initialized with an empty dictionary
-    is_default_variation = models.BooleanField(default=False)  # New field to indicate if this is the default variation 
+    variation_types = JSONField(default=dict)
 
     def __str__(self):
         return f"{self.template.name} - {self.variation_name}"
     
+class DefaultVariation(models.Model):
+    variation = models.OneToOneField(Variation, related_name='default_for_categories', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Default Variation: {self.variation.variation_name}"
+
     def save(self, *args, **kwargs):
-        if self.is_default_variation:
-            # Set all other variations of this template to not be the default
-            Variation.objects.filter(template=self.template).update(is_default_variation=False)
-        super(Variation, self).save(*args, **kwargs)
+        # Ensure there's only one DefaultVariation instance
+        if DefaultVariation.objects.exists() and not self.pk:
+            raise Exception('There can only be one DefaultVariation instance.')
+        return super(DefaultVariation, self).save(*args, **kwargs)
+

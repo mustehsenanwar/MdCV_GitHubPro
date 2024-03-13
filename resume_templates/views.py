@@ -198,7 +198,7 @@ class CreateNewTemplate(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             file = request.FILES.get('file')
             is_default_variation = request.POST.get('is_default_variation') == 'on'
             variation_types = {
-                'static_targets': ['personal_informattion', 'profile_summary'],
+                'static_targets': ['personalinfo', 'profile_summary'],
                 'one_targets': ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references'],
                 'two_targets': ['experience', 'certificates', 'skills']
             }

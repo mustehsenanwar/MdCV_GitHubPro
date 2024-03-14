@@ -345,3 +345,26 @@ def set_default_variation(variation_id):
     print(formated_template_data)
     
     return HttpResponse(formated_template_data)
+
+
+# from django.template.loader import render_to_string
+# from django.http import HttpResponse
+# from django.template.loader import render_to_string
+# from weasyprint import HTML
+# import tempfile
+# def html_to_pdf(request):
+#     context = {
+#         'name': "mustehsen",  # Example context data
+#         # Include 
+#         # other context data needed for the resume
+#     }
+    
+#     html_string = render_to_string('resume_template.html', context)
+#     html = HTML(string=html_string)
+#     result = html.write_pdf()
+    
+#     # Generate the response
+#     response = HttpResponse(result, content_type='application/pdf')
+#     response['Content-Disposition'] = 'filename="resume.pdf"'
+
+#     return response

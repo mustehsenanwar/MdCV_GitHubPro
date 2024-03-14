@@ -49,6 +49,8 @@ from orders.models import Order, OrderInitialFiles, OrderParse,OrderFinalizedDat
 from resume_templates.models import Variation, DefaultVariation   
 
 from django.http import HttpResponse
+from resume_templates.models import DefaultVariation   
+
 
 def parse_order_originalcv(request):
     order_id = 38
@@ -148,25 +150,87 @@ def pdfparser(cv_files):
 def example_page(request):
     
     
-    processed_prompt =   {'data': [{'target': 'personalinfo', 'heading': 'personalinfo', 'data': [{'name': 'MIDHUN P', 'phone': '+971564933065', 'email': 'midhunmurali501@gmail.com', 'nationality': 'Indian', 'visaType': 'Employment', 'dob': '28-04-1997', 'drivingLicense': 'Not mentioned'}]}, {'target': 'education', 'heading': 'EDUCATION', 'data': [{'degree': 'B.COM', 'university': 'University of Calicut India', 'location': 'India', 'date': 'Not specified', 'description': 'Financial Reporting, Auditing, Taxation'}, {'degree': 'MASTER DIPLOMA IN COMPUTERIZED ACCOUNTING', 'university': 'Keltron India', 'location': 'India', 'date': 'Not specified', 'description': ''}]}, {'target': 'achievements', 'heading': 'ACHIEVEMENTS', 'data': [{'achievement': 'Developed and implemented a comprehensive budgeting process', 'description': 'Resulted in better visibility into financial performance and improved decision-making by management'}, {'achievement': 'Developed and maintained strong relationships with key stakeholders', 'description': 'Including clients, vendors, and internal departments'}, {'achievement': 'Prepared financial statements and reports', 'description': 'That were accurate, timely, and in compliance with accounting standards'}, {'achievement': 'Conducted account reconciliations', 'description': 'To ensure that all transactions were properly recorded and accounted'}]}, {'target': 'softSkill', 'heading': 'SOFT SKILLS', 'data': [{'skill': 'MS Office', 'description': 'Word, Excel, PowerPoint, Outlook'}, {'skill': 'Peachtree', 'description': 'Understanding of interface, setup, customization, data management, etc.'}, {'skill': 'Tally', 'description': 'Accounting software for bookkeeping, inventory management, and financial reporting'}, {'skill': 'Data Entry', 'description': 'Accuracy, speed, organization, software knowledge, effective communication'}]}, {'target': 'languages', 'heading': 'LANGUAGES', 'data': [{'language': 'English', 'proficiency': 'Fluent'}, {'language': 'Hindi', 'proficiency': 'Fluent'}, {'language': 'Malayalam', 'proficiency': 'Native'}]}, {'target': 'experience', 'heading': 'PROFESSIONAL EXPERIENCE', 'data': [{'designation': 'ACCOUNTANT', 'companyName': 'CHEMMANUR INTERNATIONAL GROUP (INDIA)', 'location': 'India', 'date': 'Apr 2021 to Dec 2021', 'description': 'Recording financial transactions, bank reconciliation, managing petty cash, financial reporting, budget management, payroll processing, financial analysis, compliance with tax laws'}, {'designation': 'GENERAL ACCOUNTANT', 'companyName': 'GARUDA GROUP (INDIA)', 'location': 'India', 'date': 'Feb 2020 to Apr 2021', 'description': 'Developing accounting policies, financial database management, cash flow monitoring, compliance with GAAP, financial statement analysis'}, {'designation': 'FINANCE ASSOCIATE', 'companyName': 'SRI VINAYAKA RESTAURANT (INDIA)', 'location': 'India', 'date': 'Jun 2018 to Feb 2020', 'description': 'Budget analysis, payroll processing, financial statement preparation, process improvements, financial records maintenance'}]}, {'target': 'certificates', 'heading': 'CERTIFICATES', 'data': []}, {'target': 'skills', 'heading': 'PROFESSIONAL SKILLS', 'data': [{'skill': 'Proficiency in accounting software and financial management tools', 'proficiency': 'Advanced'}, {'skill': 'Strong analytical and problem-solving skills', 'proficiency': 'Advanced'}, {'skill': 'Attention to detail and accuracy in data entry and record keeping', 'proficiency': 'Advanced'}, {'skill': 'Ability to communicate financial information to both technical and non-technical stakeholders', 'proficiency': 'Advanced'}, {'skill': 'Knowledge of tax laws and regulations', 'proficiency': 'Advanced'}, {'skill': 'Familiarity with financial reporting standards (e.g., GAAP, IFRS)', 'proficiency': 'Advanced'}, {'skill': 'Experience with budgeting and forecasting', 'proficiency': 'Advanced'}, {'skill': 'Understanding of internal controls and risk management', 'proficiency': 'Advanced'}, {'skill': 'Strong interpersonal skills for building relationships with clients and colleagues', 'proficiency': 'Advanced'}, {'skill': 'Continuous learning and staying up-to-date with industry developments and trends', 'proficiency': 'Advanced'}, {'skill': 'Ability to analyze financial statements and identify areas for improvement', 'proficiency': 'Advanced'}, {'skill': 'Ability to manage multiple tasks and deadlines effectively', 'proficiency': 'Advanced'}]}]}    # Assuming one_targets and two_targets are lists that define which targets go into 'one' and 'two' categories
+    processed_prompt = {'data': [{'target': 'personalinfo', 'heading': 'personalinfo', 'data': [{'name': 'ANEESH ANIYAN', 'phone': '+971505181614', 'email': 'aneeshaply@gmail.com', 'nationality': 'Indian', 'visaType': 'Employment', 'dob': 'Mar-1985', 'drivingLicense': 'Not mentioned'}]}, {'target': 'education', 'heading': 'EDUCATION', 'data': [{'degree': 'BSc Nursing', 'university': 'Rajiv Gandhi University of Health Sciences', 'location': 'India', 'date': '2015', 'description': 'Major subjects: Nursing Fundamentals, Medical-Surgical Nursing, Pharmacology, Pediatric Nursing, Community Health Nursing, Nursing Ethics and Law, Emergency and Trauma Nursing, Health Assessment'}, {'degree': 'Diploma Nursing', 'university': 'Karnataka State Diploma of Nursing examination board', 'location': 'India', 'date': '2007', 'description': 'Major subjects: Anatomy and Physiology, First Aid and CPR, Basic Medical Terminology'}]}, {'target': 'achievements', 'heading': 'ACHIEVEMENTS', 'data': [{'achievement': 'Maintained patient records and documentation accuracy', 'description': 'Facilitated efficient communication across shifts'}, {'achievement': 'Provided critical care to emergency patients', 'description': 'Ensured optimal patient outcomes'}, {'achievement': 'Displayed exceptional leadership', 'description': 'Mentored staff, enhanced communication skills, and fostered problem-solving abilities'}]}, {'target': 'softSkill', 'heading': 'SOFT SKILLS', 'data': [{'skill': 'Team Collaboration', 'description': 'Effective collaborator in multi-specialty teams'}, {'skill': 'Critical Thinking', 'description': 'Proficient in critical care and invasive procedures'}, {'skill': 'Problem-Solving Abilities', 'description': 'Consistently exceeding care standards'}, {'skill': 'Empathy', 'description': 'Known for compassionate, patient-centered approach'}, {'skill': 'Attention to Detail', 'description': 'Maintained accurate and complete documentation'}, {'skill': 'Communication Skills', 'description': 'Effective communication with healthcare professionals'}, {'skill': 'Stress Management', 'description': 'Respond effectively to emergency situations'}, {'skill': 'Adaptability', 'description': 'Prepared to provide life-saving interventions'}, {'skill': 'Patient Advocacy', 'description': 'Ensured patient safety and proper procedural setup'}, {'skill': 'Leadership Abilities', 'description': 'Displayed exceptional leadership qualities'}, {'skill': 'Continuous Learning', 'description': 'Committed to ongoing learning and staying updated with medical advancements'}, {'skill': 'Patient Education', 'description': 'Provided post-procedure care and patient education'}]}, {'target': 'languages', 'heading': 'LANGUAGES', 'data': [{'language': 'English', 'proficiency': 'Fluent'}, {'language': 'Malayalam', 'proficiency': 'Native'}, {'language': 'Hindi', 'proficiency': 'Fluent'}]}, {'target': 'experience', 'heading': 'PROFESSIONAL EXPERIENCE', 'data': [{'designation': 'Staff Nurse OT', 'companyName': 'SAUDI GERMAN HOSPITAL (UAE)', 'location': 'UAE', 'date': 'Jan 2022 to Present', 'description': "Prepare and maintain operating room environment, assist surgical team, monitor patients' vital signs, administer medications, maintain documentation, adhere to infection control protocols"}, {'designation': 'Staff Nurse OT & Cath Lab', 'companyName': 'MEDIPOINT HOSPITALS PVT LTD (INDIA)', 'location': 'India', 'date': 'Oct 2007 to Jun 2022', 'description': 'Assist in setup and operation of specialized equipment, ensure availability of surgical supplies, collaborate with surgical team, manage disposal of biohazardous waste, assist with wound closure and dressing application, monitor patients during procedures'}]}, {'target': 'skills', 'heading': 'PROFESSIONAL SKILLS', 'data': [{'skill': 'CPR', 'proficiency': 'Mastery'}, {'skill': 'Resuscitation', 'proficiency': 'Mastery'}, {'skill': 'Post-procedural Care', 'proficiency': 'Mastery'}, {'skill': 'Coronary Angiography', 'proficiency': 'Expert'}, {'skill': 'Renal and Peripheral Angiography', 'proficiency': 'Expert'}, {'skill': 'Percutaneous Transluminal Coronary Angioplasty', 'proficiency': 'Expert'}, {'skill': 'Implantation of Pacemakers and ICDs', 'proficiency': 'Expert'}, {'skill': 'Aortic and Pulmonary Balloon Dilatation', 'proficiency': 'Expert'}, {'skill': 'Cerebral Catheterization', 'proficiency': 'Expert'}, {'skill': 'Pericardial Effusion Tapping', 'proficiency': 'Expert'}, {'skill': 'Intravascular Foreign Body Retrieval', 'proficiency': 'Expert'}, {'skill': 'Orthopedic Surgeries', 'proficiency': 'Expert'}, {'skill': 'Laparoscopic Surgeries', 'proficiency': 'Expert'}, {'skill': 'Gynecological Surgeries', 'proficiency': 'Expert'}, {'skill': 'General Surgeries', 'proficiency': 'Expert'}, {'skill': 'Neurosurgeries', 'proficiency': 'Expert'}, {'skill': 'Ophthalmic Surgeries', 'proficiency': 'Expert'}, {'skill': 'ENT Surgeries', 'proficiency': 'Expert'}, {'skill': 'Urology Surgeries', 'proficiency': 'Expert'}, {'skill': 'Reconstruction and Maxillofacial Surgeries', 'proficiency': 'Expert'}]}]}  
     one_targets = ['personalinfo', 'education']  # Example targets for 'one'
     two_targets = ['experience', 'skills']  # Example targets for 'two'
 
-    # Initialize the formatted data structure with 'one' and 'two' keys
-    formated_template_data = {'one': [], 'two': []}
+    formated_template_data = {'static_sections' : [], 'one': [],'two': []}
     
-    if not is_valid_processed_prompt(processed_prompt.items()):
-            return HttpResponse('Invalid processed prompt format.', status=400)
-
-    # Iterate over each section in the processed prompt
+    
+    
+    default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
+    if default_variation_instance:
+        default_variation = default_variation_instance.variation
+        variation_types = default_variation.variation_types
+        
+    one_targets = variation_types['one_targets']
+    two_targets = variation_types['two_targets']
+    static_targets = variation_types['static_targets']
+    
+    
     for section_key, section_value in processed_prompt.items():
-        # Check if the current section's target is in one_targets or two_targets
-        if section_value['target'] in one_targets:
-            formated_template_data['one'].append(section_value)
-            print("item added in one")
-        elif section_value['target'] in two_targets:
-            formated_template_data['two'].append(section_value)
-            print("item added in two")
+    # Check if the current section's target is in one_targets or two_targets
+        for item in section_value:
+            if item['target'] in one_targets:
+                formated_template_data['one'].append(item)
+                print("item added in one")
+            elif item['target'] in two_targets:
+                formated_template_data['two'].append(item)
+                print("item added in two")
+            elif item['target'] in static_targets:
+                formated_template_data['static_sections'].append(item)
+                print("item added in static_sections")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # for section_key, section_value in processed_prompt.items():
+
+    #     # Check if the current section's target is in one_targets or two_targets
+    #     if section_value['target'] in one_targets:
+    #         formated_template_data['one'].append(section_value)
+    #         print("item added in one")
+    #     elif section_value['target'] in two_targets:
+    #         formated_template_data['two'].append(section_value)
+    #         print("item added in two")
+    #     elif section_value['target'] in static_targets:
+    #         formated_template_data['static_sections'].append(section_value)
+    #         print("item added in static_sections")
+    
+    
+    print(formated_template_data)
+    
+    return HttpResponse('Invalid processed prompt format')
+
+    
+    
+    # # Initialize the formatted data structure with 'one' and 'two' keys
+    # formated_template_data = {'one': [], 'two': []}
+    
+    # if not is_valid_processed_prompt(processed_prompt.items()):
+    #         return HttpResponse('Invalid processed prompt format.', status=400)
+
+    # # Iterate over each section in the processed prompt
+    # for section_key, section_value in processed_prompt.items():
+    #     # Check if the current section's target is in one_targets or two_targets
+    #     if section_value['target'] in one_targets:
+    #         formated_template_data['one'].append(section_value)
+    #         print("item added in one")
+    #     elif section_value['target'] in two_targets:
+    #         formated_template_data['two'].append(section_value)
+    #         print("item added in two")
 
     # Now formated_template_data should have the items categorized into 'one' and 'two'
 

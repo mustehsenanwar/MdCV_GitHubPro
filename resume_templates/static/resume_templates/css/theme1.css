@@ -1,12 +1,15 @@
+:root {
+    --fontFamily: sans-serif
+}
+
 .cvContent {
     position: relative;
 }
 
 .cvContent .top-right-heading {
-    width: 35%;
     background: var(--theme1);
-    padding: 16px 20px;
-    font-family: sans-serif;
+    padding: 12px 28px 12px 50px;
+    font-family: var(--fontFamily);
     display: flex;
     justify-content: center;
     border-radius: 0 0 0 60px;
@@ -15,8 +18,10 @@
 }
 
 .cvContent .top-right-heading span.text {
-    font-size: 22px;
+    font-size: 24px;
     color: #fff;
+    font-weight: bold;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .top-right-heading i {
@@ -42,9 +47,9 @@
 
 .cvContent .user-img-header .user-img img {
     border-radius: 50%;
-    margin-top: 30px;
-    height: 250px;
-    width: 250px;
+    margin-top: 22px;
+    height: 280px;
+    width: 280px;
 }
 
 .cvContent .user-info {
@@ -55,10 +60,11 @@
 .cvContent .user-info .name {
     font-size: 3.8rem;
     margin: 0;
-    font-family: sans-serif;
+    font-family: var(--fontFamily);
     font-weight: 700;
     color: var(--theme1);
     line-height: 48px;
+    text-transform: uppercase;
 }
 
 .cvContent .user-info .headline {
@@ -68,6 +74,10 @@
     font-style: italic;
     margin: 4px 0;
     margin-bottom: 0px;
+    display: inline-block;
+    border-bottom: 3px solid rgb(58 133 179 / 50%);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .bar-line {
@@ -75,9 +85,10 @@
 }
 
 .cvContent .section .paragraph {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--theme1);
     font-weight: 600;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con1 {
@@ -94,10 +105,10 @@
     padding: 10px;
     background: #c8e6f5;
     border-radius: 0 25px 25px 0;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: bold;
     color: var(--theme1);
-    margin-left: 2px;
+    margin-left: 0px;
     display: inline-block;
     padding-right: 35px;
 }
@@ -148,14 +159,14 @@
     opacity: 0.7;
     font-size: 16px;
     margin-right: 5px;
-    font-family: sans-serif;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con2 .section .items .item {
     display: flex;
     font-size: 16px;
     margin-right: 5px;
-    font-family: sans-serif;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con2 .section.references .items .item,
@@ -184,7 +195,7 @@
 
 .cvContent .sec-con1 .section .items .item .text {
     font-size: 18px;
-    font-family: sans-serif;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con1 .section .items .item i {
@@ -208,8 +219,8 @@
     padding: 10px;
     background: var(--theme1);
     border-radius: 0 25px 25px 0;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: bold;
     color: #fff;
     display: inline-block;
     padding-right: 35px;
@@ -236,7 +247,7 @@
     content: "";
     height: 98%;
     position: absolute;
-    left: -8px;
+    left: -20px;
     top: 8px;
     border: 1px dashed var(--theme1);
     width: 2px;
@@ -247,20 +258,9 @@
     display: none;
 }
 
-.cvContent .sec-con2 .section .content::before {
-    content: "";
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background: var(--theme1);
-    position: absolute;
-    left: -12px;
-    top: 6px;
-}
-
 .cv-text {
     font-size: 15px;
-    font-family: sans-serif;
+    font-family: var(--fontFamily);
     font-weight: bold;
     opacity: 0.8;
 }
@@ -306,7 +306,7 @@
 
 .cvContent .sec-con2 .section.skills .items .item .progress {
     background: #fff;
-    width: 30%;
+    width: 20%;
     height: 10px;
     margin-right: 20px;
 }
@@ -320,7 +320,8 @@
 @media print {
 
     .cv-color-changer,
-    .tc-side-panel-open {
+    .tc-side-panel-open,
+    .cv-topbar {
         display: none !important;
     }
 }
@@ -346,6 +347,7 @@
     order: 5;
     width: 100%;
     margin-top: 10px;
+    font-family: var(--fontFamily);
 }
 
 
@@ -353,6 +355,7 @@
 .cvContent .sec-con2 .section.certificates .items {
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 
 
@@ -375,4 +378,39 @@
 .cvContent .sec-con1 .section.skills .items .item .progress {
     width: 50%;
     margin-bottom: 10px;
+}
+
+.cvContent .sec-con2 .section .items {
+    position: relative;
+}
+
+.cvContent .sec-con2 .section.softSkill .items::before,
+.cvContent .sec-con2 .section.achievements .items::before,
+.cvContent .sec-con2 .section.education .items::before,
+.cvContent .sec-con2 .section.experience .items::before,
+.cvContent .sec-con2 .section.certificates .items::before {
+    content: "";
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    background: var(--theme1);
+    border-radius: 50%;
+    left: -24px;
+    top: 4px;
+}
+
+.cvContent .sec-con2 .section.experience .items .item[data-edit="designation"] {
+    text-transform: uppercase;
+}
+
+.cvContent .sec-con2 .section.experience .items .item[data-edit="location"],
+.cvContent .sec-con2 .section.experience .items .item[data-edit="date"],
+.cvContent .sec-con2 .section.experience .items .item[data-edit="companyName"] {
+    font-style: italic;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.cvContent .sec-con2 .section.experience .items .item[data-edit="description"] {
+    margin-left: 14px;
 }

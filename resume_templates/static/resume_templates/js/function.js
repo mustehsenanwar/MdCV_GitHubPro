@@ -45,8 +45,7 @@ function addLanguageSkillItem(data = {}) {
         average = data.average || 0;
     let languageHtml =
         `<div class="item" data-filling="languagesCard${sectionCount}">
-            <i class="fa fa-circle"></i>
-            <div class="w-100 pull-away pr-5">
+            <div class="single-item">
                 <span class="text" data-edit="text">${text}</span>
                 <div class=" progress">
                     <div class="progress-bar" data-edit="progress" role="progressbar"
@@ -92,7 +91,7 @@ function handleResumeData(orderId, action, additionalData = {}) {
         action: action,  // 'fetch' or 'update'
         ...additionalData
     };
-
+    loaderToggle();
     $.ajax({
         url: "/dashboard/resumebuilder/" + orderId + "/",
         method: "POST",
@@ -100,10 +99,12 @@ function handleResumeData(orderId, action, additionalData = {}) {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (res) {
-            l(res)
             if (res.status == "success")
                 cvHTMLStructureLoad(res.data);
             else alert("Resume Data Not Fount!");
+            setTimeout(() => {
+                loaderToggle(false);
+            }, 500);
         },
         error: function (err) {
             console.error("Error processing request:", err);
@@ -230,6 +231,7 @@ function appendExprienceHTML(sectionCount, data = {}) {
             <span class="item" data-edit="companyName">${companyName}</span>
             <span class="item" data-edit="location">${location}</span>
             <span class="item" data-edit="date">${date}</span>
+            <span class="item w-100 mt-2">Key responsibilities:</span>
             <span class="item" data-edit="description">${description}</span>
         </div>`;
     cvMainContent.find(`.section.experience .content`).append($cvHTML);
@@ -408,7 +410,7 @@ function appendSoftSkillHTML(sectionCount, data = {}) {
     let skill = data.skill || "",
         description = data.description || "";
     let $cvHTML =
-        `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="softSkillCard${sectionCount}">
+        `<div class="items  flex-column" data-filling="softSkillCard${sectionCount}">
             <span class="item" data-edit="skill">${skill}</span>
             <span class="item" data-edit="description">${description}</span>
         </div>`;
@@ -468,7 +470,7 @@ function appendachievementsHTML(sectionCount, data = {}) {
         description = data.description || "";
     let $cvContent = $(".cvContent");
     let $cvHTML =
-        `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="achievementsCard${sectionCount}">
+        `<div class="items  flex-column" data-filling="achievementsCard${sectionCount}">
             <span class="item" data-edit="achievement">${achievements}</span>
             <span class="item" data-edit="description">${description}</span>
         </div>`;
@@ -521,3 +523,16 @@ function achievementsSectionCardHTML(cardType, data = {}) {
     return cardHTML;
 }
 //#endregion achievements
+
+// Loader toggle
+function loaderToggle(toggle = true) {
+    let $loader = $(".custom-loader-container"),
+        $cvContainer = $(".cv-content-container");
+
+    $loader.removeClass("d-none");
+    $cvContainer.css("overflow", "hidden");
+    if (!toggle) {
+        $loader.addClass("d-none");
+        $cvContainer.removeAttr("style");
+    }
+}

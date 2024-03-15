@@ -664,7 +664,7 @@ function certificateSectionCardHTML(cardType) {
 function appendSoftSkillHTML(sectionCount) {
     let $cvContent = $(".cvContent");
     let $cvHTML =
-        `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="softSkillCard${sectionCount}">
+        `<div class="items  flex-column" data-filling="softSkillCard${sectionCount}">
             <span class="item" data-edit="skill"></span>
             <span class="item" data-edit="description"></span>
         </div>`;
@@ -720,7 +720,7 @@ function softSkillSectionCardHTML(cardType) {
 function appendachievementsHTML(sectionCount) {
     let $cvContent = $(".cvContent");
     let $cvHTML =
-        `<div class="items pl-3 mt-1 pt-0 flex-column" data-filling="achievementsCard${sectionCount}">
+        `<div class="items  flex-column" data-filling="achievementsCard${sectionCount}">
             <span class="item" data-edit="achievement"></span>
             <span class="item" data-edit="description"></span>
         </div>`;

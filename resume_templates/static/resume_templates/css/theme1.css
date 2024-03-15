@@ -1,3 +1,4 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
 :root {
     --fontFamily: sans-serif;
     --cvLeftColor: #C8DFED;
@@ -304,11 +305,16 @@
     width: 48%;
 }
 
-.cvContent .sec-con2 .section.skills .items .item .progress {
+.cvContent .sec-con2 .section.skills .items .item .progress,
+.cvContent .sec-con2 .section.languages .items .item .progress {
     background: #fff;
     width: 20%;
     height: 10px;
     margin-right: 20px;
+}
+
+.cvContent .sec-con2 .section.languages .items .single-item .text {
+    font-size: 16px;
 }
 
 .cvContent .section.skills .items .item .progress-bar {
@@ -429,12 +435,17 @@
     padding-left: 20px;
 }
 
+.cvContent .sec-con2 .section.languages .items .single-item {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+
 .cvContent .section.languages .items .item {
     position: relative;
     margin-bottom: 8px;
 }
 
-.cvContent .section.languages .items .item::before {
+.cvContent .sec-con1 .section.languages .items .item::before {
     content: "";
     width: 15px;
     height: 15px;
@@ -498,3 +509,27 @@
 .cvContent .sec-con1 .section.skills .items::before {
     display: none;
 }
+
+
+/* .cvContent .user-info .name,
+.cvContent .sec-con2 .sec-heading {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+} */
+
+/* .cvContent .user-info .headline {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.cvContent .section .paragraph,
+.cvContent .sec-con2 .section.education .items .item[data-edit="description"],
+.cvContent .sec-con2 .section.softSkill .items .item[data-edit="description"],
+.cvContent .sec-con2 .section.experience .items .item[data-edit="description"],
+.cvContent .sec-con2 .section.certificates .items .item[data-edit="description"] {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+} */

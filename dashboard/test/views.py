@@ -52,134 +52,174 @@ from django.http import HttpResponse
 from resume_templates.models import DefaultVariation   
 
 
-def parse_order_originalcv(request):
-    order_id = 38
-    order = Order.objects.get(id=order_id)
-    cv_files_queryset = OrderInitialFiles.objects.filter(order=order, file_type='original_cv')
-
-    if cv_files_queryset.exists():  # Check if the queryset is not empty
-        cv_file = cv_files_queryset.first()  # Get the first object from the queryset
-        cv_file_path = cv_file.file.path  # Access the 'file' attribute and then get its full filesystem path
-        parsed_data = pdfparser(cv_file_path)  # Now you pass the file path to your parsing function
-        return HttpResponse(parsed_data)
-    else:
-        # Handle the case where no CV file is associated with the order
-        print("No original CV file found for this order.")
 
 
 
+# from django.template.loader import render_to_string
+# from django.http import HttpResponse
+# from django.template.loader import render_to_string
+# from weasyprint import HTML
+# import tempfile
+# def html_to_pdf(request):
+#     context = {
+#         'name': "mustehsen",  # Example context data
+#         # Include 
+#         # other context data needed for the resume
+#     }
+    
+#     html_string = render_to_string('resume_template.html', context)
+#     html = HTML(string=html_string)
+#     result = html.write_pdf()
+    
+#     # Generate the response
+#     response = HttpResponse(result, content_type='application/pdf')
+#     response['Content-Disposition'] = 'filename="resume.pdf"'
+
+    # return response
 
 
 
-def construct_messages(resume_text):
-    prompt = f"""
-    Given the following resume text, extract the relevant information and fill in the structured format provided.
 
-    Resume Text:
-    {resume_text}
 
-    Please fill in the following structured format based on the resume and if value not found place null:
-    {{
-        "name": "[Extract the full name from the resume]",
-        "PersonalInfo": {{
-            "Phone": "[Extract the phone number and write it in international format e.g +97155555555]",
-            "Email": "[Extract the email address]",
-            "Nationality": "[Extract the nationality]",
-            "VisaType": "[Extract the visa type, if mentioned, e.g visit visa , employment visa, resident visa ]",
-            "DOB": "[Extract the date of birth only month and year needed]",
-            "DrivingLicense": "[Indicate if a driving license is mentioned]"
-        }},
-        "Educations": [
-            {{
-                "University": "[Extract the name of the university or institution]",
-                "DegreeName": "[Extract the degree or qualification]",
-                "Location": "[Extract the location of the university or institution]",
-                "Date": "[Extract the date or duration of the each education]"
-            }}
-        ],
-        "JobHeadings": [
-            {{
-                "CompanyName": "[Extract the company name]",
-                "Position": "[Extract the job title or position]",
-                "Date": "[Extract the date or duration of the employment]",
-                "Location": "[Extract the location of the job]"
-            }}
-        ],
-        "YearsOfExperience": "[Extract or estimate the total years of experience]",
-        "Language": "[List the languages mentioned]",
-        "Hobbies": "[List any hobbies mentioned]"
-    }}
-    """
-    return [
-        {"role": "system", "content": "You are data analyser."},
-        {"role": "user", "content": prompt}
-    ]
-def generate_response_with_openai(resume_text):
-    client = openai.OpenAI(api_key="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")
-    message = construct_messages(resume_text)
-    chat_completion = client.chat.completions.create(
-        messages= message,
-        model="gpt-4",
-        temperature = 0.4,
-    )
-    return chat_completion.choices[0].message.content
 
-def extract_text_from_pdf(file_path):
-    text = ""
-    with fitz.open(file_path) as doc:
-        for page in doc:
-            text += page.get_text()
-    return text
 
-def pdfparser(cv_files):
-    if cv_files:
-        print(cv_files)
-        file_path = cv_files
-        resume_text = extract_text_from_pdf(file_path)
 
-        response_from_openai = generate_response_with_openai(resume_text)  # Use the extracted text as a prompt
-        print(response_from_openai)
-        response_from_openai = json.loads(response_from_openai)
-        context = {'response': response_from_openai,'original_cv_text' : resume_text}
-        return context
+
+
+
+
+
+
+
+
+# def parse_order_originalcv(request):
+#     order_id = 38
+#     order = Order.objects.get(id=order_id)
+#     cv_files_queryset = OrderInitialFiles.objects.filter(order=order, file_type='original_cv')
+
+#     if cv_files_queryset.exists():  # Check if the queryset is not empty
+#         cv_file = cv_files_queryset.first()  # Get the first object from the queryset
+#         cv_file_path = cv_file.file.path  # Access the 'file' attribute and then get its full filesystem path
+#         parsed_data = pdfparser(cv_file_path)  # Now you pass the file path to your parsing function
+#         return HttpResponse(parsed_data)
+#     else:
+#         # Handle the case where no CV file is associated with the order
+#         print("No original CV file found for this order.")
+
+
+
+
+
+
+# def construct_messages(resume_text):
+#     prompt = f"""
+#     Given the following resume text, extract the relevant information and fill in the structured format provided.
+
+#     Resume Text:
+#     {resume_text}
+
+#     Please fill in the following structured format based on the resume and if value not found place null:
+#     {{
+#         "name": "[Extract the full name from the resume]",
+#         "PersonalInfo": {{
+#             "Phone": "[Extract the phone number and write it in international format e.g +97155555555]",
+#             "Email": "[Extract the email address]",
+#             "Nationality": "[Extract the nationality]",
+#             "VisaType": "[Extract the visa type, if mentioned, e.g visit visa , employment visa, resident visa ]",
+#             "DOB": "[Extract the date of birth only month and year needed]",
+#             "DrivingLicense": "[Indicate if a driving license is mentioned]"
+#         }},
+#         "Educations": [
+#             {{
+#                 "University": "[Extract the name of the university or institution]",
+#                 "DegreeName": "[Extract the degree or qualification]",
+#                 "Location": "[Extract the location of the university or institution]",
+#                 "Date": "[Extract the date or duration of the each education]"
+#             }}
+#         ],
+#         "JobHeadings": [
+#             {{
+#                 "CompanyName": "[Extract the company name]",
+#                 "Position": "[Extract the job title or position]",
+#                 "Date": "[Extract the date or duration of the employment]",
+#                 "Location": "[Extract the location of the job]"
+#             }}
+#         ],
+#         "YearsOfExperience": "[Extract or estimate the total years of experience]",
+#         "Language": "[List the languages mentioned]",
+#         "Hobbies": "[List any hobbies mentioned]"
+#     }}
+#     """
+#     return [
+#         {"role": "system", "content": "You are data analyser."},
+#         {"role": "user", "content": prompt}
+#     ]
+# def generate_response_with_openai(resume_text):
+#     client = openai.OpenAI(api_key="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")
+#     message = construct_messages(resume_text)
+#     chat_completion = client.chat.completions.create(
+#         messages= message,
+#         model="gpt-4",
+#         temperature = 0.4,
+#     )
+#     return chat_completion.choices[0].message.content
+
+# def extract_text_from_pdf(file_path):
+#     text = ""
+#     with fitz.open(file_path) as doc:
+#         for page in doc:
+#             text += page.get_text()
+#     return text
+
+# def pdfparser(cv_files):
+#     if cv_files:
+#         print(cv_files)
+#         file_path = cv_files
+#         resume_text = extract_text_from_pdf(file_path)
+
+#         response_from_openai = generate_response_with_openai(resume_text)  # Use the extracted text as a prompt
+#         print(response_from_openai)
+#         response_from_openai = json.loads(response_from_openai)
+#         context = {'response': response_from_openai,'original_cv_text' : resume_text}
+#         return context
 
 
  
 
 
-def example_page(request):
+# def example_page(request):
     
     
-    processed_prompt = {'data': [{'target': 'personalinfo', 'heading': 'personalinfo', 'data': [{'name': 'ANEESH ANIYAN', 'phone': '+971505181614', 'email': 'aneeshaply@gmail.com', 'nationality': 'Indian', 'visaType': 'Employment', 'dob': 'Mar-1985', 'drivingLicense': 'Not mentioned'}]}, {'target': 'education', 'heading': 'EDUCATION', 'data': [{'degree': 'BSc Nursing', 'university': 'Rajiv Gandhi University of Health Sciences', 'location': 'India', 'date': '2015', 'description': 'Major subjects: Nursing Fundamentals, Medical-Surgical Nursing, Pharmacology, Pediatric Nursing, Community Health Nursing, Nursing Ethics and Law, Emergency and Trauma Nursing, Health Assessment'}, {'degree': 'Diploma Nursing', 'university': 'Karnataka State Diploma of Nursing examination board', 'location': 'India', 'date': '2007', 'description': 'Major subjects: Anatomy and Physiology, First Aid and CPR, Basic Medical Terminology'}]}, {'target': 'achievements', 'heading': 'ACHIEVEMENTS', 'data': [{'achievement': 'Maintained patient records and documentation accuracy', 'description': 'Facilitated efficient communication across shifts'}, {'achievement': 'Provided critical care to emergency patients', 'description': 'Ensured optimal patient outcomes'}, {'achievement': 'Displayed exceptional leadership', 'description': 'Mentored staff, enhanced communication skills, and fostered problem-solving abilities'}]}, {'target': 'softSkill', 'heading': 'SOFT SKILLS', 'data': [{'skill': 'Team Collaboration', 'description': 'Effective collaborator in multi-specialty teams'}, {'skill': 'Critical Thinking', 'description': 'Proficient in critical care and invasive procedures'}, {'skill': 'Problem-Solving Abilities', 'description': 'Consistently exceeding care standards'}, {'skill': 'Empathy', 'description': 'Known for compassionate, patient-centered approach'}, {'skill': 'Attention to Detail', 'description': 'Maintained accurate and complete documentation'}, {'skill': 'Communication Skills', 'description': 'Effective communication with healthcare professionals'}, {'skill': 'Stress Management', 'description': 'Respond effectively to emergency situations'}, {'skill': 'Adaptability', 'description': 'Prepared to provide life-saving interventions'}, {'skill': 'Patient Advocacy', 'description': 'Ensured patient safety and proper procedural setup'}, {'skill': 'Leadership Abilities', 'description': 'Displayed exceptional leadership qualities'}, {'skill': 'Continuous Learning', 'description': 'Committed to ongoing learning and staying updated with medical advancements'}, {'skill': 'Patient Education', 'description': 'Provided post-procedure care and patient education'}]}, {'target': 'languages', 'heading': 'LANGUAGES', 'data': [{'language': 'English', 'proficiency': 'Fluent'}, {'language': 'Malayalam', 'proficiency': 'Native'}, {'language': 'Hindi', 'proficiency': 'Fluent'}]}, {'target': 'experience', 'heading': 'PROFESSIONAL EXPERIENCE', 'data': [{'designation': 'Staff Nurse OT', 'companyName': 'SAUDI GERMAN HOSPITAL (UAE)', 'location': 'UAE', 'date': 'Jan 2022 to Present', 'description': "Prepare and maintain operating room environment, assist surgical team, monitor patients' vital signs, administer medications, maintain documentation, adhere to infection control protocols"}, {'designation': 'Staff Nurse OT & Cath Lab', 'companyName': 'MEDIPOINT HOSPITALS PVT LTD (INDIA)', 'location': 'India', 'date': 'Oct 2007 to Jun 2022', 'description': 'Assist in setup and operation of specialized equipment, ensure availability of surgical supplies, collaborate with surgical team, manage disposal of biohazardous waste, assist with wound closure and dressing application, monitor patients during procedures'}]}, {'target': 'skills', 'heading': 'PROFESSIONAL SKILLS', 'data': [{'skill': 'CPR', 'proficiency': 'Mastery'}, {'skill': 'Resuscitation', 'proficiency': 'Mastery'}, {'skill': 'Post-procedural Care', 'proficiency': 'Mastery'}, {'skill': 'Coronary Angiography', 'proficiency': 'Expert'}, {'skill': 'Renal and Peripheral Angiography', 'proficiency': 'Expert'}, {'skill': 'Percutaneous Transluminal Coronary Angioplasty', 'proficiency': 'Expert'}, {'skill': 'Implantation of Pacemakers and ICDs', 'proficiency': 'Expert'}, {'skill': 'Aortic and Pulmonary Balloon Dilatation', 'proficiency': 'Expert'}, {'skill': 'Cerebral Catheterization', 'proficiency': 'Expert'}, {'skill': 'Pericardial Effusion Tapping', 'proficiency': 'Expert'}, {'skill': 'Intravascular Foreign Body Retrieval', 'proficiency': 'Expert'}, {'skill': 'Orthopedic Surgeries', 'proficiency': 'Expert'}, {'skill': 'Laparoscopic Surgeries', 'proficiency': 'Expert'}, {'skill': 'Gynecological Surgeries', 'proficiency': 'Expert'}, {'skill': 'General Surgeries', 'proficiency': 'Expert'}, {'skill': 'Neurosurgeries', 'proficiency': 'Expert'}, {'skill': 'Ophthalmic Surgeries', 'proficiency': 'Expert'}, {'skill': 'ENT Surgeries', 'proficiency': 'Expert'}, {'skill': 'Urology Surgeries', 'proficiency': 'Expert'}, {'skill': 'Reconstruction and Maxillofacial Surgeries', 'proficiency': 'Expert'}]}]}  
-    one_targets = ['personalinfo', 'education']  # Example targets for 'one'
-    two_targets = ['experience', 'skills']  # Example targets for 'two'
+#     processed_prompt = {'data': [{'target': 'personalinfo', 'heading': 'personalinfo', 'data': [{'name': 'ANEESH ANIYAN', 'phone': '+971505181614', 'email': 'aneeshaply@gmail.com', 'nationality': 'Indian', 'visaType': 'Employment', 'dob': 'Mar-1985', 'drivingLicense': 'Not mentioned'}]}, {'target': 'education', 'heading': 'EDUCATION', 'data': [{'degree': 'BSc Nursing', 'university': 'Rajiv Gandhi University of Health Sciences', 'location': 'India', 'date': '2015', 'description': 'Major subjects: Nursing Fundamentals, Medical-Surgical Nursing, Pharmacology, Pediatric Nursing, Community Health Nursing, Nursing Ethics and Law, Emergency and Trauma Nursing, Health Assessment'}, {'degree': 'Diploma Nursing', 'university': 'Karnataka State Diploma of Nursing examination board', 'location': 'India', 'date': '2007', 'description': 'Major subjects: Anatomy and Physiology, First Aid and CPR, Basic Medical Terminology'}]}, {'target': 'achievements', 'heading': 'ACHIEVEMENTS', 'data': [{'achievement': 'Maintained patient records and documentation accuracy', 'description': 'Facilitated efficient communication across shifts'}, {'achievement': 'Provided critical care to emergency patients', 'description': 'Ensured optimal patient outcomes'}, {'achievement': 'Displayed exceptional leadership', 'description': 'Mentored staff, enhanced communication skills, and fostered problem-solving abilities'}]}, {'target': 'softSkill', 'heading': 'SOFT SKILLS', 'data': [{'skill': 'Team Collaboration', 'description': 'Effective collaborator in multi-specialty teams'}, {'skill': 'Critical Thinking', 'description': 'Proficient in critical care and invasive procedures'}, {'skill': 'Problem-Solving Abilities', 'description': 'Consistently exceeding care standards'}, {'skill': 'Empathy', 'description': 'Known for compassionate, patient-centered approach'}, {'skill': 'Attention to Detail', 'description': 'Maintained accurate and complete documentation'}, {'skill': 'Communication Skills', 'description': 'Effective communication with healthcare professionals'}, {'skill': 'Stress Management', 'description': 'Respond effectively to emergency situations'}, {'skill': 'Adaptability', 'description': 'Prepared to provide life-saving interventions'}, {'skill': 'Patient Advocacy', 'description': 'Ensured patient safety and proper procedural setup'}, {'skill': 'Leadership Abilities', 'description': 'Displayed exceptional leadership qualities'}, {'skill': 'Continuous Learning', 'description': 'Committed to ongoing learning and staying updated with medical advancements'}, {'skill': 'Patient Education', 'description': 'Provided post-procedure care and patient education'}]}, {'target': 'languages', 'heading': 'LANGUAGES', 'data': [{'language': 'English', 'proficiency': 'Fluent'}, {'language': 'Malayalam', 'proficiency': 'Native'}, {'language': 'Hindi', 'proficiency': 'Fluent'}]}, {'target': 'experience', 'heading': 'PROFESSIONAL EXPERIENCE', 'data': [{'designation': 'Staff Nurse OT', 'companyName': 'SAUDI GERMAN HOSPITAL (UAE)', 'location': 'UAE', 'date': 'Jan 2022 to Present', 'description': "Prepare and maintain operating room environment, assist surgical team, monitor patients' vital signs, administer medications, maintain documentation, adhere to infection control protocols"}, {'designation': 'Staff Nurse OT & Cath Lab', 'companyName': 'MEDIPOINT HOSPITALS PVT LTD (INDIA)', 'location': 'India', 'date': 'Oct 2007 to Jun 2022', 'description': 'Assist in setup and operation of specialized equipment, ensure availability of surgical supplies, collaborate with surgical team, manage disposal of biohazardous waste, assist with wound closure and dressing application, monitor patients during procedures'}]}, {'target': 'skills', 'heading': 'PROFESSIONAL SKILLS', 'data': [{'skill': 'CPR', 'proficiency': 'Mastery'}, {'skill': 'Resuscitation', 'proficiency': 'Mastery'}, {'skill': 'Post-procedural Care', 'proficiency': 'Mastery'}, {'skill': 'Coronary Angiography', 'proficiency': 'Expert'}, {'skill': 'Renal and Peripheral Angiography', 'proficiency': 'Expert'}, {'skill': 'Percutaneous Transluminal Coronary Angioplasty', 'proficiency': 'Expert'}, {'skill': 'Implantation of Pacemakers and ICDs', 'proficiency': 'Expert'}, {'skill': 'Aortic and Pulmonary Balloon Dilatation', 'proficiency': 'Expert'}, {'skill': 'Cerebral Catheterization', 'proficiency': 'Expert'}, {'skill': 'Pericardial Effusion Tapping', 'proficiency': 'Expert'}, {'skill': 'Intravascular Foreign Body Retrieval', 'proficiency': 'Expert'}, {'skill': 'Orthopedic Surgeries', 'proficiency': 'Expert'}, {'skill': 'Laparoscopic Surgeries', 'proficiency': 'Expert'}, {'skill': 'Gynecological Surgeries', 'proficiency': 'Expert'}, {'skill': 'General Surgeries', 'proficiency': 'Expert'}, {'skill': 'Neurosurgeries', 'proficiency': 'Expert'}, {'skill': 'Ophthalmic Surgeries', 'proficiency': 'Expert'}, {'skill': 'ENT Surgeries', 'proficiency': 'Expert'}, {'skill': 'Urology Surgeries', 'proficiency': 'Expert'}, {'skill': 'Reconstruction and Maxillofacial Surgeries', 'proficiency': 'Expert'}]}]}  
+#     one_targets = ['personalinfo', 'education']  # Example targets for 'one'
+#     two_targets = ['experience', 'skills']  # Example targets for 'two'
 
-    formated_template_data = {'static_sections' : [], 'one': [],'two': []}
+#     formated_template_data = {'static_sections' : [], 'one': [],'two': []}
     
     
     
-    default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
-    if default_variation_instance:
-        default_variation = default_variation_instance.variation
-        variation_types = default_variation.variation_types
+#     default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
+#     if default_variation_instance:
+#         default_variation = default_variation_instance.variation
+#         variation_types = default_variation.variation_types
         
-    one_targets = variation_types['one_targets']
-    two_targets = variation_types['two_targets']
-    static_targets = variation_types['static_targets']
+#     one_targets = variation_types['one_targets']
+#     two_targets = variation_types['two_targets']
+#     static_targets = variation_types['static_targets']
     
     
-    for section_key, section_value in processed_prompt.items():
-    # Check if the current section's target is in one_targets or two_targets
-        for item in section_value:
-            if item['target'] in one_targets:
-                formated_template_data['one'].append(item)
-                print("item added in one")
-            elif item['target'] in two_targets:
-                formated_template_data['two'].append(item)
-                print("item added in two")
-            elif item['target'] in static_targets:
-                formated_template_data['static_sections'].append(item)
-                print("item added in static_sections")
+#     for section_key, section_value in processed_prompt.items():
+#     # Check if the current section's target is in one_targets or two_targets
+#         for item in section_value:
+#             if item['target'] in one_targets:
+#                 formated_template_data['one'].append(item)
+#                 print("item added in one")
+#             elif item['target'] in two_targets:
+#                 formated_template_data['two'].append(item)
+#                 print("item added in two")
+#             elif item['target'] in static_targets:
+#                 formated_template_data['static_sections'].append(item)
+#                 print("item added in static_sections")
     
     
     
@@ -210,9 +250,9 @@ def example_page(request):
     #         print("item added in static_sections")
     
     
-    print(formated_template_data)
+    # print(formated_template_data)
     
-    return HttpResponse('Invalid processed prompt format')
+    # return HttpResponse('Invalid processed prompt format')
 
     
     
@@ -249,122 +289,105 @@ def example_page(request):
     #             formated_template_data['static_sections'].append(item)
     #             print("item added in static_sections")
     
-    response_data = {
-        'formated_template_data': formated_template_data
-    }
+#     response_data = {
+#         'formated_template_data': formated_template_data
+#     }
 
-    return JsonResponse(response_data)
+#     return JsonResponse(response_data)
     
     
     
     
     
-    res = OrderFinalizedData.objects.get(id=25)
-    processed_prompt = res.finalized_data
+#     res = OrderFinalizedData.objects.get(id=25)
+#     processed_prompt = res.finalized_data
     
-    order_id = 71
+#     order_id = 71
     
-    try:
-        order_initial_data = OrderInitialData.objects.get(order__id=order_id)  # Fetch the OrderInitialData instance for the given order_id
-    except OrderInitialData.DoesNotExist:
-        return HttpResponse('OrderInitialData not found.')
+#     try:
+#         order_initial_data = OrderInitialData.objects.get(order__id=order_id)  # Fetch the OrderInitialData instance for the given order_id
+#     except OrderInitialData.DoesNotExist:
+#         return HttpResponse('OrderInitialData not found.')
 
-    if order_initial_data.template_variation_selected:
-        # Variation is selected, fetch its variation_types
-        variation = order_initial_data.template_variation_selected
-        variation_types = variation.variation_types
-        return HttpResponse(f'Variation selected: {variation.variation_name}, Variation Types: {variation_types}')
-    else:
-        # If no variation is selected, fetch the default variation's variation_types
-        default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
-        if default_variation_instance:
-            default_variation = default_variation_instance.variation
-            variation_types = default_variation.variation_types
-            return HttpResponse(f'Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types["one_targets"]}')
-        else:
-            set_default_variation(variation_id = 8)
-            return HttpResponse('No default variation found.')
+#     if order_initial_data.template_variation_selected:
+#         # Variation is selected, fetch its variation_types
+#         variation = order_initial_data.template_variation_selected
+#         variation_types = variation.variation_types
+#         return HttpResponse(f'Variation selected: {variation.variation_name}, Variation Types: {variation_types}')
+#     else:
+#         # If no variation is selected, fetch the default variation's variation_types
+#         default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
+#         if default_variation_instance:
+#             default_variation = default_variation_instance.variation
+#             variation_types = default_variation.variation_types
+#             return HttpResponse(f'Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types["one_targets"]}')
+#         else:
+#             set_default_variation(variation_id = 8)
+#             return HttpResponse('No default variation found.')
     
    
    
    
    
-def is_valid_processed_prompt(processed_prompt):
-    # Define the expected keys in the processed_prompt
-    expected_keys = {'personalinfo', 'education', 'achievements', 'softSkill', 'languages', 'hobbies', 'experience', 'certificates', 'skills'}
+# def is_valid_processed_prompt(processed_prompt):
+#     # Define the expected keys in the processed_prompt
+#     expected_keys = {'personalinfo', 'education', 'achievements', 'softSkill', 'languages', 'hobbies', 'experience', 'certificates', 'skills'}
     
-    # Check if all expected keys are present in the processed_prompt
-    if not all(key in processed_prompt for key in expected_keys):
-        return False
+#     # Check if all expected keys are present in the processed_prompt
+#     if not all(key in processed_prompt for key in expected_keys):
+#         return False
 
-    # Additional checks can be added here, such as structure of each section
+#     # Additional checks can be added here, such as structure of each section
 
-    return True
+#     return True
 
 
   
-def set_default_variation(variation_id):
-    try:
-        with transaction.atomic():  # Use a transaction to ensure data integrity
-            # Retrieve the variation you want to set as default
-            variation = Variation.objects.get(id=variation_id)
+# def set_default_variation(variation_id):
+#     try:
+#         with transaction.atomic():  # Use a transaction to ensure data integrity
+#             # Retrieve the variation you want to set as default
+#             variation = Variation.objects.get(id=variation_id)
             
-            # Check if a default variation already exists
-            if DefaultVariation.objects.exists():
-                # Update the existing default variation
-                default_variation = DefaultVariation.objects.first()
-                default_variation.variation = variation
-            else:
-                # Create a new default variation if it doesn't exist
-                default_variation = DefaultVariation(variation=variation)
+#             # Check if a default variation already exists
+#             if DefaultVariation.objects.exists():
+#                 # Update the existing default variation
+#                 default_variation = DefaultVariation.objects.first()
+#                 default_variation.variation = variation
+#             else:
+#                 # Create a new default variation if it doesn't exist
+#                 default_variation = DefaultVariation(variation=variation)
             
-            default_variation.save()
-            return True, "Default variation set successfully."
-    except Variation.DoesNotExist:
-        return False, "Variation does not exist."
-    except Exception as e:
-        return False, str(e)
+#             default_variation.save()
+#             return True, "Default variation set successfully."
+#     except Variation.DoesNotExist:
+#         return False, "Variation does not exist."
+#     except Exception as e:
+#         return False, str(e)
     
     
     
     
-    formated_template_data = {
-    'one': [],
-    'two': []
-    }
-    one_targets = ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references']
-    two_targets = ['experience', 'certificates', 'skills']
-    # Iterate through the original data and distribute items to the new structure
-    for item in processed_prompt['data']:
-        if item['target'] in one_targets:
-            formated_template_data['one'].append(item)
-        elif item['target'] in two_targets:
-            formated_template_data['two'].append(item)
-    
-    
-    print(formated_template_data)
-    
-    return HttpResponse(formated_template_data)
-
-
-# from django.template.loader import render_to_string
-# from django.http import HttpResponse
-# from django.template.loader import render_to_string
-# from weasyprint import HTML
-# import tempfile
-# def html_to_pdf(request):
-#     context = {
-#         'name': "mustehsen",  # Example context data
-#         # Include 
-#         # other context data needed for the resume
+#     formated_template_data = {
+#     'one': [],
+#     'two': []
 #     }
+#     one_targets = ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references']
+#     two_targets = ['experience', 'certificates', 'skills']
+#     # Iterate through the original data and distribute items to the new structure
+#     for item in processed_prompt['data']:
+#         if item['target'] in one_targets:
+#             formated_template_data['one'].append(item)
+#         elif item['target'] in two_targets:
+#             formated_template_data['two'].append(item)
     
-#     html_string = render_to_string('resume_template.html', context)
-#     html = HTML(string=html_string)
-#     result = html.write_pdf()
     
-#     # Generate the response
-#     response = HttpResponse(result, content_type='application/pdf')
-#     response['Content-Disposition'] = 'filename="resume.pdf"'
+#     print(formated_template_data)
+    
+#     return HttpResponse(formated_template_data)
 
-#     return response
+
+
+
+
+

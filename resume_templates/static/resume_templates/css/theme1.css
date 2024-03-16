@@ -62,7 +62,7 @@
 }
 
 .cvContent .user-info .name {
-    font-size: 3.8rem;
+    font-size: 4.6rem;
     margin: 0;
     font-family: var(--fontFamily);
     font-weight: 700;
@@ -72,7 +72,7 @@
 }
 
 .cvContent .user-info .headline {
-    font-size: 25px;
+    font-size: 22px;
     color: var(--theme1);
     font-weight: 500;
     font-style: italic;
@@ -90,7 +90,7 @@
 }
 
 .cvContent .section .paragraph {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--theme1);
     font-weight: 600;
     font-family: var(--fontFamily);
@@ -104,6 +104,17 @@
     margin-right: 0px;
     padding-bottom: 30px;
     padding-right: 10px;
+    z-index: 99;
+}
+
+.cvContent .cv-body .bar-bottom {
+    position: absolute;
+    width: 60%;
+    height: 35px;
+    background: #c2d7e4;
+    bottom: 0;
+    left: 0;
+    border-radius: 0 35px 0 0;
 }
 
 .cvContent .sec-con1 .sec-heading {
@@ -210,6 +221,7 @@
 .cvContent .cv-body {
     display: flex;
     background: #ebebeb;
+    position: relative;
 }
 
 .cvContent .cv-body .sec-con2 {

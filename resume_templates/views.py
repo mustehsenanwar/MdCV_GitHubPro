@@ -76,7 +76,6 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                 try:
                     order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)
                     resume_data = order_finalized_data.finalized_data  # This is a JSON field
-                    print(resume_data)
                     return JsonResponse({'status': 'success', 'action': 'fetch', 'data': resume_data})
                 except ObjectDoesNotExist:
                     return JsonResponse({'status': 'error', 'message': f'Order with id {order_id} not found'}, status=404)
@@ -102,6 +101,47 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                 except ObjectDoesNotExist:
                     return JsonResponse({'status': 'error', 'message': 'Order not found'}, status=404)
 
+            
+            
+            # elif action == 'generate_pdf':
+            #     order_id = self.kwargs.get('order_id') or data.get('order_id')
+                
+            #     try:
+            #         order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)
+            #         resume_data = order_finalized_data.finalized_data  # This is a JSON field
+
+            #         # Render your resume template with the context data
+            #         # html_string = render_to_string('dashboard/test.html', {'resume_data': resume_data})
+            #         # html = HTML(string=html_string)
+            #         # pdf = html.write_pdf()
+
+            #         # # Create an HTTP response with PDF content
+            #         # response = HttpResponse(pdf, content_type='application/pdf')
+            #         # response['Content-Disposition'] = f'attachment; filename="resume_{order_id}.pdf"'
+
+            #         # return response
+                    
+            #         context = {'some_data': 'This is some data for the PDF.'}
+    
+            #         # Render the HTML template with context data
+            #         html_string = render_to_string('dashboard/test.html', context)
+            #         html = HTML(string=html_string, base_url=request.build_absolute_uri())
+
+            #         # Generate the PDF
+            #         pdf = html.write_pdf()
+
+            #         # Create an HTTP response with PDF as attachment
+            #         response = HttpResponse(pdf, content_type='application/pdf')
+            #         response['Content-Disposition'] = 'attachment; filename="my_pdf.pdf"'
+
+            #         return response
+                    
+                    
+
+            #     except ObjectDoesNotExist:
+            #         return JsonResponse({'status': 'error', 'message': f'Order with id {order_id} not found'}, status=404)
+            
+            
             else:
                 # Handle unknown action
                 return JsonResponse({'status': 'error', 'message': 'Unknown action'}, status=400)

@@ -38,7 +38,7 @@ urlpatterns = [
      path('chatgpt/', chatgpt_integration_views.ChatPromptList.as_view(template_name = 'chatgpt_integration/chatgpt.html'), name='chatgpt'),
    
     
-    # path('test/',test_views.html_to_pdf),
+    # path('test/',test_views.generate_pdf),
     # path('test/<int:order_id>/', test_views.example_page.as_view(template_name='resume_templates/all_templates/template1.html'), name='resumebuilder'),
     # aftersales urls
 ]

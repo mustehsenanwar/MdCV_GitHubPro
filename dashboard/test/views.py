@@ -55,6 +55,37 @@ from resume_templates.models import DefaultVariation
 
 
 
+# from weasyprint import HTML
+# from django.http import HttpResponse
+# from django.template.loader import render_to_string
+
+# def generate_pdf(request):
+#     # Your context data that will be passed to the HTML template
+#     context = {'some_data': 'This is some data for the PDF.'}
+    
+#     # Render the HTML template with context data
+#     html_string = render_to_string('resume_templates/all_resume_templates/template1.html', context)
+#     html = HTML(string=html_string, base_url=request.build_absolute_uri())
+
+#     # Generate the PDF
+#     pdf = html.write_pdf()
+
+#     # Create an HTTP response with PDF as attachment
+#     response = HttpResponse(pdf, content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="my_pdf.pdf"'
+
+#     return response
+
+
+
+
+
+
+
+
+
+
+
 # from django.template.loader import render_to_string
 # from django.http import HttpResponse
 # from django.template.loader import render_to_string

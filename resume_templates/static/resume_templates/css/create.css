@@ -46,68 +46,15 @@
 
 @media print {
 
-    body.printing .navbar,
-    #contentHints {
-        display: none !important;
-    }
 
-    body.printing [noprint="true"] {
-        display: none !important;
-    }
-
-    body.printing .editor .side_menu,
-    .navbar,
-    .sidebar,
-    .editor-sidebar-content,
-    .cv-topbar,
-    .tc-side-panel-open {
-        display: none !important;
-    }
-
-    .viewer .cv-action-btn,
-    .header-action-btn {
-        display: none !important;
-    }
-
-    body.printing {
-        background: #fff !important;
-    }
-
-    body.printing .cvContent {
-        font-size: var(--cv-print-font-size) !important;
-        min-height: 100vh;
-    }
-
-    body.printing .editor {
-        padding: 0;
-    }
-
-    body.printing .viewer {
-        margin-top: 0;
-        width: 100%;
-        padding: 0;
-    }
 
     body.printing .top-buttons,
     .step-progress-bar-container .progress-bar,
     #kt_app_toolbar,
     #kt_app_header,
-    #kt_app_footer {
+    #kt_app_footer,
+    .editor-sidebar-content {
         display: none;
-    }
-
-    body.printing>.wrapper {
-        width: 100% !important;
-        transform: scale(1) !important;
-        padding: 0;
-        -webkit-transform: scale(1) !important;
-        -moz-transform: scale(1) !important;
-        -ms-transform: scale(1) !important;
-        -o-transform: scale(1) !important;
-    }
-
-    body:not(.printing) {
-        display: none !important;
     }
 
     body {
@@ -121,7 +68,12 @@
 
     .cv-content-container {
         overflow: inherit;
-        padding: 0;
+        padding: 0 !important;
         padding-top: 20px;
+        margin: 0 !important;
+    }
+
+    .cv-content-container {
+        width: 100% !important;
     }
 }

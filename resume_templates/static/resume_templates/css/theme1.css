@@ -43,7 +43,7 @@
 }
 
 .cvContent .user-img-header {
-    width: 30%;
+    width: 32%;
     background: var(--theme1);
     margin: 0px 25px;
     border-radius: 220px 220px 0 0;
@@ -52,8 +52,8 @@
 .cvContent .user-img-header .user-img img {
     border-radius: 50%;
     margin-top: 22px;
-    height: 305px;
-    width: 305px;
+    height: 300px;
+    width: 300px;
 }
 
 .cvContent .user-info {
@@ -90,14 +90,14 @@
 }
 
 .cvContent .section .paragraph {
-    font-size: 22px;
+    font-size: 21px;
     color: var(--theme1);
     font-weight: 400 !important;
     font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con1 {
-    width: 30%;
+    width: 32%;
     background: var(--theme1);
     margin: 0px 25px;
     padding-top: 20px;

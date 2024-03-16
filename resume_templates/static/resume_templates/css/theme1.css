@@ -90,9 +90,9 @@
 }
 
 .cvContent .section .paragraph {
-    font-size: 18px;
+    font-size: 22px;
     color: var(--theme1);
-    font-weight: 600;
+    font-weight: 400 !important;
     font-family: var(--fontFamily);
 }
 

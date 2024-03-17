@@ -293,33 +293,33 @@ $(document).ready(function () {
 
 
 
-    $('#generatePdf').click(function () {
-        let orderId = $("#orderId").val();  // Assuming you have an order ID to reference
-        console.log("Generate PDF button clicked. Order ID:", orderId);  // Log when button is clicked and show orderId
+    // $('#generatePdf').click(function () {
+    //     let orderId = $("#orderId").val();  // Assuming you have an order ID to reference
+    //     console.log("Generate PDF button clicked. Order ID:", orderId);  // Log when button is clicked and show orderId
     
-        $.ajax({
-            url: "/dashboard/resumebuilder/" + orderId + "/",  // URL to your Django view that generates the PDF
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ action: 'generate_pdf', order_id: orderId }),  // Send the action and any other necessary data
-            beforeSend: function() {
-                console.log("Sending AJAX request to generate PDF...");  // Log before sending AJAX request
-            },
-            success: function(response) {
-                // Handle success. For example, open the PDF in a new tab.
-                // The response could be a URL to the generated PDF.
-                console.log("PDF generation successful. Response:", response);  // Log on successful response
-                window.open(response.pdf_url, '_blank');
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error("PDF generation failed:", error);  // Log on error
-            },
-            complete: function() {
-                console.log("AJAX request for PDF generation complete.");  // Log when AJAX request is complete
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: "/dashboard/resumebuilder/" + orderId + "/",  // URL to your Django view that generates the PDF
+    //         type: 'POST',
+    //         contentType: 'application/json',
+    //         data: JSON.stringify({ action: 'generate_pdf', order_id: orderId }),  // Send the action and any other necessary data
+    //         beforeSend: function() {
+    //             console.log("Sending AJAX request to generate PDF...");  // Log before sending AJAX request
+    //         },
+    //         success: function(response) {
+    //             // Handle success. For example, open the PDF in a new tab.
+    //             // The response could be a URL to the generated PDF.
+    //             console.log("PDF generation successful. Response:", response);  // Log on successful response
+    //             window.open(response.pdf_url, '_blank');
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle error
+    //             console.error("PDF generation failed:", error);  // Log on error
+    //         },
+    //         complete: function() {
+    //             console.log("AJAX request for PDF generation complete.");  // Log when AJAX request is complete
+    //         }
+    //     });
+    // });
     
 
 });

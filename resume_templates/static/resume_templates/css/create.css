@@ -76,4 +76,8 @@
     .cv-content-container {
         width: 100% !important;
     }
+
+    .cv-content-container {
+        background-color: transparent !important;
+    }
 }

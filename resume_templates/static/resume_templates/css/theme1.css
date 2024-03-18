@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --fontFamily: sans-serif;
+    --fontFamily: "Poppins", sans-serif;
     --cvLeftColor: #C8DFED;
     --cvRightColor: #191919;
+    --wordBreak: break-all;
 }
 
 .cvContent {
@@ -22,7 +23,7 @@
 }
 
 .cvContent .top-right-heading span.text {
-    font-size: 24px;
+    font-size: 1.4rem;
     color: #fff;
     font-weight: bold;
     font-family: var(--fontFamily);
@@ -43,7 +44,7 @@
 }
 
 .cvContent .user-img-header {
-    width: 32%;
+    width: 30%;
     background: var(--theme1);
     margin: 0px 25px;
     border-radius: 220px 220px 0 0;
@@ -52,8 +53,8 @@
 .cvContent .user-img-header .user-img img {
     border-radius: 50%;
     margin-top: 22px;
-    height: 330px;
-    width: 330px;
+    height: 200px;
+    width: 200px;
 }
 
 .cvContent .user-info {
@@ -62,7 +63,7 @@
 }
 
 .cvContent .user-info .name {
-    font-size: 4.6rem;
+    font-size: 3.6rem;
     margin: 0;
     font-family: var(--fontFamily);
     font-weight: 700;
@@ -72,17 +73,17 @@
 }
 
 .cvContent .user-info .headline {
-    font-size: 22px;
+    font-size: 18px;
     color: var(--theme1);
-    font-weight: 500;
+    font-weight: 400;
     font-style: italic;
-    margin: 13px 0;
     margin-bottom: 0px;
     display: inline-block;
     border-bottom: 3px solid rgb(58 133 179 / 50%);
     padding-bottom: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 4px;
     text-transform: capitalize;
+    font-family: var(--fontFamily) !important;
 }
 
 .bar-line {
@@ -90,14 +91,14 @@
 }
 
 .cvContent .section .paragraph {
-    font-size: 21px;
+    font-size: 14px;
     color: var(--theme1);
     font-weight: 400 !important;
-    font-family: var(--fontFamily);
+    font-family: var(--fontFamily) !important;
 }
 
 .cvContent .sec-con1 {
-    width: 32%;
+    width: 30%;
     background: var(--theme1);
     margin: 0px 25px;
     padding-top: 20px;
@@ -121,12 +122,18 @@
     padding: 10px;
     background: #c8e6f5;
     border-radius: 0 25px 25px 0;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 800;
     color: var(--theme1);
     margin-left: 0px;
     display: inline-block;
-    padding-right: 35px;
+    padding-right: 14px;
+    font-family: var(--fontFamily) !important;
+}
+
+.cvContent .perInfo .items {
+    padding-left: 18px;
+    padding-top: 16px;
 }
 
 .cvContent .perInfo .items .item i {
@@ -137,7 +144,9 @@
 }
 
 .cvContent .perInfo .items .item .text {
-    font-size: 16px;
+    font-size: 12px;
+    font-family: var(--fontFamily);
+    word-break: var(--wordBreak);
 }
 
 .cvContent .perInfo .items .item i.icon-circle {
@@ -157,30 +166,38 @@
 }
 
 .cvContent .section .items {
-    margin-top: 20px !important;
+    margin-bottom: 20px !important;
     padding-left: 25px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.cvContent .perInfo .items .item img {
-    width: 100px;
+.cvContent .perInfo .items .item img:not(.icon) {
+    width: 60px;
 }
+
+.cvContent .perInfo .items .item img.icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 9px;
+}
+
 
 .cvContent .sec-con1 .section .items .item {
     display: flex;
     color: white;
-    font-size: 16px;
+    font-size: 12px;
     margin-right: 5px;
     font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con2 .section .items .item {
     display: flex;
-    font-size: 16px;
+    font-size: 12px;
     margin-right: 5px;
     font-family: var(--fontFamily);
+    color: var(--cvRightColor) !important;
 }
 
 .cvContent .sec-con2 .section.references .items .item,
@@ -208,7 +225,7 @@
 }
 
 .cvContent .sec-con1 .section .items .item .text {
-    font-size: 18px;
+    font-size: 12px;
     font-family: var(--fontFamily);
 }
 
@@ -234,12 +251,13 @@
     padding: 10px;
     background: var(--theme1);
     border-radius: 0 25px 25px 0;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 800;
     color: #fff;
     display: inline-block;
-    padding-right: 35px;
+    padding-right: 20px;
     padding-left: 25px;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con2 .section .info,
@@ -251,11 +269,7 @@
 .cvContent .sec-con2 .section .content {
     margin-left: 50px;
     position: relative;
-
-}
-
-.cvContent .sec-con2 .section .content {
-    position: relative;
+    margin-top: 14px;
 }
 
 .cvContent .sec-con2 .section .content::after {
@@ -302,8 +316,9 @@
     display: flex;
     align-items: center;
     margin-bottom: 12px;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: 500;
+    font-size: 11px;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con2 .section.skills .items {
@@ -345,9 +360,6 @@
     }
 }
 
-.cvContent .section {
-    margin-bottom: 25px;
-}
 
 .cvContent .section.education .items .item[data-edit="degree"],
 .cvContent .section.softSkill .items .item[data-edit="skill"],
@@ -355,8 +367,9 @@
 .cvContent .section.experience .items .item[data-edit="designation"],
 .cvContent .section.certificates .items .item[data-edit="certificate"] {
     width: 100%;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 14px;
+    font-family: var(--fontFamily);
+    font-weight: 600;
 }
 
 .cvContent .section.education .items .item[data-edit="description"],
@@ -427,7 +440,8 @@
 .cvContent .sec-con2 .section.experience .items .item[data-edit="companyName"] {
     font-style: italic;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 12px;
+    font-family: var(--fontFamily);
 }
 
 .cvContent .sec-con2 .section.experience .items .item[data-edit="description"] {
@@ -445,7 +459,7 @@
     justify-content: space-between;
     align-items: center;
     width: 85%;
-    padding-left: 20px;
+    padding-left: 12px;
 }
 
 .cvContent .sec-con2 .section.languages .items .single-item {
@@ -460,8 +474,8 @@
 
 .cvContent .sec-con1 .section.languages .items .item::before {
     content: "";
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: var(--cvLeftColor);
     border-radius: 50%;
     margin-top: 4px;
@@ -473,13 +487,13 @@
 
 .cvContent .sec-con1 .section .items {
     position: relative;
-    padding-left: 30px !important;
+    padding-left: 22px !important;
 }
 
 .cvContent .sec-con1 .section:not(.section.languages) .items::before {
     content: "";
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: var(--cvLeftColor);
     border-radius: 50%;
     margin-top: 4px;
@@ -489,16 +503,13 @@
 }
 
 .cvContent .sec-con1 .section .content {
-    padding-left: 20px;
+    padding-left: 14px;
+    margin-top: 14px;
 }
 
 .cvContent .sec-con1 .section .items .item,
 .cvContent .perInfo .items .item .text {
     color: var(--cvLeftColor) !important;
-}
-
-.cvContent .sec-con2 .section .items .item {
-    color: var(--cvRightColor) !important;
 }
 
 .cvContent .sec-con2 .section.languages .items .single-item .progress {
@@ -521,27 +532,4 @@
 
 .cvContent .sec-con1 .section.skills .items::before {
     display: none;
-}
-
-
-.cvContent .user-info .name,
-.cvContent .sec-heading {
-    font-family: "Poppins", sans-serif !important;
-    font-weight: 800;
-    font-style: normal;
-}
-
-.cvContent .user-info .headline {
-    font-family: "Poppins", sans-serif !important;
-    font-weight: 400;
-    font-style: italic;
-}
-
-.cvContent .section .paragraph,
-.cvContent .section .items .item,
-.cvContent .perInfo .items .item {
-    font-family: "Poppins", sans-serif !important;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 18px;
 }

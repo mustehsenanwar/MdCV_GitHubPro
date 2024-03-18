@@ -26,8 +26,9 @@ from resume_templates.models import Template, Variation
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
-
-
+from weasyprint import HTML
+from django.template.loader import render_to_string
+import os
 # Create your views here.
 
 class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
@@ -102,49 +103,43 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                     return JsonResponse({'status': 'error', 'message': 'Order not found'}, status=404)
 
             
-            
-            # elif action == 'generate_pdf':
-            #     order_id = self.kwargs.get('order_id') or data.get('order_id')
-                
-            #     try:
-            #         order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)
-            #         resume_data = order_finalized_data.finalized_data  # This is a JSON field
+            elif action == 'generate_pdf':
+                print("pdf generation request received")
+                html_content = data.get('html')  # The HTML content from the AJAX request
+                order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
 
-            #         # Render your resume template with the context data
-            #         # html_string = render_to_string('dashboard/test.html', {'resume_data': resume_data})
-            #         # html = HTML(string=html_string)
-            #         # pdf = html.write_pdf()
+                try:
+                    # Generate PDF from the HTML content
+                    html = HTML(string=html_content, base_url=request.build_absolute_uri())
+                    print("writing PDF")
+                    pdf = html.write_pdf()
+                    print("writing finishedddddd PDF")
+                    # Define the path for the new PDF file
+                    pdf_filename = f"resume_{order_id}.pdf"
+                    pdf_path = os.path.join(settings.MEDIA_ROOT, 'resumes', pdf_filename)
 
-            #         # # Create an HTTP response with PDF content
-            #         # response = HttpResponse(pdf, content_type='application/pdf')
-            #         # response['Content-Disposition'] = f'attachment; filename="resume_{order_id}.pdf"'
+                    # Ensure the directory exists
+                    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
 
-            #         # return response
-                    
-            #         context = {'some_data': 'This is some data for the PDF.'}
-    
-            #         # Render the HTML template with context data
-            #         html_string = render_to_string('dashboard/test.html', context)
-            #         html = HTML(string=html_string, base_url=request.build_absolute_uri())
+                    # Write the PDF data to a file
+                    with open(pdf_path, 'wb') as pdf_file:
+                        pdf_file.write(pdf)
 
-            #         # Generate the PDF
-            #         pdf = html.write_pdf()
+                    # Here, you might want to save a reference to the file in your database
+                    print("final stage start")
+                    # Return a success response
+                    return JsonResponse({'status': 'success', 'message': 'PDF generated successfully', 'file_path': os.path.join(settings.MEDIA_URL, 'resumes', pdf_filename)})
 
-            #         # Create an HTTP response with PDF as attachment
-            #         response = HttpResponse(pdf, content_type='application/pdf')
-            #         response['Content-Disposition'] = 'attachment; filename="my_pdf.pdf"'
+                except Exception as e:
+                    return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
 
-            #         return response
-                    
-                    
-
-            #     except ObjectDoesNotExist:
-            #         return JsonResponse({'status': 'error', 'message': f'Order with id {order_id} not found'}, status=404)
-            
-            
             else:
                 # Handle unknown action
                 return JsonResponse({'status': 'error', 'message': 'Unknown action'}, status=400)
+
+                    
+            
+
 
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

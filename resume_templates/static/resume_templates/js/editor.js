@@ -284,6 +284,7 @@ $(document).on("change input", ".input-fill-value", function () {
 $(document).ready(function () {
     let orderId = $("#orderId").val();
 
+
     // To fetch resume data
     handleResumeData(orderId, 'fetch');
     // To update the data 
@@ -293,33 +294,6 @@ $(document).ready(function () {
 
 
 
-    $('#generatePdf').click(function () {
-        let orderId = $("#orderId").val();  // Assuming you have an order ID to reference
-        console.log("Generate PDF button clicked. Order ID:", orderId);  // Log when button is clicked and show orderId
-
-        $.ajax({
-            url: "/dashboard/resumebuilder/" + orderId + "/",  // URL to your Django view that generates the PDF
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ action: 'generate_pdf', order_id: orderId }),  // Send the action and any other necessary data
-            beforeSend: function () {
-                console.log("Sending AJAX request to generate PDF...");  // Log before sending AJAX request
-            },
-            success: function (response) {
-                // Handle success. For example, open the PDF in a new tab.
-                // The response could be a URL to the generated PDF.
-                console.log("PDF generation successful. Response:", response);  // Log on successful response
-                window.open(response.pdf_url, '_blank');
-            },
-            error: function (xhr, status, error) {
-                // Handle error
-                console.error("PDF generation failed:", error);  // Log on error
-            },
-            complete: function () {
-                console.log("AJAX request for PDF generation complete.");  // Log when AJAX request is complete
-            }
-        });
-    });
 
 
 });
@@ -586,26 +560,33 @@ $(document).on('click', ".hide-section-container .single-section", function () {
 });
 
 
-// Resume Pdf stricture 
+// // Resume Pdf stricture 
 $(document).on('click', "#generatePdf", function () {
+    let orderId = $("#orderId").val();
     let $resumeHTML = $(".wrapper-container").html();
     let $resumeData = `<div class="wrapper-container w-100 content-center">
-        <link rel="stylesheet" href="{% static  'resume_templates/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static  'resume_templates/css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static  'resume_templates/css/editor.css' %}">
-        <link rel="stylesheet" href="{% static  'resume_templates/css/create.css' %}">
-        <link rel="stylesheet" href="{% static  'resume_templates/css/theme1.css' %}">
+        <link rel="stylesheet" href="/static/resume_templates/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/resume_templates/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/resume_templates/css/editor.css">
+        <link rel="stylesheet" href="/static/resume_templates/css/create.css">
+        <link rel="stylesheet" href="/static/resume_templates/css/theme1.css">
+        <link rel="stylesheet" href="/static/resume_templates/css/pdf-setting.css">
         ${$resumeHTML}
     </div>`;
 
     $.ajax({
-        url: "controllers/test",
+        url: "/dashboard/resumebuilder/" + orderId + "/",
         method: "POST",
-        data: {
+        data: JSON.stringify({
+            action: 'generate_pdf',
             html: $resumeData,
             generatePdf: true
-        },
+        }),
         dataType: "json",
+//         beforeSend: function(xhr, settings) {
+//             const csrftoken = $('meta[name="csrf-token"]').attr('content');
+//             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        // },
         success: function (res) {
             if (res.status == "success") {
                 l(res)

@@ -106,6 +106,8 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             elif action == 'generate_pdf':
                 print("pdf generation request received")
                 html_content = data.get('html')  # The HTML content from the AJAX request
+                
+                # html_content = """"""
                 order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
 
                 try:

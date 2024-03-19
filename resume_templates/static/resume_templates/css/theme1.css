@@ -7,6 +7,14 @@
     --wordBreak: break-all;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
 .cvContent {
     position: relative;
 }
@@ -351,14 +359,6 @@
 
 
 
-@media print {
-
-    .cv-color-changer,
-    .tc-side-panel-open,
-    .cv-topbar {
-        display: none !important;
-    }
-}
 
 
 .cvContent .section.education .items .item[data-edit="degree"],
@@ -533,3 +533,4 @@
 .cvContent .sec-con1 .section.skills .items::before {
     display: none;
 }
+

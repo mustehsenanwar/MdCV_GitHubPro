@@ -1,4 +1,34 @@
 @page {
     size: A4;
     margin: 0;
+    padding: 0;
+  }
+
+
+  @media print {
+    html, body {
+        width: 210mm;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0; /* Light grey background color for visibility */
+        -webkit-print-color-adjust: exact; /* Chrome, Safari */
+        color-adjust: exact; /* Firefox */
+    }
+    .wrapper-container {
+        page-break-after: always;
+    }
+    .cvContent, .section {
+        font-size: 10pt; /* Adjust font size for print */
+    }
+    img {
+        max-width: 100%; /* Ensure images do not overflow their containers */
+    }
+    .progress-bar {
+        height: 10px; /* Adjust progress bar height for better visibility in print */
+    }
+    /* Hide elements that may not be necessary for print */
+    .pull-right, .top-right-heading, .bar-bottom {
+        display: none;
+    }
 }

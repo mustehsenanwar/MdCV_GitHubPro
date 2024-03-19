@@ -1,16 +1,7 @@
 let sectionCount = 1;
+let tinymceEditorIds = [0];
 // Print CV
 function printCV() {
-    let $cloned = $(".viewer .wrapper").clone(),
-        $cvContent = $cloned.find(".cvContent"),
-        $userImg = $cvContent.find(".user_img"),
-        fontSize = $cvContent.data("pdf") * 0.99;
-    $cvContent.css("font-size", $cvContent.attr("data-pdf") + "pt");
-    $userImg.css("width", $userImg.attr("data-pdf") + "px");
-    $userImg.css("height", $userImg.attr("data-pdf") + "px")
-
-    html = $cloned.html();
-    $('html').get(0).style.setProperty('--cv-print-font-size', fontSize + "pt");
     $("body").addClass("printing");
     print();
 }
@@ -198,7 +189,7 @@ function educationSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <label for="username">Description</label>
-                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="education" cols="30"
                                 rows="5">${description}</textarea>
@@ -213,6 +204,7 @@ function educationSectionCardHTML(cardType, data = {}) {
     if (cardType == "education") {
         appendEducationHTML(sectionCount, data);
     }
+    tinymceEditorIds.push(sectionCount);
     return cardHTML;
 }
 //#endregion Education
@@ -292,7 +284,7 @@ function expriencesectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <label for="username">Description</label>
-                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="experience" cols="30"
                                 rows="5">${description}</textarea>
@@ -307,6 +299,7 @@ function expriencesectionCardHTML(cardType, data = {}) {
     if (cardType == "experience") {
         appendExprienceHTML(sectionCount, data);
     }
+    tinymceEditorIds.push(sectionCount);
     return cardHTML;
 }
 //#endregion Experience 
@@ -385,7 +378,7 @@ function certificateSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <label for="username">Description</label>
-                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="certificates" cols="30"
                                 rows="5">${description}</textarea>
@@ -400,6 +393,7 @@ function certificateSectionCardHTML(cardType, data = {}) {
     if (cardType == "certificates") {
         appendCertificatesHTML(sectionCount, data);
     }
+    tinymceEditorIds.push(sectionCount);
     return cardHTML;
 }
 //#endregion certificates 
@@ -445,7 +439,7 @@ function softSkillSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <label for="username">Description</label>
-                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="softSkill" cols="30"
                                 rows="5">${description}</textarea>
@@ -460,6 +454,7 @@ function softSkillSectionCardHTML(cardType, data = {}) {
     if (cardType == "softSkill") {
         appendSoftSkillHTML(sectionCount, data);
     }
+    tinymceEditorIds.push(sectionCount);
     return cardHTML;
 }
 //#endregion soft skill 
@@ -505,7 +500,7 @@ function achievementsSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <label for="username">Description</label>
-                            <textarea name="description" data-card="${cardType}Card${sectionCount}"
+                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="achievements" cols="30"
                                 rows="5">${description}</textarea>
@@ -520,6 +515,7 @@ function achievementsSectionCardHTML(cardType, data = {}) {
     if (cardType == "achievements") {
         appendachievementsHTML(sectionCount, data);
     }
+    tinymceEditorIds.push(sectionCount);
     return cardHTML;
 }
 //#endregion achievements
@@ -535,4 +531,36 @@ function loaderToggle(toggle = true) {
         $loader.addClass("d-none");
         $cvContainer.removeAttr("style");
     }
+}
+
+// Init Tinymce Editor init
+function initTinymceEditor(count) {
+    let $cvContent = $(".cvContent");
+    tinymce.init({
+        selector: `#tinymceEditor${count}`,
+        height: "350",
+        menubar: false,
+        toolbar: ["styleselect fontselect fontsizeselect",
+            "undo redo | bold italic | alignleft aligncenter alignright alignjustify",
+            "bullist numlist | outdent indent | lineHeight"],
+        plugins: "advlist autolink link image lists charmap print preview code",
+        setup: function (editor) {
+            // Bind change event to TinyMCE editor
+            editor.on('change input', function () {
+                // Get content of the editor
+                let content = editor.getContent(),
+                    textareaElement = $(editor.targetElm),
+                    cardName = textareaElement.data('card'),
+                    target = textareaElement.data("fill"),
+                    section = textareaElement.data("section");
+                content = content.replace(/<p>/g, '<p style="font-family: var(--fontFamily)">'); // You can adjust the line-height value as needed
+                // Value fill
+                if (target == "summary") {
+                    $cvContent.find(`[data-filling="${target}"]`).html(content);
+                } else {
+                    $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`).html(content);
+                }
+            });
+        }
+    });
 }

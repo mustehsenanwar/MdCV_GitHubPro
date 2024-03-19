@@ -291,11 +291,6 @@ $(document).ready(function () {
     $(".ai-suggestion-btn").click(function () {
         handleResumeData(orderId, 'update', { resumeData: { "name": "mustehesn" } });
     });
-
-
-
-
-
 });
 
 // Multiple cards add
@@ -591,9 +586,9 @@ $(document).on('click', "#generatePdf", function () {
             generatePdf: true
         }),
         dataType: "json",
-//         beforeSend: function(xhr, settings) {
-//             const csrftoken = $('meta[name="csrf-token"]').attr('content');
-//             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        //         beforeSend: function(xhr, settings) {
+        //             const csrftoken = $('meta[name="csrf-token"]').attr('content');
+        //             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         // },
         success: function (res) {
             if (res.status == "success") {
@@ -603,5 +598,20 @@ $(document).on('click', "#generatePdf", function () {
         error: function (err) {
             console.error("Something went Wrong");
         }
+    });
+});
+
+
+
+// tinymce editor init
+$(window).on('load', function () {
+    tinymceEditorIds.forEach(id => {
+        initTinymceEditor(id);
+    });
+});
+
+$(document).on('click', ".add-new-card-btn", function () {
+    tinymceEditorIds.forEach(id => {
+        initTinymceEditor(id);
     });
 });

@@ -47,8 +47,6 @@
 /* 
 @media print {
 
-
-
     body.printing .top-buttons,
     .step-progress-bar-container .progress-bar,
     #kt_app_toolbar,
@@ -81,4 +79,8 @@
     .cv-content-container {
         background-color: transparent !important;
     }
-} */
+
+    @page {
+        size: 297mm 420mm;
+    }
+}

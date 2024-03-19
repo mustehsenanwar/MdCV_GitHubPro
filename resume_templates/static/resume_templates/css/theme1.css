@@ -105,6 +105,10 @@
     font-family: var(--fontFamily) !important;
 }
 
+.cvContent .section .paragraph p {
+    margin-bottom: 0px;
+}
+
 .cvContent .sec-con1 {
     width: 33%;
     background: var(--theme1);
@@ -380,6 +384,18 @@
     width: 100%;
     margin-top: 10px;
     font-family: var(--fontFamily);
+    flex-direction: column;
+}
+
+.cvContent .section.education .items .item[data-edit="description"] p,
+.cvContent .section.softSkill .items .item[data-edit="description"] p,
+.cvContent .section.experience .items .item[data-edit="description"] p,
+.cvContent .section.certificates .items .item[data-edit="description"] p {
+    margin-bottom: 2px;
+}
+
+.cvContent .section.experience .items .item[data-edit="description"] ul {
+    padding-left: 5px;
 }
 
 

@@ -171,7 +171,7 @@ body {
 }
 
 .editor-sidebar-content {
-    width: 370px;
+    width: 35%;
     background: #fff;
     border-top: none;
     height: 80vh;
@@ -257,7 +257,7 @@ body {
 }
 
 .cv-content-container {
-    width: calc(100% - 370px);
+    width: calc(100% - 35%);
     overflow: auto;
     padding: 10px 25px 36px;
     background: #f2f2f2;

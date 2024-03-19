@@ -89,13 +89,13 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                 print("i am updating")
                 order_id = self.kwargs.get('order_id') or data.get('order_id')  # Assuming order_id is passed in the URL
                 update_data = data.get('resumeData')  # Your new resume data in the request body
-
+                return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
                 # Find the OrderFinalizedData instance
                 try:
-                    order_finalized_data = OrderFinalizedData.objects.get(order_id=order_id)
+                    # order_finalized_data = OrderFinalizedData.objects.get(order_id=order_id)
                     # Update the finalized_data field with new data
-                    order_finalized_data.finalized_data = update_data
-                    order_finalized_data.save()  # Don't forget to save the changes
+                    # order_finalized_data.finalized_data = update_data
+                    # order_finalized_data.save()  # Don't forget to save the changes
 
                     return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
 

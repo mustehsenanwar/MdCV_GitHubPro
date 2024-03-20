@@ -566,15 +566,23 @@ $(document).on('click', ".hide-section-container .single-section", function () {
 $(document).on('click', "#generatePdf", function () {
     let orderId = $("#orderId").val();
     let $resumeHTML = $(".wrapper-container").html();
-    let $resumeData = `<div class="wrapper-container w-100 content-center">
-        <link rel="stylesheet" href="/static/resume_templates/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/resume_templates/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/static/resume_templates/css/editor.css">
-        <link rel="stylesheet" href="/static/resume_templates/css/create.css">
-        <link rel="stylesheet" href="/static/resume_templates/css/theme1.css">
-        <link rel="stylesheet" href="/static/resume_templates/css/pdf-setting.css">
-        ${$resumeHTML}
-    </div>`;
+    let $resumeData = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Sample Page with Table</title>
+    </head>
+        <div class="wrapper-container w-100">
+            <link rel="stylesheet" href="/static/resume_templates/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/static/resume_templates/css/font-awesome.min.css">
+            <link rel="stylesheet" href="/static/resume_templates/css/editor.css">
+            <link rel="stylesheet" href="/static/resume_templates/css/create.css">
+            <link rel="stylesheet" href="/static/resume_templates/css/theme1.css">
+            <link rel="stylesheet" href="/static/resume_templates/css/pdf-setting.css">
+            ${$resumeHTML}
+        </div>
+    </body>
+    </html>`;
 
     $.ajax({
         url: "/dashboard/resumebuilder/" + orderId + "/",

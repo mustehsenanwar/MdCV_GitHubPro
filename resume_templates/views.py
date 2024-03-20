@@ -26,8 +26,8 @@ from resume_templates.models import Template, Variation
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
-from weasyprint import HTML
-from django.template.loader import render_to_string
+# from weasyprint import HTML
+# from django.template.loader import render_to_string
 import os
 # Create your views here.
 
@@ -103,35 +103,35 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                     return JsonResponse({'status': 'error', 'message': 'Order not found'}, status=404)
 
             
-            elif action == 'generate_pdf':
-                print("pdf generation request received")
-                html_content = data.get('html')  # The HTML content from the AJAX request
-                order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
+            # elif action == 'generate_pdf':
+            #     print("pdf generation request received")
+            #     html_content = data.get('html')  # The HTML content from the AJAX request
+            #     order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
 
-                try:
-                    # Generate PDF from the HTML content
-                    html = HTML(string=html_content, base_url=request.build_absolute_uri())
-                    print("writing PDF")
-                    pdf = html.write_pdf()
-                    print("writing finishedddddd PDF")
-                    # Define the path for the new PDF file
-                    pdf_filename = f"resume_{order_id}.pdf"
-                    pdf_path = os.path.join(settings.MEDIA_ROOT, 'resumes', pdf_filename)
+            #     try:
+            #         # Generate PDF from the HTML content
+            #         html = HTML(string=html_content, base_url=request.build_absolute_uri())
+            #         print("writing PDF")
+            #         pdf = html.write_pdf()
+            #         print("writing finishedddddd PDF")
+            #         # Define the path for the new PDF file
+            #         pdf_filename = f"resume_{order_id}.pdf"
+            #         pdf_path = os.path.join(settings.MEDIA_ROOT, 'resumes', pdf_filename)
 
-                    # Ensure the directory exists
-                    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+            #         # Ensure the directory exists
+            #         os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
 
-                    # Write the PDF data to a file
-                    with open(pdf_path, 'wb') as pdf_file:
-                        pdf_file.write(pdf)
+            #         # Write the PDF data to a file
+            #         with open(pdf_path, 'wb') as pdf_file:
+            #             pdf_file.write(pdf)
 
-                    # Here, you might want to save a reference to the file in your database
-                    print("final stage start")
-                    # Return a success response
-                    return JsonResponse({'status': 'success', 'message': 'PDF generated successfully', 'file_path': os.path.join(settings.MEDIA_URL, 'resumes', pdf_filename)})
+            #         # Here, you might want to save a reference to the file in your database
+            #         print("final stage start")
+            #         # Return a success response
+            #         return JsonResponse({'status': 'success', 'message': 'PDF generated successfully', 'file_path': os.path.join(settings.MEDIA_URL, 'resumes', pdf_filename)})
 
-                except Exception as e:
-                    return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
+            #     except Exception as e:
+            #         return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
 
             else:
                 # Handle unknown action

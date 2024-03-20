@@ -99,24 +99,29 @@ $(document).ready(function () {
 
 function addSkillORLanguageRow(section, text, cardTarget, data = {}) {
     let skillVal = data.text || "",
-        average = data.average || 0;
+        average = data.average || 0,
+        skillName = rtrim(section.toLowerCase(), "s"),
+        proficiency = data.proficiency ? data.proficiency : "";
     let skillHTML =
-        `<div class="skill-item mb-3">
+        `<form>
+        <div class="skill-item mb-3">
             <div class="left">
                 <div class="form-item mb-0">
-                    <input type="text" value="${skillVal}" class="fill-item-value" data-section="${section}"
+                    <input type="text" name="${skillName}" value="${skillVal}" class="fill-item-value" data-section="${section}"
                     data-card="${cardTarget}${sectionCount}" data-fill="text" autocomplete="off"
                     placeholder="${text}">
                     <label for="username">${text}</label>
                 </div>
             </div>
+            <input type="hidden" name="proficiency" value="${proficiency}" />
             <div class="right d-flex">
                 <input type="range" class="w-100 fill-item-value"
                 data-section="${section}" data-card="${cardTarget}${sectionCount}"
                 data-fill="progress" min="1" max="100" value="${average}">
                 <i class="fa fa-trash ml-3 cp f-16 text-dark delete-single-skill" data-delete="${cardTarget}${sectionCount}" data-section="${section}"></i>
             </div>
-        </div>`;
+        </div>
+        </form>`;
     return skillHTML;
 }
 
@@ -235,6 +240,7 @@ $(document).on('change input', ".fill-item-value", function () {
 // Remove Single Skill
 $(document).on("click", ".delete-single-skill", function () {
     let $parent = $(this).parents(".skill-item");
+    $(this).parents("form").first().remove();
     $parent.remove();
     // remove cv item
     let section = $(this).data("section"),
@@ -440,7 +446,7 @@ function fillPersonalInformation(perInfo) {
     for (let i = 0; i < perInfo.length; i++) {
         let perInfoData = perInfo[i],
             data = perInfoData.data;
-
+        $(`.save-cv-content-btn[data-target="${perInfoData.target}"]`).attr("data-heading", perInfoData.heading);
         for (let a = 0; a < data.length; a++) {
             let singleData = data[a];
             // Single Data
@@ -463,6 +469,7 @@ function appendNewSection(data, element) {
     let target = data.target,
         heading = data.heading,
         sectionData = data.data
+    $(`.save-cv-content-btn[data-target="${target}"]`).attr("data-heading", heading);
     // default items div
     items = "";
     if (target == "skills" || target == "languages" || target == "hobbies" || target == "references") items = `<div class="items"></div>`;
@@ -488,7 +495,7 @@ function appendNewSection(data, element) {
         } else if (target == "experience") {
             $container.append(expriencesectionCardHTML(target, secData));
         } else if (target == "languages") {
-            secData = { text: secData.language, average: 90 };
+            secData = { text: secData.language, average: 90, proficiency: secData.proficiency };
             skillHTML = addSkillORLanguageRow(target, "Language", "languagesCard", secData);
             $(`.skill-item-container.${target}-items-container`).append(skillHTML);
             addLanguageSkillItem(secData);
@@ -606,4 +613,32 @@ $(document).on('click', ".add-new-card-btn", function () {
     tinymceEditorIds.forEach(id => {
         initTinymceEditor(id);
     });
+});
+
+// Save CV content button
+$(document).on('click', ".save-cv-content-btn", function (e) {
+    let $formContainer = $(this).parents(".cv-form-container"),
+        orderId = $("#orderId").val(),
+        target = $(this).data("target"),
+        heading = $(this).data("heading"),
+        $forms = $formContainer.find("form");
+    let formDataJSON = {
+        target,
+        heading,
+        data: []
+    };
+
+    // Convert the array to a JSON object
+    $forms.each(function () {
+        let formData = $(this).serializeArray(); // Serialize form data
+        formDataObject = {};
+        $.each(formData, function () {
+            formDataObject[this.name] = this.value; // Assign form field name as key and value as value
+        });
+        formDataJSON.data.push(formDataObject);
+    });
+    l(formDataJSON)
+    // handleResumeData(orderId, 'update', { resumeData: { data: formDataJSON } });
+    if (!$(this).hasClass("end-panel"))
+        $(".carousel-control-next").trigger("click");
 });

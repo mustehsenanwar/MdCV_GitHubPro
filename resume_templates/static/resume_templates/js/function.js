@@ -11,6 +11,19 @@ function changeColor(newColor) {
     document.documentElement.style.setProperty('--theme1', newColor);
 }
 
+function rtrim(str, chars) {
+    // If no characters specified, trim whitespace by default
+    if (typeof chars === 'undefined') {
+        return str.replace(/\s+$/, '');
+    }
+
+    // Create a regular expression pattern to match the specified characters at the end of the string
+    var pattern = new RegExp("[" + chars + "]+$");
+
+    // Use the regular expression to replace matching characters with an empty string
+    return str.replace(pattern, '');
+};
+
 // Professional Skill
 function addProfessionalSkillItem(data = {}) {
     let text = data.text || "",
@@ -53,12 +66,14 @@ function addLanguageSkillItem(data = {}) {
 function addHobbiesItem(data = {}) {
     let text = data.text || "";
     let hobbiesHtml =
-        `<div class="item" data-filling="hobbiesCard${sectionCount}">
+        `<form>
+        <div class="item" data-filling="hobbiesCard${sectionCount}">
             <i class="fa fa-circle"></i>
             <div class="w-100 pull-away pr-5">
                 <span class="text" data-edit="text">${text}</span>
             </div>
-        </div>`;
+        </div>
+        </form>`;
     cvMainContent.find(`.section.hobbies .items`).append(hobbiesHtml);
 }
 
@@ -90,9 +105,10 @@ function handleResumeData(orderId, action, additionalData = {}) {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (res) {
-            if (res.status == "success")
+            if (res.status == "success") {
                 cvHTMLStructureLoad(res.data);
-            else alert("Resume Data Not Fount!");
+                l(res.data)
+            } else alert("Resume Data Not Fount!");
             setTimeout(() => {
                 loaderToggle(false);
             }, 500);
@@ -154,10 +170,11 @@ function educationSectionCardHTML(cardType, data = {}) {
             </div>
             <div id="${cardType}Card${sectionCount}" class="collapse show">
                 <div class="card-body p-3">
+                <form>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" value="${degree}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="degree" data="degree" value="${degree}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="degree" data-section="education"
                                     autocomplete="off" placeholder="Degree Name">
                                 <label for="username">Degree</label>
@@ -165,7 +182,7 @@ function educationSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="university" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="university" value="${university}" data-section="education"
                                     autocomplete="off" placeholder="University">
                                 <label for="username">University</label>
@@ -173,7 +190,7 @@ function educationSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-item">
-                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="location" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="location" value="${location}" data-section="education"
                                     autocomplete="off" placeholder="e.g Emirati">
                                 <label for="username">Location</label>
@@ -181,15 +198,15 @@ function educationSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-item">
-                                <input type="text" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
+                                <input type="text" name="date" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
                                     data-section="education" value="${date}" autocomplete="off"
                                     placeholder="e.g (2020-2021)">
                                 <label for="username">Dates</label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 editor-container">
                             <label for="username">Description</label>
-                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
+                            <textarea name="description" data-name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="education" cols="30"
                                 rows="5">${description}</textarea>
@@ -198,6 +215,7 @@ function educationSectionCardHTML(cardType, data = {}) {
                             <div class="ai-suggestion-btn">AI Suggestions</div>
                         </div>
                     </div>
+                  </form>  
                 </div>
             </div>
         </div>`;
@@ -249,10 +267,11 @@ function expriencesectionCardHTML(cardType, data = {}) {
             </div>
             <div id="${cardType}Card${sectionCount}" class="collapse show">
                 <div class="card-body p-3">
+                <form>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" value="${designation}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="designation" value="${designation}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="designation" data-section="experience"
                                     autocomplete="off" placeholder="Designation">
                                 <label for="username">Designation</label>
@@ -260,7 +279,7 @@ function expriencesectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" value="${companyName}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="companyName" value="${companyName}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="companyName" data-section="experience"
                                     autocomplete="off" placeholder="Company Name">
                                 <label for="username">Company Name</label>
@@ -268,7 +287,7 @@ function expriencesectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-item">
-                                <input type="text" value="${location}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="location" value="${location}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="location" data-section="experience"
                                     autocomplete="off" placeholder="e.g Emirati">
                                 <label for="username">Location</label>
@@ -276,15 +295,15 @@ function expriencesectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-item">
-                                <input type="text" value="${date}" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
+                                <input type="text" name="date" value="${date}" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
                                     data-section="experience" autocomplete="off"
                                     placeholder="e.g (2020-2021)">
                                 <label for="username">Dates</label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 editor-container">
                             <label for="username">Description</label>
-                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
+                            <textarea data-name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="experience" cols="30"
                                 rows="5">${description}</textarea>
@@ -293,6 +312,7 @@ function expriencesectionCardHTML(cardType, data = {}) {
                             <div class="ai-suggestion-btn">AI Suggestions</div>
                         </div>
                     </div>
+                  </form>
                 </div>
             </div>
         </div>`;
@@ -343,10 +363,11 @@ function certificateSectionCardHTML(cardType, data = {}) {
             </div>
             <div id="${cardType}Card${sectionCount}" class="collapse show">
                 <div class="card-body p-3">
+                    <form>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" value="${certificate}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="certificate" value="${certificate}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="certificate" data-section="certificates"
                                     autocomplete="off" placeholder="Certificate">
                                 <label for="username">Certificate</label>
@@ -354,7 +375,7 @@ function certificateSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" value="${organization}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="organization" value="${organization}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="organization" data-section="certificates"
                                     autocomplete="off" placeholder="Organization">
                                 <label for="username">Organization</label>
@@ -362,7 +383,7 @@ function certificateSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-item">
-                                <input type="text" value="${location}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="location" value="${location}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="location" data-section="certificates"
                                     autocomplete="off" placeholder="e.g Emirati">
                                 <label for="username">Location</label>
@@ -370,15 +391,15 @@ function certificateSectionCardHTML(cardType, data = {}) {
                         </div>
                         <div class="col-md-6">
                             <div class="form-item">
-                                <input type="text" value="${date}" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
+                                <input type="text" name="date" value="${date}" data-card="${cardType}Card${sectionCount}" class="input-fill-value" data-fill="date"
                                     data-section="certificates" autocomplete="off"
                                     placeholder="e.g (2020-2021)">
                                 <label for="username">Dates</label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 editor-container">
                             <label for="username">Description</label>
-                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
+                            <textarea data-name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="certificates" cols="30"
                                 rows="5">${description}</textarea>
@@ -387,6 +408,7 @@ function certificateSectionCardHTML(cardType, data = {}) {
                             <div class="ai-suggestion-btn">AI Suggestions</div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>`;
@@ -428,18 +450,19 @@ function softSkillSectionCardHTML(cardType, data = {}) {
             </div>
             <div id="${cardType}Card${sectionCount}" class="collapse show">
                 <div class="card-body p-3">
+                <form>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" value="${skill}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="skill" value="${skill}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="skill" data-section="softSkill"
                                     autocomplete="off" placeholder="Skill">
                                 <label for="username">Skill</label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 editor-container">
                             <label for="username">Description</label>
-                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
+                            <textarea data-name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="softSkill" cols="30"
                                 rows="5">${description}</textarea>
@@ -448,6 +471,7 @@ function softSkillSectionCardHTML(cardType, data = {}) {
                             <div class="ai-suggestion-btn">AI Suggestions</div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>`;
@@ -489,18 +513,19 @@ function achievementsSectionCardHTML(cardType, data = {}) {
             </div>
             <div id="${cardType}Card${sectionCount}" class="collapse show">
                 <div class="card-body p-3">
+                <form>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-item">
-                                <input type="text" value="${achievements}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
+                                <input type="text" name="achievement" value="${achievements}" data-card="${cardType}Card${sectionCount}" class="input-fill-value"
                                     data-fill="achievement" data-section="achievements"
                                     autocomplete="off" placeholder="Achievements">
                                 <label for="username">Achievements</label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 editor-container">
                             <label for="username">Description</label>
-                            <textarea name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
+                            <textarea data-name="description" id="tinymceEditor${sectionCount}" data-card="${cardType}Card${sectionCount}"
                                 class="form-control input-fill-value"
                                 data-fill="description" data-section="achievements" cols="30"
                                 rows="5">${description}</textarea>
@@ -509,6 +534,7 @@ function achievementsSectionCardHTML(cardType, data = {}) {
                             <div class="ai-suggestion-btn">AI Suggestions</div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>`;
@@ -560,7 +586,18 @@ function initTinymceEditor(count) {
                 } else {
                     $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`).html(content);
                 }
+                // Update hidden input value
+                textareaElement.parents(".editor-container").find("input[type='hidden']").val(content);
             });
+        },
+        init_instance_callback: function (editor) {
+            let textareaElement = $(editor.targetElm),
+                textareaName = textareaElement.data("name");
+            $('<input class="editor-input">').attr({
+                type: 'hidden',
+                name: textareaName,
+                value: editor.getContent()
+            }).appendTo($(editor.getElement()).closest('.editor-container'));
         }
     });
 }

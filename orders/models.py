@@ -1,7 +1,8 @@
 from django.db import models
 from profiles.models import CustomUser  # Ensure the CustomUser model is imported correctly
 from resume_templates.models import  Variation
-
+from django.core.validators import FileExtensionValidator
+import uuid
 
 
 # class Order(models.Model):
@@ -38,6 +39,9 @@ class Order(models.Model):
         (CANCELLED, 'Cancelled'),  # Set if the order is cancelled at any point
     ]
 
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
+    
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')
     order_status = models.CharField(max_length=20, default=PENDING, choices=ORDER_STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -45,6 +49,7 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.pk} for {self.user.email}"
+        # return f"Order {self.id} for {self.user.email}"
 
 
 
@@ -112,6 +117,24 @@ class OrderFinalizedData(models.Model):
     ])
     pdf_to_text_data = models.TextField(blank=True, help_text='Stores the PDF to text data.')
     updated_at = models.DateTimeField(auto_now=True)
+    
+    resume_picture = models.ImageField(
+        upload_to='resume_pictures/',
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+        help_text='Upload the resume picture.'
+    )
+
+    # New field for QR code
+    # If storing the QR code image:
+    qr_code_image = models.ImageField(
+        upload_to='qr_codes/',
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+        help_text='Upload the QR code image.'
+    )
 
     def __str__(self):
         return f"Finalized Data for Order {self.order.id}"

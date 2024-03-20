@@ -14,44 +14,47 @@
             <span>Description only Majars</span>
         </div>
         <hr>
-        <div class="row finalize-data-container">
-            <div class="col-md-12">
-                <div class="form-item">
-                    <input type="text" value="Designation" data-fill="headline" data-target="headline"
-                        class="input-fill-finalize-data" autocomplete="off" placeholder="Designation">
-                    <label for="username">Designation</label>
+        <div class="row finalize-data-container cv-form-container">
+            <form>
+                <div class="col-md-12">
+                    <div class="form-item">
+                        <input type="text" value="Designation" data-fill="headline" data-target="headline"
+                            class="input-fill-finalize-data" autocomplete="off" placeholder="Designation">
+                        <label for="username">Designation</label>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <label for="username">Summary</label>
-                <textarea class="form-control input-fill-finalize-data" id="tinymceEditor0" data-target="summary"
-                    data-fill="summary" rows="8">Lorem Ipsum has been the industry's standard dummy text ever since the
+                <div class="col-md-12 editor-container">
+                    <label for="username">Summary</label>
+                    <textarea class="form-control input-fill-finalize-data" data-name="summary" id="tinymceEditor0"
+                        data-target="summary" data-fill="summary" rows="8">Lorem Ipsum has been the industry's standard dummy text ever since the
                         1500s, when an unknown printer took a galley of type and scrambled it to
                         make a type specimen book. It has survived not only five centuries, but
                         also the leap into electronic typesetting, remaining essentially
                         unchanged. It was popularised in the 1960s with the release of Letraset
                         sheets containing Lorem Ipsum passages,</textarea>
-            </div>
-            <div class="col-md-12">
-                <div class="d-flex mt-4">
-                    <div class="form-item w-25 mr-2">
-                        <input type="number" value="6" data-fill="year" class="input-fill-finalize-data"
-                            autocomplete="off">
-                        <label for="username">Year</label>
-                    </div>
-                    <div class="form-item w-75">
-                        <input type="text" value="Year Experience" data-fill="yearText" class="input-fill-finalize-data"
-                            autocomplete="off" placeholder="+ Year Experience">
-                        <label for="username">Year Experience</label>
+                </div>
+                <div class="col-md-12">
+                    <div class="d-flex mt-4">
+                        <div class="form-item w-25 mr-2">
+                            <input type="number" value="6" data-fill="year" class="input-fill-finalize-data"
+                                autocomplete="off">
+                            <label for="username">Year</label>
+                        </div>
+                        <div class="form-item w-75">
+                            <input type="text" value="Year Experience" data-fill="yearText"
+                                class="input-fill-finalize-data" autocomplete="off" placeholder="+ Year Experience">
+                            <label for="username">Year Experience</label>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <div class="col-md-12 pull-right mt-3 mb-5">
                 <button class="carousel-control-prev btn btn-primary px-5 py-4 ml-3" role="button" data-slide="prev">
                     <i class="fa fa-chevron-left ml-2 f-10"></i>
                     Previous
                 </button>
-                <button class="btn btn-primary save-finalize-btn">
+                <button type="button" class="btn btn-primary mr-3 save-cv-content-btn end-panel"
+                    data-target="profile_summary">
                     <i class="fas fa-save"></i>
                     Save & Preview
                 </button>

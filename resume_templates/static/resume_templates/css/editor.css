@@ -251,6 +251,12 @@ body {
     justify-content: flex-end;
 }
 
+.save-cv-content-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .editor-btn {
     background-color: var(--editorColor);
     color: #fff;

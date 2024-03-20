@@ -97,7 +97,7 @@ function handleResumeData(orderId, action, additionalData = {}) {
         action: action,  // 'fetch' or 'update'
         ...additionalData
     };
-    loaderToggle();
+    // loaderToggle();
     $.ajax({
         url: "/dashboard/resumebuilder/" + orderId + "/",
         method: "POST",
@@ -110,7 +110,7 @@ function handleResumeData(orderId, action, additionalData = {}) {
                 l(res.data)
             } else alert("Resume Data Not Fount!");
             setTimeout(() => {
-                loaderToggle(false);
+                // loaderToggle(false);
             }, 500);
         },
         error: function (err) {

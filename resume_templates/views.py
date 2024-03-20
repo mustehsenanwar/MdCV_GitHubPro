@@ -84,6 +84,7 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
             elif action == 'update':
                 update_data = data.get('resumeData')
+                print(update_data)
                 order_id = self.kwargs.get('order_id') or data.get('order_id')  # Assuming order_id is passed in the URL
                 # return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
                 # Find the OrderFinalizedData instance

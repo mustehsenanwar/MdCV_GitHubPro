@@ -297,6 +297,9 @@ $(document).ready(function () {
     $(".ai-suggestion-btn").click(function () {
         handleResumeData(orderId, 'update', { resumeData: { "name": "mustehesn" } });
     });
+
+    // Link in hide
+    $(".collapse-field .icon.hide").trigger("click");
 });
 
 // Multiple cards add

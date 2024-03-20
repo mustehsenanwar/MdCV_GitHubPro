@@ -711,6 +711,10 @@ hr {
     margin-right: 5px;
 }
 
+.customer-instructions {
+    display: none;
+}
+
 /* Rearange Row Wise */
 .rearrange-sections.row-rearange-section .column {
     width: 48%;
@@ -778,3 +782,12 @@ hr {
 }
 
 /* Loader */
+
+.cvContent h3,
+.cvContent p,
+.cvContent .item,
+.cvContent span,
+.cvContent div,
+.resume-folding-card .card-header .card-title {
+    word-break: break-all;
+}

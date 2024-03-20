@@ -83,21 +83,24 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
 
             elif action == 'update':
-                # Handle update action
-                # Update the resume data based on your logic and the provided data
-                # update_data = data.get('resumeData')
-                print("i am updating")
+                update_data = data.get('resumeData')
                 order_id = self.kwargs.get('order_id') or data.get('order_id')  # Assuming order_id is passed in the URL
-                update_data = data.get('resumeData')  # Your new resume data in the request body
-                return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
+                # return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
                 # Find the OrderFinalizedData instance
                 try:
-                    # order_finalized_data = OrderFinalizedData.objects.get(order_id=order_id)
+                    order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)  # Assuming your OrderFinalizedData model is linked to the Order model via a ForeignKey named 'order'
+                    print(order_finalized_data)
+                    # for section in existing_data["static_sections"]:
+                    #     if section["target"] == "personalinfo":
+                    #         section["data"] = update_data["data"]  # Update the section with new data
+                    #         xy = section["data"]
+                    #         print(xy)
+
                     # Update the finalized_data field with new data
                     # order_finalized_data.finalized_data = update_data
                     # order_finalized_data.save()  # Don't forget to save the changes
 
-                    return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
+                    # return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
 
                 except ObjectDoesNotExist:
                     return JsonResponse({'status': 'error', 'message': 'Order not found'}, status=404)

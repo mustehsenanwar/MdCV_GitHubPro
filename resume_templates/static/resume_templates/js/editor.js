@@ -646,7 +646,10 @@ $(document).on('click', ".save-cv-content-btn", function (e) {
         formDataJSON.data.push(formDataObject);
     });
     l(formDataJSON)
-    // handleResumeData(orderId, 'update', { resumeData: { data: formDataJSON } });
+    handleResumeData(orderId, 'update', { resumeData: { data: formDataJSON } });
+
+    // handleResumeData(orderId, 'update', { resumeData: { "name": "mustehesn" } });
+
     if (!$(this).hasClass("end-panel"))
         $(".carousel-control-next").trigger("click");
 });

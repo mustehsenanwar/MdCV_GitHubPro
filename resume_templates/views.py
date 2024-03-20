@@ -135,6 +135,7 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             #     except Exception as e:
             #         return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
 
+            
             else:
                 # Handle unknown action
                 return JsonResponse({'status': 'error', 'message': 'Unknown action'}, status=400)

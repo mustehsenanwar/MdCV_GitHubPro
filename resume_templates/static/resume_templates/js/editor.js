@@ -294,9 +294,9 @@ $(document).ready(function () {
     // To fetch resume data
     handleResumeData(orderId, 'fetch');
     // To update the data 
-    $(".ai-suggestion-btn").click(function () {
-        handleResumeData(orderId, 'update', { resumeData: { "name": "mustehesn" } });
-    });
+    // $(".ai-suggestion-btn").click(function () {
+    //     handleResumeData(orderId, 'update', { resumeData: { "name": "mustehesn" } });
+    // });
 
     // Link in hide
     $(".collapse-field .icon.hide").trigger("click");

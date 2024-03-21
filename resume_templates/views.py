@@ -26,8 +26,8 @@ from resume_templates.models import Template, Variation
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
-# from weasyprint import HTML
-# from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.template.loader import render_to_string
 import os
 # Create your views here.
 
@@ -89,55 +89,60 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                 # return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
                 # Find the OrderFinalizedData instance
                 try:
-                    order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)  # Assuming your OrderFinalizedData model is linked to the Order model via a ForeignKey named 'order'
-                    print(order_finalized_data)
-                    # for section in existing_data["static_sections"]:
-                    #     if section["target"] == "personalinfo":
-                    #         section["data"] = update_data["data"]  # Update the section with new data
-                    #         xy = section["data"]
-                    #         print(xy)
+                    order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)
+                    finalized_data = order_finalized_data.finalized_data  # This is the current JSON data stored in the database
 
-                    # Update the finalized_data field with new data
-                    # order_finalized_data.finalized_data = update_data
-                    # order_finalized_data.save()  # Don't forget to save the changes
+                    for section_key in ['static_sections', 'one', 'two']:
+                        if section_key in finalized_data:
+                            for section in finalized_data[section_key]:
+                                if section.get('target') == update_data.get('data', {}).get('target'):
+                                    print(update_data.get('data')['data'])
+                                    section['data'] = update_data.get('data')['data']
+                                    print(section['data'])
+                                    break 
 
-                    # return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
+
+                    # Save the updated JSON back to the database
+                    order_finalized_data.finalized_data = finalized_data
+                    order_finalized_data.save()
+
+                    # Return a success response
+                    return JsonResponse({'status': 'success', 'action': 'update', 'message': 'Data updated successfully'})
 
                 except ObjectDoesNotExist:
                     return JsonResponse({'status': 'error', 'message': 'Order not found'}, status=404)
 
             
-            # elif action == 'generate_pdf':
-            #     print("pdf generation request received")
-            #     html_content = data.get('html')  # The HTML content from the AJAX request
+            elif action == 'generate_pdf':
+                print("pdf generation request received")
+                html_content = data.get('html')  # The HTML content from the AJAX request
                 
-            #     # html_content = """"""
-            #     order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
+                order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
 
-            #     try:
-            #         # Generate PDF from the HTML content
-            #         html = HTML(string=html_content, base_url=request.build_absolute_uri())
-            #         print("writing PDF")
-            #         pdf = html.write_pdf()
-            #         print("writing finishedddddd PDF")
-            #         # Define the path for the new PDF file
-            #         pdf_filename = f"resume_{order_id}.pdf"
-            #         pdf_path = os.path.join(settings.MEDIA_ROOT, 'resumes', pdf_filename)
+                try:
+                    # Generate PDF from the HTML content
+                    html = HTML(string=html_content, base_url=request.build_absolute_uri())
+                    print("writing PDF")
+                    pdf = html.write_pdf()
+                    print("writing finishedddddd PDF")
+                    # Define the path for the new PDF file
+                    pdf_filename = f"resume_{order_id}.pdf"
+                    pdf_path = os.path.join(settings.MEDIA_ROOT, 'resumes', pdf_filename)
 
-            #         # Ensure the directory exists
-            #         os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+                    # Ensure the directory exists
+                    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
 
-            #         # Write the PDF data to a file
-            #         with open(pdf_path, 'wb') as pdf_file:
-            #             pdf_file.write(pdf)
+                    # Write the PDF data to a file
+                    with open(pdf_path, 'wb') as pdf_file:
+                        pdf_file.write(pdf)
 
-            #         # Here, you might want to save a reference to the file in your database
-            #         print("final stage start")
-            #         # Return a success response
-            #         return JsonResponse({'status': 'success', 'message': 'PDF generated successfully', 'file_path': os.path.join(settings.MEDIA_URL, 'resumes', pdf_filename)})
+                    # Here, you might want to save a reference to the file in your database
+                    print("final stage start")
+                    # Return a success response
+                    return JsonResponse({'status': 'success', 'message': 'PDF generated successfully', 'file_path': os.path.join(settings.MEDIA_URL, 'resumes', pdf_filename)})
 
-            #     except Exception as e:
-            #         return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
+                except Exception as e:
+                    return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
 
             
             else:

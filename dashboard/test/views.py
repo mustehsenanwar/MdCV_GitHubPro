@@ -28,6 +28,9 @@ from django.utils.decorators import method_decorator
 import json
 
 
+
+
+
 from django.db import transaction
 from django.db.models import F
 
@@ -77,91 +80,58 @@ def texteditorpage(request):
 
 
 
-# from weasyprint import HTML
-# from django.http import HttpResponse
-# from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
-# def generate_pdf(request):
-#     # Your context data that will be passed to the HTML template
-#     # context = {'some_data': 'This is some data for the PDF.'}
+def generate_pdf(request):
+    # Your context data that will be passed to the HTML template
+    # context = {'some_data': 'This is some data for the PDF.'}
     
-#     # Render the HTML template with context data
-#     # html_string = render_to_string('dashboard/test.html')
+    # Render the HTML template with context data
+    # html_string = render_to_string('dashboard/test.html')
     
-#     html_string = """
-#     <!DOCTYPE html>
-#     <html lang="en">
-#     <head>
-#         <meta charset="UTF-8">
-#         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-#         <title>Fancy Background with Text</title>
-#         <style>
-#             @page {
-#                 margin: 0; /* Set page margins to 0 */
-#                 size: A4; /* You can set the page size here (e.g., A4, Letter) */
-#             }
-#             body, html {
-#                 margin: 0;
-#                 padding: 0;
-#                 height: 100%;
-#                 width: 100%;
-#             }
-#             body {
-#                 /* Set a fancy background - you can replace the URL with your desired image or gradient */
-#                 background: linear-gradient(135deg, #667eea, #764ba2);
-#                 display: flex;
-#                 justify-content: center;
-#                 align-items: center;
-#                 text-align: center;
-#                 color: #fff; /* White text color */
-#                 font-family: Arial, sans-serif; /* Use a common font stack */
-#             }
+    html_string = render_to_string('dashboard/test.html')
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
 
-#             .container {
-#                 width: 100%; /* Ensure the container covers the full width */
-#                 height: auto; /* Auto height to wrap the content */
-#                 padding: 20px;
-#                 box-sizing: border-box; /* Include padding in the element's total width and height */
-#                 background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-#                 border-radius: 10px; /* Rounded corners */
-#             }
+    # Generate the PDF
+    pdf = html.write_pdf()
 
-#             h1 {
-#                 font-size: 2.5em; /* Large text size */
-#                 margin-bottom: 0.5em; /* Spacing below the headline */
-#             }
+    # Create an HTTP response with PDF as attachment
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="my_pdf.pdf"'
 
-#             p {
-#                 font-size: 1.2em; /* Medium text size */
-#                 line-height: 1.5; /* Line height for better readability */
-#             }
-#         </style>
-#     </head>
-#     <body>
+    return response
 
-#         <div class="container">
-#             <h1>Welcome to My Fancy Page</h1>
-#             <p>This is a simple HTML template with inline CSS. You can use this as a starting point and customize it to fit your needs. Enjoy creating your beautiful webpage!</p>
-#         </div>
-
-#     </body>
-#     </html>
-#     """
-#     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-
-#     # Generate the PDF
-#     pdf = html.write_pdf()
-
-#     # Create an HTTP response with PDF as attachment
-#     response = HttpResponse(pdf, content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename="my_pdf.pdf"'
-
-#     return response
+def showcv(request):
+    return render(request, 'dashboard/test.html')
 
 
 
 
+def dataparse(request):
+    order_id = 94
+    order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)
+    finalized_data = order_finalized_data.finalized_data 
+    
+    update_data = {'data': {'target': 'personalinfo', 'heading': 'personalinfo', 'data': [{'name': 'Ok KARIKKAD', 'phone': '+971525080627', 'email': 'nidesh.hari@gmail.com', 'nationality': 'Indian', 'merital_status': '', 'dob': 'SEP-1987', 'drivingLicense': 'Not mentioned', 'linkedIn': '', 'country': ''}]}}
 
+    target_value = update_data.get('data', {}).get('target')
+    # print(target_value)
+          
+    for section_key in ['static_sections', 'one', 'two']:
+        if section_key in finalized_data:
+            for section in finalized_data[section_key]:
+                if section.get('target') == update_data.get('data', {}).get('target'):
+                    print(update_data.get('data')['data'])
+                    section['data'] = update_data.get('data')['data']
+                    print(section['data'])
+                    break  
+    
+    order_finalized_data.finalized_data = finalized_data
+    order_finalized_data.save()
+    return HttpResponse('done')
+    
 
 
 

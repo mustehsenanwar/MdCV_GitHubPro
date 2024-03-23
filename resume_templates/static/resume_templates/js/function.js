@@ -150,6 +150,11 @@ function appendEducationHTML(sectionCount, data = {}) {
     cvMainContent.find(`.section.education .content`).append($cvHTML);
 }
 
+// text limit function
+function textLimit(text, number = 30) {
+    return text.length > number ? text.slice(0, number) + " ..." : text;
+}
+
 function educationSectionCardHTML(cardType, data = {}) {
     let degree = data.degree || "",
         university = data.university || "",
@@ -160,7 +165,7 @@ function educationSectionCardHTML(cardType, data = {}) {
         `<div class="card shadow-sm resume-folding-card mb-3">
             <div class="card-header collapsible cursor-pointer rotate active"
                 data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
-                <h3 class="card-title">${degree}</h3>
+                <h3 class="card-title">${textLimit(degree)}</h3>
                 <div class="content-center">
                     <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
                     <div class="card-toolbar">
@@ -235,13 +240,16 @@ function appendExprienceHTML(sectionCount, data = {}) {
         location = data.location || "",
         date = data.date || "",
         description = data.description || "";
+    let $keyResponsibility = `<span class="item w-100 mt-2 default-experience-text d-none">Key responsibilities:</span>`;
+    if (description.length)
+        $keyResponsibility = `<span class="item w-100 mt-2 default-experience-text">Key responsibilities:</span>`;
     let $cvHTML =
         `<div class="items pl-3 mt-3" data-filling="experienceCard${sectionCount}">
             <span class="item" data-edit="designation">${designation}</span>
             <span class="item" data-edit="companyName">${companyName}</span>
             <span class="item" data-edit="location">${location}</span>
             <span class="item" data-edit="date">${date}</span>
-            <span class="item w-100 mt-2">Key responsibilities:</span>
+            ${$keyResponsibility}
             <span class="item" data-edit="description">${description}</span>
         </div>`;
     cvMainContent.find(`.section.experience .content`).append($cvHTML);
@@ -257,7 +265,7 @@ function expriencesectionCardHTML(cardType, data = {}) {
         `<div class="card shadow-sm resume-folding-card mb-3">
             <div class="card-header collapsible cursor-pointer rotate active"
                 data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
-                <h3 class="card-title">${designation}</h3>
+                <h3 class="card-title">${textLimit(designation)}</h3>
                 <div class="content-center">
                     <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
                     <div class="card-toolbar">
@@ -353,7 +361,7 @@ function certificateSectionCardHTML(cardType, data = {}) {
         `<div class="card shadow-sm resume-folding-card mb-3">
             <div class="card-header collapsible cursor-pointer rotate active"
                 data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
-                <h3 class="card-title">${certificate}</h3>
+                <h3 class="card-title">${textLimit(certificate)}</h3>
                 <div class="content-center">
                     <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
                     <div class="card-toolbar">
@@ -440,7 +448,7 @@ function softSkillSectionCardHTML(cardType, data = {}) {
         `<div class="card shadow-sm resume-folding-card mb-3">
             <div class="card-header collapsible cursor-pointer rotate active"
                 data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
-                <h3 class="card-title">${skill}</h3>
+                <h3 class="card-title">${textLimit(skill)}</h3>
                 <div class="content-center">
                     <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
                     <div class="card-toolbar">
@@ -503,7 +511,7 @@ function achievementsSectionCardHTML(cardType, data = {}) {
         `<div class="card shadow-sm resume-folding-card mb-3">
             <div class="card-header collapsible cursor-pointer rotate active"
                 data-bs-toggle="collapse" data-bs-target="#${cardType}Card${sectionCount}">
-                <h3 class="card-title">${achievements}</h3>
+                <h3 class="card-title">${textLimit(achievements)}</h3>
                 <div class="content-center">
                     <i class=" fa fa-trash text-white mr-3 delete-card-item" data-delete="${cardType}Card${sectionCount}" data-card="${cardType}"></i>
                     <div class="card-toolbar">
@@ -584,7 +592,11 @@ function initTinymceEditor(count) {
                 if (target == "summary") {
                     $cvContent.find(`[data-filling="${target}"]`).html(content);
                 } else {
-                    $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`).html(content);
+                    $element = $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`);
+                    $element.html(content);
+                    if (section == "experience" && content.length)
+                        $(".default-experience-text").removeClass("d-none");
+                    else if (section == "experience" && !content.length) $(".default-experience-text").addClass("d-none");
                 }
                 // Update hidden input value
                 textareaElement.parents(".editor-container").find("input[type='hidden']").val(content);

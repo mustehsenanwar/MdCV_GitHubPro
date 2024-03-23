@@ -16,7 +16,7 @@
             <h3 class="name" data-setVal="name">SANJAY PREMARJ</h3>
             <p class="headline" data-filling="headline">Health, Environment, Safety and Quality
                 (HSEQ)</p>
-            <div class="profile section" data-target="profile">
+            <div class="profile section sec-toggle" data-toggle="aboutUsPanel" data-target="profile">
                 <p class="paragraph mb-0" data-filling="summary">Lorem Ipsum is simply dummy text of
                     the printing and
                     typesetting industry. Lorem Ipsum has been the industry's standard dummy text
@@ -35,7 +35,7 @@
     </div>
     <div class="cv-body">
         <div class="sec-con1 sec-con">
-            <div class="perInfo">
+            <div class="perInfo sec-toggle" data-toggle="contactPanel">
                 <div class="sec-heading">PERSONAL INFORMATION</div>
                 <div class="items pt-4 pl-4">
                     <p class="item">
@@ -78,6 +78,13 @@
                         <span class="text">
                             <b>Driving Lisence :</b>
                             <span data-setVal="drivingLicense">UAE</span>
+                        </span>
+                    </p>
+                    <p class="item" data-text="visaType">
+                        <img src="{% static  'resume_templates/images/icons/visa.png' %}" class="img-fluid icon">
+                        <span class="text">
+                            <b>Visa Type :</b>
+                            <span data-setVal="visaType">Visa Type</span>
                         </span>
                     </p>
                     <p class="item" data-text="Linked In">

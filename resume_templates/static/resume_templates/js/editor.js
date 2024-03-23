@@ -282,7 +282,7 @@ $(document).on("change input", ".input-fill-value", function () {
     let $cvContent = $(".cvContent");
     $cvContent.find(`.section.${section} .items[data-filling="${cardName}"] .item[data-edit="${target}"]`).text(value);
     if (target == "degree" || target == "designation" || target == "certificate" || target == "skill" || target == "achievements") {
-        $(this).parents(".resume-folding-card").first().find(".card-title").text(value);
+        $(this).parents(".resume-folding-card").first().find(".card-title").text(textLimit(value, 30));
     }
 });
 
@@ -472,12 +472,22 @@ function appendNewSection(data, element) {
     let target = data.target,
         heading = data.heading,
         sectionData = data.data
+
+    let $secToggle = "";
+    if (target == "education") $secToggle = "educationPanel";
+    if (target == "achievements") $secToggle = "achievementsPanel";
+    if (target == "softSkill") $secToggle = "softSkillPanel";
+    if (target == "languages") $secToggle = "languagePanel";
+    if (target == "skills") $secToggle = "proSkillPanel";
+    if (target == "certificates") $secToggle = "certificatesPanel";
+    if (target == "experience") $secToggle = "expriencePanel";
+
     $(`.save-cv-content-btn[data-target="${target}"]`).attr("data-heading", heading);
     // default items div
     items = "";
     if (target == "skills" || target == "languages" || target == "hobbies" || target == "references") items = `<div class="items"></div>`;
     $(element).append(`
-    <div class="section ${target}" data-target="${target}">
+    <div class="section ${target} sec-toggle" data-toggle="${$secToggle}" data-target="${target}">
         <div class="sec-heading">${heading}</div>
         <div class="content">
         ${items}
@@ -546,9 +556,10 @@ $(document).on('click', ".toggle-cv-section .delete", function () {
         section = $parent.data("target"),
         sectionText = $parent.data("section-text");
     $parent.addClass("d-none");
+
     // hide section append
     $parent.parents(".customization-sections").find(".hide-section-container").append(`
-    <div class="single-section" data-target="${section}">
+    <div class="single-section sec-toggle" data-toggle="${$secToggle}" data-target="${section}">
      <i class="fa fa-plus mr-1"></i>
         ${sectionText}
     </div>`);
@@ -648,10 +659,27 @@ $(document).on('click', ".save-cv-content-btn", function (e) {
         });
         formDataJSON.data.push(formDataObject);
     });
-    l(formDataJSON)
     handleResumeData(orderId, 'update', { resumeData: { data: formDataJSON } });
 
 
     if (!$(this).hasClass("end-panel"))
         $(".carousel-control-next").trigger("click");
+});
+
+// Event listener for font size controller buttons
+$(".font-size-controller button").click(function (e) {
+    e.preventDefault();
+    let property = $(this).data('property');
+    let increment = parseInt($(this).data('increment'));
+    let currentValue = parseInt($(".name").css(property));
+    let newValue = currentValue + increment; // Calculate the new value
+    // Apply the new value to the CSS property
+    $(".name").css(property, newValue + "px");
+});
+
+
+// Active Section 
+$(document).on('click', ".cvContent .sec-toggle", function () {
+    let target = $(this).data("toggle");
+    $(".progress-bar").find(`.item .step[data-target="${target}"]`).click();
 });

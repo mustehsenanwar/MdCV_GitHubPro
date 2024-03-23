@@ -185,6 +185,10 @@
     flex-wrap: wrap;
 }
 
+.cvContent .sec-con1 .section .items {
+    margin-bottom: 8px !important;
+}
+
 .cvContent .perInfo .items .item img:not(.icon) {
     width: 60px;
 }
@@ -286,14 +290,13 @@
     margin-top: 14px;
 }
 
-.cvContent .sec-con2 .section .content::after {
+.cvContent .sec-con2 .section.experience .content::after {
     content: "";
     height: 98%;
     position: absolute;
     left: -20px;
     top: 8px;
     border: 1px dashed var(--theme1);
-    width: 2px;
 }
 
 .cvContent .sec-con2 .section.skills .content::before,
@@ -389,6 +392,7 @@
     margin-top: 2px;
     font-family: var(--fontFamily);
     flex-direction: column;
+    text-transform: capitalize;
 }
 
 .cvContent .section.education .items .item[data-edit="description"] p,
@@ -525,6 +529,10 @@
 .cvContent .sec-con1 .section .content {
     padding-left: 14px;
     margin-top: 14px;
+}
+
+.cvContent .sec-con1 .section.languages .content {
+    margin-top: 0px !important;
 }
 
 .cvContent .sec-con1 .section .items .item,

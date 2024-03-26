@@ -1,5 +1,5 @@
 from django.db import models
-
+import uuid
 # Create your models here.
 
 
@@ -45,6 +45,7 @@ class Contact(models.Model):
 
 
 class PreliminaryData(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # Adding UUID as the primary key
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='preliminary_data')
     requirements = models.TextField()
     TEMPLATE_CHOICES = [

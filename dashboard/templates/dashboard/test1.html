@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .container {
+        display: flex;
+      }
+      
+      .column {
+        flex: 1; /* Makes each column take up an equal amount of space */
+      }
+      
+      /* Print-specific styles */
+      @media print {
+        .container {
+          page-break-after: always; /* Ensures each container starts on a new page */
+          display: flex; /* Overrides flex display for printing, if necessary */
+          width: 100%; /* Ensures the container takes full width on print */
+        }
+        .column {
+          width: 50%; /* Sets each column to take half of the container's width */
+          display: inline-block; /* Allows columns to sit side by side */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="maincontainer">
+      <div class="container">
+        <div class="column" style="background-color: #f2f2f2;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos ab enim aut aliquam soluta ducimus numquam possimus ullam nesciunt laboriosam voluptates, quam nulla necessitatibus. Vel voluptatibus aut totam ea numquam debitis illo labore culpa, natus non voluptatum praesentium voluptatem distinctio magni eius quae veritatis recusandae. Amet tempora, pariatur quo atque corrupti repellat! Explicabo nulla vitae soluta, blanditiis sit alias repudiandae laborum ducimus doloribus esse dolor laudantium quas adipisci voluptas, quis illo natus amet fugit nobis incidunt et doloremque corporis? At labore dicta commodi blanditiis laudantium sint, earum necessitatibus! Velit debitis voluptatum nihil ad voluptatem. Nihil architecto corporis vero magni aperiam! Numquam, nobis dolor. Saepe enim officiis, sit iusto nam repellat rerum, non voluptas laboriosam dolores voluptatum reiciendis doloribus. Animi aliquid neque dolorum explicabo aut inventore cum voluptatem eveniet earum tempore sequi tempora, ullam exercitationem hic minus labore! Dolorum suscipit iste mollitia laborum consequuntur deserunt eaque, sint, velit, modi perferendis voluptas?</div>
+        <div class="column" style="background-color: #dddddd;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias saepe molestiae ex unde itaque fugiat perspiciatis beatae quis modi illo illum deleniti quaerat rem necessitatibus, doloremque blanditiis, repudiandae ipsa, maiores quos? Corrupti obcaecati sapiente reprehenderit aut vero tempore at ipsam voluptatibus deleniti, consectetur ipsum quas a et? Quia, sapiente officia ea qui laborum debitis veritatis earum quas ratione minima placeat quisquam. Aliquam labore eaque sed magni omnis tempora quibusdam quisquam, fugiat accusamus at quo a totam obcaecati, sapiente voluptas officia consequatur ducimus similique necessitatibus eligendi quae modi odio? Fuga nesciunt quasi eum id minus, ratione ipsa, itaque est magnam sit reiciendis, aliquam hic nam a! Maiores quia perferendis voluptatem quidem mollitia repudiandae iste accusamus, aperiam porro facilis dolores laborum aliquid itaque voluptas, quo, facere impedit velit beatae temporibus dignissimos iure doloribus eos tempore! Placeat odio ipsum alias autem eveniet optio aliquam atque, modi mollitia, dolore cum impedit adipisci vel animi dolor nobis nam fugit. Quo delectus temporibus dignissimos. Laboriosam iure quaerat ullam non ipsam est accusantium? Reprehenderit, dicta aliquam quia voluptates molestias eveniet quae voluptatem fugiat molestiae earum amet corrupti, tenetur porro provident cum, exercitationem iste quisquam incidunt repudiandae. Illum eius maxime sequi dolorum quibusdam beatae labore, aliquam illo placeat!</div>
+      </div>
+
+      <div class="container">
+        <div class="column" style="background-color: #f2f2f2;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam error, facere nesciunt inventore libero eaque commodi qui dignissimos deserunt, mollitia, dicta exercitationem reprehenderit sed voluptatum! Voluptas consequuntur facere ea voluptatibus placeat cupiditate itaque nam ad sunt dolore et laudantium sequi, dicta ut. In, totam fugiat laboriosam unde soluta est cupiditate?</div>
+        <div class="column" style="background-color: #dddddd;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima hic sequi esse nulla quae harum nesciunt veniam voluptate illum earum in repudiandae, placeat est soluta incidunt amet iure cum nihil, eius quisquam provident delectus rerum? Explicabo rem praesentium architecto dolorem vero officia cum id dicta quae, maiores nam amet placeat, eius officiis, ab numquam maxime ut vitae minus corrupti. Vel molestias nulla quis earum deserunt eligendi, facere, illo ipsum facilis ipsa minus eius optio corrupti necessitatibus fuga voluptas, inventore distinctio deleniti quae amet doloribus voluptatem natus? Maxime, pariatur. Temporibus, fuga assumenda nemo ducimus adipisci commodi quibusdam animi, illum nam quo nisi magni repellat harum distinctio, saepe exercitationem veniam iste. Ratione dolor repudiandae, et cupiditate animi magni eum repellendus voluptatibus non impedit temporibus reiciendis a consectetur similique in dolorum at minus sit excepturi! Repudiandae quis non asperiores dicta consectetur eum vel, laudantium modi nemo in laboriosam! In dolorum aliquam modi reiciendis!</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -17,10 +17,54 @@ class Variation(models.Model):
     thumbnail = models.ImageField(upload_to='variations_thumbnails/', blank=True, null=True)
     file = models.FileField(upload_to='template_files/')
     created_at = models.DateTimeField(auto_now_add=True)
-    variation_types = JSONField(default=dict)
+    # variation_types = JSONField(default=dict)
 
     def __str__(self):
         return f"{self.template.name} - {self.variation_name}"
+    
+
+class VariationSetting(models.Model):
+    variation = models.OneToOneField(Variation, related_name='settings', on_delete=models.CASCADE)
+    settings = models.JSONField(default=dict)
+
+    def __str__(self):
+        return f"Settings for {self.variation.variation_name}"
+    
+    
+#     {
+#     "layout": {
+#         "static_targets": ["personalinfo", "profile_summary"],
+#         "one_targets": ["education", "achievements", "softSkill", "languages", "hobbies", "references"],
+#         "two_targets": ["experience", "certificates", "skills"]
+#     },
+#     "fonts": {
+#         "default": {
+#             "fontFamily": "Arial",
+#             "fontSize": 12
+#         },
+#         "headers": {
+#             "fontFamily": "Georgia",
+#             "fontSize": 14,
+#             "fontWeight": "bold"
+#         },
+#         "sectionTitles": {
+#             "fontFamily": "Helvetica",
+#             "fontSize": 13,
+#             "fontWeight": "bold"
+#         }
+#         // Add more specific font settings as needed
+#     },
+#     // Placeholder for future settings
+#     "colors": {
+#         // Future color settings can go here
+#     },
+#     "margins": {
+#         // Future margin settings can go here
+#     }
+#     // You can add more categories as needed
+# }
+
+    
     
 class DefaultVariation(models.Model):
     variation = models.OneToOneField(Variation, related_name='default_for_categories', on_delete=models.CASCADE)

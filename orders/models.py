@@ -39,7 +39,7 @@ class Order(models.Model):
         (CANCELLED, 'Cancelled'),  # Set if the order is cancelled at any point
     ]
 
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
     
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')
@@ -48,10 +48,8 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Order {self.pk} for {self.user.email}"
-        # return f"Order {self.id} for {self.user.email}"
-
-
+        # return f"Order {self.pk} for {self.user.email}"
+        return f"Order {self.id} for {self.user.email}"
 
 
 class OrderStatusUpdate(models.Model):
@@ -63,7 +61,6 @@ class OrderStatusUpdate(models.Model):
 
     def __str__(self):
         return f"Update for Order {self.order.id} to {self.current_status} by {self.updated_by.email}"
-
 
 
 class OrderInitialData(models.Model):
@@ -88,7 +85,6 @@ class OrderInitialFiles(models.Model):
         return f"{self.get_file_type_display()} for Order {self.order.id}"
 
 
-
 class OrderParse(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_parse')
     parsed_data = models.JSONField(default=dict, blank=True, help_text='Stores the parsed CV data as JSON.')
@@ -105,8 +101,6 @@ class OrderParse(models.Model):
 
     def __str__(self):
         return f"Parsed Data for Order {self.order.id}"
-
-
 class OrderFinalizedData(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='finalized_data')
     finalized_data = models.JSONField(default=dict, blank=True, help_text='Stores the finalized CV data as JSON.')

@@ -28,8 +28,8 @@ urlpatterns = [
     # orderprocessing urls
     path('myorders/', orders_views.MyOrders.as_view(template_name = 'orders/myorders.html'), name='myorders'),
     path('orderslist/', orders_views.OrdersList.as_view(template_name = 'orders/orderslist.html'), name='orderslist'),
-    path('resumebuilder/<int:order_id>/', resume_templates_views.ResumeBuilder.as_view(template_name='resume_templates/index.html'), name='resumebuilder'),
-    path('template_list/<int:order_id>/', resume_templates_views.TemplateList.as_view(template_name='resume_templates/templates_list.html'), name='template_list'),
+    path('resumebuilder/<uuid:order_id>/', resume_templates_views.ResumeBuilder.as_view(template_name='resume_templates/index.html'), name='resumebuilder'),
+    path('template_list/<uuid:order_id>//', resume_templates_views.TemplateList.as_view(template_name='resume_templates/templates_list.html'), name='template_list'),
     path('create_new_template/', resume_templates_views.CreateNewTemplate.as_view(template_name = 'resume_templates/create_new_template.html'), name='create_new_template'),
     
     
@@ -40,8 +40,13 @@ urlpatterns = [
     
     path('test/',test_views.generate_pdf),
     path('preview/',test_views.showcv),
-    path('dataparse/',test_views.dataparse),
+    # path('dataparse/',test_views.dataparse),
+    path('qrcodee/',test_views.qrcodee),
+    # path('htmltopdf/',test_views.my_pdf_view),
     
     # path('test/<int:order_id>/', test_views.example_page.as_view(template_name='resume_templates/all_templates/template1.html'), name='resumebuilder'),
     # aftersales urls
 ]
+
+
+

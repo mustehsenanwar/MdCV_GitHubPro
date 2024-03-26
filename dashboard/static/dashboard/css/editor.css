@@ -176,6 +176,7 @@ body {
     border-top: none;
     height: 80vh;
     overflow: auto;
+    position: relative;
 }
 
 .editor-sidebar-content .content-header {
@@ -250,18 +251,25 @@ body {
     justify-content: flex-end;
 }
 
+.save-cv-content-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .editor-btn {
     background-color: var(--editorColor);
     color: #fff;
 }
 
 .cv-content-container {
-    flex: 1;
+    width: calc(100% - 35%);
     overflow: auto;
     padding: 10px 25px 36px;
     background: #f2f2f2;
     height: 80vh;
     overflow: auto;
+    position: relative;
 }
 
 /* The switch - the box around the slider */
@@ -624,4 +632,162 @@ hr {
     box-shadow: 0 0 10px #ccc;
     border-radius: 7px;
     cursor: pointer;
+}
+
+.cv-content-container .nav-tabs {
+    border: none !important;
+}
+
+.cv-content-container .icon {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.editor-sidebar-content .tc-panel {
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+
+.rearrange-sections {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    flex-wrap: wrap;
+    /* gap: 15px; */
+}
+
+.rearrange-sections .column {
+    width: 100%;
+}
+
+.rearrange-sections .rearrange-section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.rearrange-sections .rearrange-section {
+    padding: 6px 10px;
+    border-radius: 10px;
+    cursor: move;
+}
+
+.rearrange-sections .rearrange-section[data-type="section"] {
+    background: #f3f4f6;
+}
+
+.rearrange-sections .rearrange-section[data-type="break"] {
+    border: 1px dashed white;
+}
+
+.rearrange-sections .rearrange-section[data-type="break"] i,
+.rearrange-sections .rearrange-section[data-type="break"] p {
+    color: white;
+}
+
+.rearrange-sections .rearrange-section .sec-icon {
+    font-size: 18px;
+}
+
+.rearrange-sections .rearrange-section i,
+.rearrange-sections .rearrange-section p {
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+}
+
+.rearrange-sections .rearrange-section p {
+    margin-left: 16px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.rearrange-sections .rearrange-section p i {
+    margin-right: 5px;
+}
+
+.customer-instructions {
+    display: none;
+}
+
+/* Rearange Row Wise */
+.rearrange-sections.row-rearange-section .column {
+    width: 48%;
+}
+
+.rearrange-sections.row-rearange-section .drag-sec i {
+    display: none;
+}
+
+.rearrange-sections.row-rearange-section .rearrange-section p {
+    margin-left: unset;
+    font-size: 13px;
+    width: 88px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.single-section {
+    display: inline-block;
+    padding: 5px 15px;
+    background: #f3f4f6;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+/* Loader */
+
+.custom-loader-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    left: 0;
+    background-color: #0002;
+}
+
+.custom-loader-container .custom-loader {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--editorColor);
+    --_m:
+        conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+/* Loader */
+
+.cvContent h3,
+.cvContent p,
+.cvContent .item,
+.cvContent span,
+.cvContent div,
+.resume-folding-card .card-header .card-title {
+    word-break: break-all;
 }

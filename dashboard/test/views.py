@@ -56,6 +56,46 @@ from resume_templates.models import DefaultVariation
 
 
 
+import qrcode
+from io import BytesIO
+from PIL import Image
+import base64
+
+def qrcodee(request):
+    img = generate_qr_code(url="https://www.google.com/")
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    # Convert the buffer contents into a base64-encoded string
+    img_str = base64.b64encode(buffer.getvalue()).decode()
+    # Create the Data URL
+    img_data_url = f"data:image/png;base64,{img_str}"
+    context = {'img_data_url': img_data_url}
+    return render(request, 'dashboard/qrcodee.html', context)
+
+
+def generate_qr_code(url, fill_color="black", back_color="yellow", box_size=5, border=4):
+    """
+    Generate a QR code.
+
+    :param url: The URL or text to encode in the QR code.
+    :param fill_color: The color of the QR code (default: "black").
+    :param back_color: The background color (default: "white").
+    :param box_size: The size of each box in pixels (default: 10).
+    :param border: The border size in boxes (default: 4).
+    :return: A PIL Image object of the generated QR code.
+    """
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=box_size,
+        border=border,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+
+    # Generate the QR code image
+    img = qr.make_image(fill_color=fill_color, back_color=back_color)
+    return img
 
 
 
@@ -65,6 +105,9 @@ def texteditorpage(request):
     return render(request, 'dashboard/test.html')
         
         
+
+
+
 
 
 
@@ -92,8 +135,8 @@ def generate_pdf(request):
     # html_string = render_to_string('dashboard/test.html')
     
     html_string = render_to_string('dashboard/test.html')
+    
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-
     # Generate the PDF
     pdf = html.write_pdf()
 

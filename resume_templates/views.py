@@ -22,12 +22,18 @@ from django.shortcuts import get_object_or_404
 from django.db import IntegrityError
 from orders.models import Order,OrderStatusUpdate, OrderInitialData, OrderInitialFiles,OrderParse, OrderFinalizedData
 from django.http import JsonResponse
-from resume_templates.models import Template, Variation
+from resume_templates.models import Template, Variation, VariationSetting,DefaultVariation
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
-from weasyprint import HTML
-from django.template.loader import render_to_string
+from django.db import transaction
+import qrcode
+from io import BytesIO
+from PIL import Image
+import base64
+
+# from weasyprint import HTML
+# from django.template.loader import render_to_string
 import os
 # Create your views here.
 
@@ -73,14 +79,48 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                 print("i am fetching")
                 # Retrieve 'order_id' from the URL kwargs or request body
                 order_id = self.kwargs.get('order_id') or data.get('order_id')
-
+                
                 try:
                     order_finalized_data = OrderFinalizedData.objects.get(order__id=order_id)
                     resume_data = order_finalized_data.finalized_data  # This is a JSON field
-                    return JsonResponse({'status': 'success', 'action': 'fetch', 'data': resume_data})
-                except ObjectDoesNotExist:
-                    return JsonResponse({'status': 'error', 'message': f'Order with id {order_id} not found'}, status=404)
+                    
+                    # Generate QR code for the order
+                    qr_url = f"https://yourdomain.com/order/{order_id}/"  # Construct the URL with the order's UUID
+                    qr_img = generate_qr_code(qr_url)  # Call the QR code generation function
+                    
+                    # Convert QR code image to Data URL
+                    buffer = BytesIO()
+                    qr_img.save(buffer, format="PNG")
+                    img_str = base64.b64encode(buffer.getvalue()).decode()
+                    qr_data_url = f"data:image/png;base64,{img_str}"
 
+                    
+                    # Access the Order linked to the OrderFinalizedData
+                    linked_order = order_finalized_data.order
+
+                    # Try to get the OrderInitialData related to the linked Order
+                    order_initial_data = OrderInitialData.objects.filter(order=linked_order).first()
+
+                    if order_initial_data and order_initial_data.template_variation_selected:
+                        selected_variation = order_initial_data.template_variation_selected
+                        try:
+                            # Access the settings JSON field of the VariationSetting linked to the selected Variation
+                            variation_settings = selected_variation.settings.settings
+                        except VariationSetting.DoesNotExist:
+                            variation_settings = {}  # Fallback to empty settings if VariationSetting does not exist
+                    else:
+                        variation_settings = {}  # Fallback to empty settings if no OrderInitialData or no selected Variation
+                    
+                    return JsonResponse({
+                        'status': 'success',
+                        'action': 'fetch',
+                        'data': resume_data,
+                        'settings': variation_settings,  # Send the variation settings along with the resume data
+                        'qr_code': qr_data_url,  # Include the QR code Data URL in the response
+                    })
+
+                except OrderFinalizedData.DoesNotExist:
+                    return JsonResponse({'status': 'error', 'message': f'Order with id {order_id} not found'}, status=404)
 
             elif action == 'update':
                 update_data = data.get('resumeData')
@@ -113,36 +153,36 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
                     return JsonResponse({'status': 'error', 'message': 'Order not found'}, status=404)
 
             
-            elif action == 'generate_pdf':
-                print("pdf generation request received")
-                html_content = data.get('html')  # The HTML content from the AJAX request
+            # elif action == 'generate_pdf':
+            #     print("pdf generation request received")
+            #     html_content = data.get('html')  # The HTML content from the AJAX request
                 
-                order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
+            #     order_id = self.kwargs.get('order_id') or data.get('order_id')  # Retrieve 'order_id'
 
-                try:
-                    # Generate PDF from the HTML content
-                    html = HTML(string=html_content, base_url=request.build_absolute_uri())
-                    print("writing PDF")
-                    pdf = html.write_pdf()
-                    print("writing finishedddddd PDF")
-                    # Define the path for the new PDF file
-                    pdf_filename = f"resume_{order_id}.pdf"
-                    pdf_path = os.path.join(settings.MEDIA_ROOT, 'resumes', pdf_filename)
+            #     try:
+            #         # Generate PDF from the HTML content
+            #         html = HTML(string=html_content, base_url=request.build_absolute_uri())
+            #         print("writing PDF")
+            #         pdf = html.write_pdf()
+            #         print("writing finishedddddd PDF")
+            #         # Define the path for the new PDF file
+            #         pdf_filename = f"resume_{order_id}.pdf"
+            #         pdf_path = os.path.join(settings.MEDIA_ROOT, 'resumes', pdf_filename)
 
-                    # Ensure the directory exists
-                    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+            #         # Ensure the directory exists
+            #         os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
 
-                    # Write the PDF data to a file
-                    with open(pdf_path, 'wb') as pdf_file:
-                        pdf_file.write(pdf)
+            #         # Write the PDF data to a file
+            #         with open(pdf_path, 'wb') as pdf_file:
+            #             pdf_file.write(pdf)
 
-                    # Here, you might want to save a reference to the file in your database
-                    print("final stage start")
-                    # Return a success response
-                    return JsonResponse({'status': 'success', 'message': 'PDF generated successfully', 'file_path': os.path.join(settings.MEDIA_URL, 'resumes', pdf_filename)})
+            #         # Here, you might want to save a reference to the file in your database
+            #         print("final stage start")
+            #         # Return a success response
+            #         return JsonResponse({'status': 'success', 'message': 'PDF generated successfully', 'file_path': os.path.join(settings.MEDIA_URL, 'resumes', pdf_filename)})
 
-                except Exception as e:
-                    return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
+            #     except Exception as e:
+            #         return JsonResponse({'status': 'error', 'message': f'Failed to generate PDF: {str(e)}'}, status=500)
 
             
             else:
@@ -155,6 +195,32 @@ class ResumeBuilder(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+def generate_qr_code(url, fill_color="black", back_color="yellow", box_size=5, border=4):
+    """
+    Generate a QR code.
+
+    :param url: The URL or text to encode in the QR code.
+    :param fill_color: The color of the QR code (default: "black").
+    :param back_color: The background color (default: "white").
+    :param box_size: The size of each box in pixels (default: 10).
+    :param border: The border size in boxes (default: 4).
+    :return: A PIL Image object of the generated QR code.
+    """
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=box_size,
+        border=border,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+
+    # Generate the QR code image
+    img = qr.make_image(fill_color=fill_color, back_color=back_color)
+    return img
+
 
 
 
@@ -237,33 +303,47 @@ class CreateNewTemplate(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         if 'template_name' in request.POST:  # This indicates a new template form submission
             template_name = request.POST['template_name']
-            Template.objects.create(name=template_name, is_default=is_default)
+            Template.objects.create(name=template_name)
         elif 'variation_name' in request.POST:  # This indicates a new variation form submission
             template_id = request.POST['template']
             variation_name = request.POST['variation_name']
             thumbnail = request.FILES.get('thumbnail')
             file = request.FILES.get('file')
             is_default_variation = request.POST.get('is_default_variation') == 'on'
-            variation_types = {
-                'static_targets': ['personalinfo', 'profile_summary'],
-                'one_targets': ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references'],
-                'two_targets': ['experience', 'certificates', 'skills']
+            defffalu = request.POST.get('is_default_variation')
+            print("defffalu value is : ")
+            print(defffalu)
+            
+            # Default settings for the new VariationSetting
+            variation_settings = {
+                'layout': {
+                    'static_targets': ['personalinfo', 'profile_summary'],
+                    'one_targets': ['education', 'achievements', 'softSkill', 'languages', 'hobbies', 'references'],
+                    'two_targets': ['experience', 'certificates', 'skills']
+                }
+                # Add more default settings as needed
             }
+
             template = Template.objects.get(id=template_id)
             new_variation = Variation.objects.create(
                 template=template, 
                 variation_name=variation_name, 
                 thumbnail=thumbnail, 
-                file=file,
-                variation_types=variation_types,
+                file=file
             )
-             # If the new variation is marked as the default, ensure it's the only default for this template
+
+            # Create VariationSetting for the new Variation
+            VariationSetting.objects.create(
+                variation=new_variation,
+                settings=variation_settings
+            )
+
+            # If the new variation is marked as the default, ensure it's the only default for this template
             print("default check")
             if is_default_variation:
                 self.set_default_variation(variation_id=new_variation.id)
                 print(new_variation.id)
-                # Variation.objects.filter(template=template).exclude(id=new_variation.id).update(is_default_variation=False)
-            # Variation.objects.create(template=template, variation_name=variation_name, thumbnail=thumbnail, file=file)
+
         return redirect('dashboard:create_new_template')  # Redirect back to the form page
 
 

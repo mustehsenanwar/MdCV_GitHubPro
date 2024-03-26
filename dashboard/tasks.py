@@ -17,6 +17,8 @@ import json
 @shared_task
 def parse_order_originalcv(order_id):
     try:
+        print(order_id)
+        print("taks taks")
         order = Order.objects.get(id=order_id)
         cv_files = OrderInitialFiles.objects.filter(order=order, file_type='original_cv')
 
@@ -53,32 +55,31 @@ def parse_order_originalcv(order_id):
                             return HttpResponse('OrderInitialData not found.')
 
                         if order_initial_data.template_variation_selected:
-                            # Variation is selected, fetch its variation_types
+                            # Variation is selected, fetch its settings from VariationSetting
                             variation = order_initial_data.template_variation_selected
-                            variation_types = variation.variation_types
-                            print("already selected template selections")
-                            # return HttpResponse(f'Variation selected: {variation.variation_name}, Variation Types: {variation_types}')
+                            variation_setting = variation.settings  # Assuming 'settings' is the related_name for VariationSetting
+                            settings = variation_setting.settings  # Access the JSON field 'settings' in VariationSetting
+                            print("Already selected template selections")
                         else:
-                            # If no variation is selected, fetch the default variation's variation_types
+                            # If no variation is selected, fetch the default variation's settings
                             default_variation_instance = DefaultVariation.objects.first()  # Fetch the DefaultVariation instance
                             if default_variation_instance:
-                                print("default vairation selected")
+                                print("Default variation selected")
                                 default_variation = default_variation_instance.variation
-                                variation_types = default_variation.variation_types
-                                
-                                print(f"Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types['one_targets']}")
-
-                                # return HttpResponse(f'Default Variation selected: {default_variation.variation_name}, Variation Types: {variation_types['one_targets']}')
+                                default_variation_setting = default_variation.settings  # Access the related VariationSetting
+                                settings = default_variation_setting.settings  # Access the JSON field 'settings'
+                                print(f"Default Variation selected: {default_variation.variation_name}")
                             else:
-                                # set_default_variation(variation_id = 8)
+                                # If there's no default variation found, you can handle it as per your application's logic
+                                # For example, setting a default variation if needed or returning a meaningful response
                                 return HttpResponse('No default variation found.')
-                            
-                            
-                            
-                        
-                        one_targets = variation_types['one_targets']
-                        two_targets = variation_types['two_targets']
-                        static_targets = variation_types['static_targets']
+
+                        # Extracting specific settings from the JSON structure
+                        # Ensure your JSON structure in VariationSetting includes these keys
+                        one_targets = settings.get('layout', {}).get('one_targets', [])
+                        two_targets = settings.get('layout', {}).get('two_targets', [])
+                        static_targets = settings.get('layout', {}).get('static_targets', [])
+
                         
                         print(static_targets)
                         print("loop started")
